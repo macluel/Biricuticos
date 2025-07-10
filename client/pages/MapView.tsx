@@ -533,7 +533,7 @@ export default function MapView() {
         map.current = null;
       }
 
-      // Cleanup global error handler
+      // Cleanup global error handlers
       // @ts-ignore
       if (window.__mapboxTelemetryHandler) {
         // @ts-ignore
@@ -541,6 +541,11 @@ export default function MapView() {
           "unhandledrejection",
           window.__mapboxTelemetryHandler,
         );
+      }
+      // @ts-ignore
+      if (window.__mapboxErrorHandler) {
+        // @ts-ignore
+        window.removeEventListener("error", window.__mapboxErrorHandler);
       }
     };
   }, [mapboxFailed]);
