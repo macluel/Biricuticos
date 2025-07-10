@@ -117,24 +117,24 @@ const allPlaces = [
 
 const placeTypes = [
   "All",
-  "Park",
-  "Museum",
-  "Beach",
-  "Landmark",
-  "National Park",
-  "Scenic Drive",
+  "Fine Dining",
+  "Pizza",
+  "Bakery",
+  "BBQ",
+  "Pub",
+  "Deli",
+  "Cafe",
 ];
 const states = [
   "All",
   "California",
-  "Florida",
   "New York",
-  "Virginia",
-  "Wyoming",
-  "Montana",
-  "Idaho",
+  "Texas",
+  "Illinois",
+  "Florida",
+  "Washington",
 ];
-const priceRanges = ["All", "Free", "$1-25", "$26-50", "$50+"];
+const priceRanges = ["All", "$", "$$", "$$$", "$$$$"];
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
