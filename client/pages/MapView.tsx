@@ -107,16 +107,41 @@ if (typeof window !== "undefined") {
     };
   }
 
-  // Add global error handler for unhandled promise rejections from telemetry
+  // Add comprehensive global error handler for unhandled promise rejections
   const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-    if (
-      event.reason &&
-      (event.reason.message?.includes("fetch") ||
-        event.reason.message?.includes("telemetry") ||
-        event.reason.message?.includes("events.mapbox"))
-    ) {
-      console.log("Suppressed telemetry error:", event.reason.message);
+    const reason = event.reason;
+    const message = reason?.message || reason?.toString() || "";
+    const stack = reason?.stack || "";
+
+    // Detect telemetry and network-related errors
+    const isTelemetryError =
+      message.includes("fetch") ||
+      message.includes("telemetry") ||
+      message.includes("events.mapbox") ||
+      message.includes("Failed to fetch") ||
+      stack.includes("mapbox") ||
+      stack.includes("events");
+
+    if (isTelemetryError) {
+      console.log("Suppressed network/telemetry error:", message);
       event.preventDefault(); // Prevent the error from showing in console
+      return;
+    }
+  };
+
+  // Add global error handler for other types of errors
+  const handleError = (event: ErrorEvent) => {
+    const message = event.message || "";
+    const filename = event.filename || "";
+
+    if (
+      message.includes("fetch") ||
+      message.includes("mapbox") ||
+      filename.includes("mapbox")
+    ) {
+      console.log("Suppressed Mapbox error:", message);
+      event.preventDefault();
+      return false;
     }
   };
 
@@ -343,7 +368,7 @@ export default function MapView() {
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
+                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS est�� ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
               break;
             case 3: // TIMEOUT
               errorMessage =
