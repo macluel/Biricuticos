@@ -58,11 +58,42 @@ const originalFeaturedPlaces = [
   },
 ];
 
-const trendingCategories = categories;
-
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const { stats } = usePlaceStats();
+  const navigate = useNavigate();
+
+  // Calculate dynamic category counts from actual places
+  const dynamicCategories = useMemo(() => {
+    return categories.map((category) => {
+      const count = places.filter((place) => {
+        // Check if place type matches category name (with some flexibility)
+        const placeType = place.type.toLowerCase();
+        const categoryName = category.name.toLowerCase();
+
+        // Direct match or partial match
+        return (
+          placeType === categoryName ||
+          placeType.includes(categoryName) ||
+          categoryName.includes(placeType)
+        );
+      }).length;
+
+      return {
+        ...category,
+        count,
+      };
+    });
+  }, []);
+
+  // Handle search submission
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      // Navigate to catalog with search query
+      navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
 
   return (
     <div className="space-y-12">
