@@ -157,13 +157,13 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   <div className="flex items-center gap-1">
                     <Heart className="h-4 w-4 text-red-400" />
                     <span className="font-medium text-gray-700 dark:text-gray-300">
-                      18
+                      72
                     </span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500 dark:text-gray-400">
-                    Been There
+                    Tried Together
                   </span>
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 text-yellow-400" />
