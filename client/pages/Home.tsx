@@ -184,7 +184,7 @@ export default function Home() {
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {trendingCategories.map((category) => (
+          {dynamicCategories.map((category) => (
             <Link
               key={category.name}
               to={`/catalog?category=${category.name.toLowerCase().replace(" ", "-")}`}
