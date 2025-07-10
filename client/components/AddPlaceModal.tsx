@@ -249,13 +249,19 @@ export function AddPlaceModal({
     setError("");
     setFormData({
       name: "",
-      location: "",
+      address: "",
+      neighborhood: "",
+      city: "Rio de Janeiro",
+      state: "Rio de Janeiro",
       type: "",
       description: "",
       price: "",
       rating: 5,
       imageUrl: "",
+      lat: -22.9068,
+      lng: -43.1729,
     });
+    setCoordinatesSet(false);
   };
 
   if (!user) {
