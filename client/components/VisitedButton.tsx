@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 interface VisitedButtonProps {
   placeId: number;
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "lg" | "default";
   variant?: "button" | "icon";
   className?: string;
 }
