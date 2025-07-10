@@ -69,17 +69,17 @@ export function VisitedButton({
   return (
     <Button
       size={size}
-      variant={interaction.isVisited ? "default" : "outline"}
+      variant={interaction.isVisited || isUserVisited ? "default" : "outline"}
       onClick={handleClick}
       className={cn(
         "gap-2",
-        interaction.isVisited
+        interaction.isVisited || isUserVisited
           ? "bg-green-500 hover:bg-green-600 text-white"
           : "border-green-500 text-green-500 hover:bg-green-50 dark:hover:bg-green-950",
         className,
       )}
     >
-      {interaction.isVisited ? (
+      {interaction.isVisited || isUserVisited ? (
         <>
           <Check className="h-4 w-4" />
           Visitamos!
