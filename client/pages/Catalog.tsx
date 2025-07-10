@@ -158,19 +158,7 @@ export default function Catalog() {
 
       let matchesPrice = true;
       if (selectedPrice !== "All") {
-        if (selectedPrice === "Free") {
-          matchesPrice = place.price === "Free";
-        } else if (selectedPrice === "$1-25") {
-          const price = place.price.replace("$", "");
-          matchesPrice = price !== "Free" && parseInt(price) <= 25;
-        } else if (selectedPrice === "$26-50") {
-          const price = place.price.replace("$", "");
-          matchesPrice =
-            price !== "Free" && parseInt(price) >= 26 && parseInt(price) <= 50;
-        } else if (selectedPrice === "$50+") {
-          const price = place.price.replace("$", "");
-          matchesPrice = price !== "Free" && parseInt(price) > 50;
-        }
+        matchesPrice = place.price === selectedPrice;
       }
 
       return matchesSearch && matchesType && matchesState && matchesPrice;
