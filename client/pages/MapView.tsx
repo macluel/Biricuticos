@@ -612,16 +612,36 @@ export default function MapView() {
         <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
           <div className="flex items-start gap-3">
             <div className="text-amber-500 mt-0.5">📍</div>
-            <div>
+            <div className="flex-1">
               <h3 className="font-medium text-amber-800 dark:text-amber-200 mb-1">
-                Como ativar sua localização:
+                Problema com a Localização
               </h3>
-              <p className="text-amber-700 dark:text-amber-300 text-sm mb-3">
+              <pre className="text-amber-700 dark:text-amber-300 text-sm mb-3 whitespace-pre-wrap font-sans">
                 {locationError}
-              </p>
+              </pre>
               <div className="space-y-1 text-xs text-amber-600 dark:text-amber-400">
                 <p>
-                  💡 <strong>Dica:</strong> Sem GPS você ainda pode:
+                  💡 <strong>Informações do sistema:</strong>
+                </p>
+                <p>
+                  • Navegador:{" "}
+                  {navigator.userAgent.includes("Mobile")
+                    ? "Mobile"
+                    : "Desktop"}
+                </p>
+                <p>
+                  • HTTPS:{" "}
+                  {location.protocol === "https:"
+                    ? "Sim"
+                    : "Não (necessário para GPS)"}
+                </p>
+                <p>
+                  • Geolocalização suportada:{" "}
+                  {navigator.geolocation ? "Sim" : "Não"}
+                </p>
+                <hr className="my-2 border-amber-300/50" />
+                <p>
+                  🎯 <strong>Sem GPS você ainda pode:</strong>
                 </p>
                 <p>• Ver todos os restaurantes no mapa visual</p>
                 <p>• Navegar para qualquer lugar</p>
