@@ -21,7 +21,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="light" storageKey="places-theme">
-      <AuthProvider>
+            <NetlifyAuthProvider>
         <PlacesProvider>
           <PlaceStatsProvider>
             <TooltipProvider>
