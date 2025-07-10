@@ -373,10 +373,10 @@ export default function Catalog() {
         <div className="text-center py-12">
           <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            No food places found
+            Nenhum restaurante encontrado
           </h3>
           <p className="text-gray-600 dark:text-gray-300">
-            Try adjusting your search criteria or filters
+            Tente ajustar seus critérios de busca ou filtros
           </p>
         </div>
       )}
