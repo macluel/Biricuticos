@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AddPlaceModal } from "@/components/AddPlaceModal";
 import { useAuth } from "@/contexts/AuthContext";
-import { usePlaces } from "@/contexts/PlacesContext";
-import { clearUserInteractions } from "@/utils/clearUserData";
 
 export function FloatingActionButton() {
   const [showAddModal, setShowAddModal] = useState(false);
