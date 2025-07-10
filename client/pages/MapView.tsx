@@ -25,27 +25,27 @@ import { Badge } from "@/components/ui/badge";
 const mapPlaces = [
   {
     id: 1,
-    name: "Central Park",
-    type: "Park",
-    rating: 4.7,
-    lat: 40.785091,
-    lng: -73.968285,
+    name: "Joe's Pizza",
+    type: "Pizza",
+    rating: 4.6,
+    lat: 40.7589,
+    lng: -73.9851,
   },
   {
     id: 2,
-    name: "Golden Gate Bridge",
-    type: "Landmark",
-    rating: 4.9,
-    lat: 37.8199,
-    lng: -122.4783,
+    name: "Tartine Bakery",
+    type: "Bakery",
+    rating: 4.7,
+    lat: 37.7749,
+    lng: -122.4194,
   },
   {
     id: 3,
-    name: "Yellowstone",
-    type: "National Park",
+    name: "Franklin Barbecue",
+    type: "BBQ",
     rating: 4.8,
-    lat: 44.428,
-    lng: -110.5885,
+    lat: 30.2672,
+    lng: -97.7431,
   },
 ];
 
@@ -61,8 +61,12 @@ export default function MapView() {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Map View</h1>
-          <p className="text-gray-600">Explore places on an interactive map</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Food Map
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Explore food places on an interactive map
+          </p>
         </div>
       </div>
 
@@ -73,7 +77,7 @@ export default function MapView() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               type="text"
-              placeholder="Search places on map..."
+              placeholder="Search food places on map..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-12"
@@ -83,14 +87,14 @@ export default function MapView() {
 
         <Select value={selectedType} onValueChange={setSelectedType}>
           <SelectTrigger>
-            <SelectValue placeholder="Place Type" />
+            <SelectValue placeholder="Food Type" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="All">All Types</SelectItem>
-            <SelectItem value="Park">Parks</SelectItem>
-            <SelectItem value="Museum">Museums</SelectItem>
-            <SelectItem value="Landmark">Landmarks</SelectItem>
-            <SelectItem value="National Park">National Parks</SelectItem>
+            <SelectItem value="Pizza">Pizza</SelectItem>
+            <SelectItem value="Bakery">Bakery</SelectItem>
+            <SelectItem value="BBQ">BBQ</SelectItem>
+            <SelectItem value="Fine Dining">Fine Dining</SelectItem>
           </SelectContent>
         </Select>
 
