@@ -493,7 +493,7 @@ export default function MapView() {
             GPS dos Restaurantes
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Encontre restaurantes próximos à sua localização
+            Encontre restaurantes próximos à sua localização com GPS
           </p>
         </div>
 
@@ -711,7 +711,7 @@ export default function MapView() {
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Lugares no Mapa ({filteredPlaces.length})
-          {userLocation && " - Ordenados por Distância"}
+          {userLocation && " - Ordenados por Dist��ncia"}
         </h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {(userLocation
