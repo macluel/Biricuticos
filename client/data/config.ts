@@ -11,19 +11,19 @@ export const appConfig = {
 
 // ===== STATISTICS =====
 export const stats = {
-  totalPlaces: 89,
-  triedTogether: 17,
-  wantToTry: 72,
+  totalPlaces: 3,
+  triedTogether: 0,
+  wantToTry: 3,
 };
 
 // ===== FOOD CATEGORIES =====
 export const categories = [
-  { name: "Fine Dining", count: 18, icon: "🍽️" },
-  { name: "Churrascaria", count: 12, icon: "🥩" },
-  { name: "Cafeterias", count: 25, icon: "☕" },
-  { name: "Padarias", count: 19, icon: "🥐" },
-  { name: "Botecos", count: 31, icon: "��" },
-  { name: "A��a��", count: 14, icon: "🫐" },
+  { name: "Fine Dining", count: 1, icon: "🍽️" },
+  { name: "Pizzaria", count: 1, icon: "🍕" },
+  { name: "Confeitaria", count: 1, icon: "🧁" },
+  { name: "Churrascaria", count: 0, icon: "🥩" },
+  { name: "Boteco", count: 0, icon: "🍺" },
+  { name: "Açaí", count: 0, icon: "🫐" },
 ];
 
 // ===== FILTER OPTIONS =====
