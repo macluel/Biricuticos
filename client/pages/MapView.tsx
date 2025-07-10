@@ -109,6 +109,7 @@ export default function MapView() {
   const [nearestPlaces, setNearestPlaces] = useState<
     (typeof mapPlaces & { distance: number })[]
   >([]);
+  const [mapboxFailed, setMapboxFailed] = useState(false);
 
   // Filter places based on search and type
   const filteredPlaces = mapPlaces.filter((place) => {
