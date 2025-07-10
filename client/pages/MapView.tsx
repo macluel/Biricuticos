@@ -18,7 +18,7 @@ import { VisitedButton } from "@/components/VisitedButton";
 
 // Mapbox access token - using a demo token (you'll need to replace this with your own)
 mapboxgl.accessToken =
-  "pk.eyJ1IjoiZGVtby1hY2NvdW50IiwiYSI6ImNrZjV2NXE3YTBhZ3QycW9hbWJ1dzZjOXUifQ.9A2n0gLnbBj5mSW7Cvu3jA";
+  "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
 // Use places from config for map markers
 const mapPlaces = places.map((place) => ({
