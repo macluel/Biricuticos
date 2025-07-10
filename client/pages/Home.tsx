@@ -214,9 +214,7 @@ export default function Home() {
                   <span className="text-sm text-gray-500 dark:text-gray-400">
                     {place.reviews.toLocaleString()} avaliações
                   </span>
-                  <Button size="sm" variant="outline">
-                    Saiba Mais
-                  </Button>
+                  <VisitedButton placeId={place.id} size="sm" />
                 </div>
               </div>
             </div>
