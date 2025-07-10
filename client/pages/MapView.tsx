@@ -373,12 +373,49 @@ export default function MapView() {
   };
 
   useEffect(() => {
-    // Use visual map only to avoid all Mapbox fetch errors
-    console.log("Using visual map to avoid network issues");
+    if (!mapContainer.current || mapboxFailed) return;
+
+    try {
+      console.log("Initializing Mapbox map...");
+
+      // Initialize map
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [-43.1729, -22.9068], // Rio de Janeiro
+        zoom: 12,
+        attributionControl: false,
+      });
+
+      // Add navigation controls
+      map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+      // Handle map load
+      map.current.on("load", () => {
+        console.log("Mapbox map loaded successfully");
+        addMarkersToMap();
+        if (userLocation) {
+          addUserLocationMarker();
+        }
+      });
+
+      // Handle errors
+      map.current.on("error", (e) => {
+        console.error("Mapbox error:", e);
+        setMapboxFailed(true);
+      });
+    } catch (error) {
+      console.error("Failed to initialize Mapbox:", error);
+      setMapboxFailed(true);
+    }
+
     return () => {
-      // No cleanup needed for visual map
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
     };
-  }, []);
+  }, [mapboxFailed]);
 
   // Visual map handles markers internally, no need for separate effects
   useEffect(() => {
