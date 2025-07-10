@@ -124,74 +124,110 @@ export default function MapView() {
   });
 
   // Get user's current location
-  const getCurrentLocation = () => {
+  const getCurrentLocation = async () => {
     setLocationError(null);
     setIsTrackingLocation(true);
 
+    // Check if geolocation is supported
     if (!navigator.geolocation) {
-      setLocationError("Geolocaliza����ão não é suportada neste navegador");
+      setLocationError("Geolocalização não é suportada neste navegador");
       setIsTrackingLocation(false);
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation({ lat: latitude, lng: longitude });
-        setIsTrackingLocation(false);
-
-        // Update map center to user location
-        if (map.current) {
-          map.current.flyTo({
-            center: [longitude, latitude],
-            zoom: 15,
-            duration: 1500,
+    try {
+      // First check permissions if supported
+      if ("permissions" in navigator) {
+        try {
+          const permission = await navigator.permissions.query({
+            name: "geolocation",
           });
+          if (permission.state === "denied") {
+            setLocationError(
+              "Permissão de localização negada. Vá nas configurações do navegador e permita o acesso à localização para este site.",
+            );
+            setIsTrackingLocation(false);
+            return;
+          }
+        } catch (permError) {
+          console.log("Permission check not supported, continuing...");
         }
+      }
 
-        // Calculate nearest places
-        const placesWithDistance = mapPlaces.map((place) => ({
-          ...place,
-          distance: calculateDistance(
-            latitude,
-            longitude,
-            place.lat,
-            place.lng,
-          ),
-        }));
-
-        // Sort by distance and take top 5
-        const nearest = placesWithDistance
-          .sort((a, b) => a.distance - b.distance)
-          .slice(0, 5);
-
-        setNearestPlaces(nearest);
-      },
-      (error) => {
-        let errorMessage = "Erro ao obter localização";
-        switch (error.code) {
-          case error.PERMISSION_DENIED:
-            errorMessage =
-              "Para usar o GPS: 1) Clique no ícone de localização na barra do navegador 2) Selecione 'Permitir' 3) Tente novamente";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            errorMessage =
-              "GPS indisponível. Verifique se o GPS está ligado no seu dispositivo.";
-            break;
-          case error.TIMEOUT:
-            errorMessage =
-              "GPS demorou para responder. Tente novamente em alguns segundos.";
-            break;
-        }
-        setLocationError(errorMessage);
-        setIsTrackingLocation(false);
-      },
-      {
+      // Get position with better settings for mobile
+      const options = {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 300000, // 5 minutes
-      },
-    );
+        timeout: 15000, // 15 seconds
+        maximumAge: 60000, // 1 minute cache
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          console.log("Location found:", { latitude, longitude, accuracy });
+
+          setUserLocation({ lat: latitude, lng: longitude });
+          setIsTrackingLocation(false);
+          setLocationError(null);
+
+          // Update map center to user location
+          if (map.current) {
+            map.current.flyTo({
+              center: [longitude, latitude],
+              zoom: 15,
+              duration: 1500,
+            });
+          }
+
+          // Calculate nearest places
+          const placesWithDistance = mapPlaces.map((place) => ({
+            ...place,
+            distance: calculateDistance(
+              latitude,
+              longitude,
+              place.lat,
+              place.lng,
+            ),
+          }));
+
+          // Sort by distance and take top 5
+          const nearest = placesWithDistance
+            .sort((a, b) => a.distance - b.distance)
+            .slice(0, 5);
+
+          setNearestPlaces(nearest);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          let errorMessage = "Erro ao obter localização";
+
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage =
+                "Permissão de localização negada. Para ativar: \n\n1) Clique no ícone de cadeado/localização na barra do navegador\n2) Selecione 'Permitir localização'\n3) Atualize a página e tente novamente\n\nNo celular: Vá em Configurações > Site > Localização > Permitir";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage =
+                "Sua localização não está disponível. Verifique se:\n• O GPS está ligado no seu dispositivo\n• Você tem conexão com a internet\n• Está em um local com boa recepção de GPS";
+              break;
+            case error.TIMEOUT:
+              errorMessage =
+                "O GPS demorou para responder. Tente novamente - pode levar alguns segundos no celular.";
+              break;
+            default:
+              errorMessage = `Erro de localização (código ${error.code}): ${error.message}`;
+          }
+
+          setLocationError(errorMessage);
+          setIsTrackingLocation(false);
+        },
+        options,
+      );
+    } catch (err) {
+      console.error("Error in getCurrentLocation:", err);
+      setLocationError("Erro ao acessar a localização. Tente novamente.");
+      setIsTrackingLocation(false);
+    }
   };
 
   // Open navigation to a place
