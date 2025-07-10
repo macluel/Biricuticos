@@ -124,7 +124,9 @@ export default function Home() {
               </div>
               <div className="flex items-center gap-2">
                 <Heart className="h-5 w-5" />
-                <span className="text-lg">Prontos pro Date</span>
+                <span className="text-lg">
+                  {stats.wantToTry} Prontos pro date
+                </span>
               </div>
             </div>
           </div>
