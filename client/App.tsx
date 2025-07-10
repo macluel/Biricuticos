@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { PlaceStatsProvider } from "@/contexts/PlaceStatsContext";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import MapView from "./pages/MapView";
