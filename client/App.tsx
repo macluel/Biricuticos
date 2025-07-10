@@ -20,9 +20,10 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider defaultTheme="light" storageKey="places-theme">
+        <ThemeProvider defaultTheme="light" storageKey="places-theme">
       <AuthProvider>
-        <PlaceStatsProvider>
+        <PlacesProvider>
+          <PlaceStatsProvider>
           <TooltipProvider>
             <Toaster />
             <Sonner />
