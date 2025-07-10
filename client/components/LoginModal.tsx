@@ -201,19 +201,6 @@ export function LoginModal({ isOpen, onClose }: LoginModalProps) {
             </div>
           </div>
         </form>
-
-        {/* Demo credentials for testing */}
-        {!isSignup && (
-          <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-            <p className="text-xs text-blue-700 dark:text-blue-300 mb-2">
-              <strong>Demo:</strong> Teste com estas credenciais:
-            </p>
-            <div className="text-xs text-blue-600 dark:text-blue-400 space-y-1">
-              <p>E-mail: samuel@exemplo.com</p>
-              <p>Senha: 123456</p>
-            </div>
-          </div>
-        )}
       </DialogContent>
     </Dialog>
   );
