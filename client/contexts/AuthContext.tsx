@@ -53,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // Load user from localStorage on init
   useEffect(() => {
-    // Initialize demo users if they don't exist
+    // Initialize demo users with clean preferences
     const existingUsers = localStorage.getItem("biricuticos-users");
     if (!existingUsers) {
       const demoUsers = [
@@ -63,9 +63,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           email: "samuel@exemplo.com",
           password: "123456",
           preferences: {
-            favorites: [1, 3],
-            visited: [2],
-            wantToTry: [1, 3],
+            favorites: [],
+            visited: [],
+            wantToTry: [],
           },
         },
       ];
