@@ -78,11 +78,11 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           <div className="p-6 border-b border-gray-200/50">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center">
-                <MapPin className="h-5 w-5 text-white" />
+                <UtensilsCrossed className="h-5 w-5 text-white" />
               </div>
               <div>
                 <h2 className="font-bold text-lg text-gray-900 dark:text-gray-100">
-                  PlaceGuide
+                  FoodieList
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
                   Our food wishlist
