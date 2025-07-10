@@ -10,7 +10,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { appConfig, stats, categories, places } from "@/data/config";
+import { appConfig, categories, places } from "@/data/config";
+import { usePlaceStats } from "@/hooks/usePlaceStats";
+import { FavoriteButton } from "@/components/FavoriteButton";
+import { VisitedButton } from "@/components/VisitedButton";
 
 // Featured places from config
 const featuredPlaces = places.slice(0, 3); // Show first 3 places
