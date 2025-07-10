@@ -7,7 +7,6 @@ import { useAuth } from "@/contexts/AuthContext";
 export function FloatingActionButton() {
   const [showAddModal, setShowAddModal] = useState(false);
   const { user } = useAuth();
-  const { places } = usePlaces();
 
   const handlePlaceAdded = (newPlace: any) => {
     // Success notification
