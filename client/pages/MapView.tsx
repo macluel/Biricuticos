@@ -210,6 +210,50 @@ export default function MapView() {
             .slice(0, 5);
 
           setNearestPlaces(nearest);
+
+          // If accuracy is poor and we used low accuracy, try high accuracy
+          if (accuracy > 100 && !options.enableHighAccuracy) {
+            console.log("Low accuracy location, trying high accuracy...");
+            const highAccuracyOptions = {
+              enableHighAccuracy: true,
+              timeout: 10000,
+              maximumAge: 0,
+            };
+
+            navigator.geolocation.getCurrentPosition(
+              (betterPosition) => {
+                const {
+                  latitude: betterLat,
+                  longitude: betterLng,
+                  accuracy: betterAcc,
+                } = betterPosition.coords;
+                console.log("Better location found:", {
+                  latitude: betterLat,
+                  longitude: betterLng,
+                  accuracy: betterAcc,
+                });
+
+                if (betterAcc < accuracy) {
+                  setUserLocation({ lat: betterLat, lng: betterLng });
+
+                  if (map.current) {
+                    map.current.flyTo({
+                      center: [betterLng, betterLat],
+                      zoom: 16,
+                      duration: 1000,
+                    });
+                  }
+                }
+              },
+              (betterError) => {
+                console.log(
+                  "High accuracy failed, keeping network location:",
+                  betterError?.code,
+                );
+              },
+              highAccuracyOptions,
+            );
+          }
         },
         (error) => {
           console.error("Geolocation error details:", {
@@ -226,7 +270,7 @@ export default function MapView() {
           switch (error.code) {
             case 1: // PERMISSION_DENIED
               errorMessage =
-                "❌ Permissão de localização negada\n\n📱 Para ativar no celular:\n• Vá em Configurações do navegador\n• Procure por 'Permissões do site'\n• Encontre este site e ative 'Localização'\n\n💻 Para ativar no computador:\n• Clique no ícone de cadeado na barra do navegador\n• Selecione 'Permitir localização'\n�� Atualize a página";
+                "❌ Permissão de localização negada\n\n📱 Para ativar no celular:\n• Vá em Configurações do navegador\n• Procure por 'Permissões do site'\n• Encontre este site e ative 'Localização'\n\n💻 Para ativar no computador:\n• Clique no ícone de cadeado na barra do navegador\n• Selecione 'Permitir localização'\n• Atualize a página";
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
