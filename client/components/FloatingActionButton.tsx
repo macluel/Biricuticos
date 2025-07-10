@@ -9,8 +9,13 @@ export function FloatingActionButton() {
   const { user } = useAuth();
 
   const handlePlaceAdded = (newPlace: any) => {
-    // In a real app, you might want to refresh data or show a toast
+    // Success notification
     console.log("New place added:", newPlace);
+
+    // You could add a toast notification here
+    alert(
+      `🎉 ${newPlace.name} foi adicionado com sucesso! Você pode vê-lo na lista de restaurantes.`,
+    );
   };
 
   return (
