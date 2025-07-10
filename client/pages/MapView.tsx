@@ -479,22 +479,33 @@ export default function MapView() {
                   });
                 }
 
-                // Calculate nearest places
-                const placesWithDistance = mapPlaces.map((place) => ({
-                  ...place,
-                  distance: calculateDistance(
-                    latitude,
-                    longitude,
-                    place.lat,
-                    place.lng,
-                  ),
-                }));
+                // Calculate nearest places with travel distance
+                const calculateNearestPlaces = async () => {
+                  const placesWithTravelDistance = await Promise.all(
+                    mapPlaces.map(async (place) => {
+                      const travelData = await calculateTravelDistance(
+                        latitude,
+                        longitude,
+                        place.lat,
+                        place.lng,
+                      );
+                      return {
+                        ...place,
+                        distance: travelData.distance,
+                        travelTime: travelData.travelTime,
+                        isTravel: travelData.isTravel,
+                      };
+                    }),
+                  );
 
-                const nearest = placesWithDistance
-                  .sort((a, b) => a.distance - b.distance)
-                  .slice(0, 5);
+                  const nearest = placesWithTravelDistance
+                    .sort((a, b) => a.distance - b.distance)
+                    .slice(0, 5);
 
-                setNearestPlaces(nearest);
+                  setNearestPlaces(nearest);
+                };
+
+                calculateNearestPlaces();
               },
               (fallbackError) => {
                 console.error("Fallback geolocation also failed:", {
