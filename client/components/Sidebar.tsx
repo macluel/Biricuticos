@@ -82,10 +82,10 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               </div>
               <div>
                 <h2 className="font-bold text-lg text-gray-900 dark:text-gray-100">
-                  FoodieList
+                  GuiaFood
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Our food wishlist
+                  Nossa lista gastronômica
                 </p>
               </div>
             </div>
