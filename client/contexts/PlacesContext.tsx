@@ -79,7 +79,6 @@ export function PlacesProvider({ children }: PlacesProviderProps) {
 
   // Load user places on mount
   useEffect(() => {
-    console.log("PlacesContext: Loading places...");
     refreshPlaces();
 
     // Listen for storage changes (in case places are added in another tab)
