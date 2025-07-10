@@ -4,7 +4,7 @@ import {
   Star,
   MapPin,
   Search,
-  Trending,
+  TrendingUp,
   Heart,
   ExternalLink,
 } from "lucide-react";
