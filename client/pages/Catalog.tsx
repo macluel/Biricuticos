@@ -135,7 +135,10 @@ const interactionTypes = [
 ];
 
 export default function Catalog() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || "",
+  );
   const [selectedType, setSelectedType] = useState("Todos");
   const [selectedState, setSelectedState] = useState("Todos");
   const [selectedPrice, setSelectedPrice] = useState("Todos");
@@ -144,6 +147,14 @@ export default function Catalog() {
   const [sortBy, setSortBy] = useState("rating");
   const [showFilters, setShowFilters] = useState(false);
   const { getPlaceInteraction } = usePlaceStats();
+
+  // Update search query when URL params change
+  useEffect(() => {
+    const searchParam = searchParams.get("search");
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, [searchParams]);
 
   const filteredPlaces = useMemo(() => {
     let filtered = allPlaces.filter((place) => {
