@@ -154,7 +154,7 @@ export const navigationItems = [
   },
   {
     name: "Mapa",
-    href: "/map",
+    href: "/MapView",
     icon: "Map",
   },
   // Add more navigation items if needed
