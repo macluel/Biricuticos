@@ -116,25 +116,25 @@ const allPlaces = [
 ];
 
 const placeTypes = [
-  "All",
+  "Todos",
   "Fine Dining",
-  "Pizza",
-  "Bakery",
-  "BBQ",
-  "Pub",
-  "Deli",
-  "Cafe",
+  "Pizzaria",
+  "Confeitaria",
+  "Churrascaria",
+  "Boteco",
+  "Galeto",
+  "Açaí",
 ];
 const states = [
-  "All",
-  "California",
-  "New York",
-  "Texas",
-  "Illinois",
-  "Florida",
-  "Washington",
+  "Todos",
+  "Rio de Janeiro",
+  "São Paulo",
+  "Minas Gerais",
+  "Bahia",
+  "Pernambuco",
+  "Rio Grande do Sul",
 ];
-const priceRanges = ["All", "$", "$$", "$$$", "$$$$"];
+const priceRanges = ["Todos", "$", "$$", "$$$", "$$$$"];
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -240,10 +240,11 @@ export default function Catalog() {
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Food Places
+            Restaurantes
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Our collection of {allPlaces.length} amazing food places to try
+            Nossa coleção de {allPlaces.length} lugares incríveis para
+            experimentar
           </p>
         </div>
 
@@ -288,7 +289,7 @@ export default function Catalog() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               type="text"
-              placeholder="Search restaurants, cafes, cuisines..."
+              placeholder="Buscar restaurantes, cafeterias, culinárias..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-12"
@@ -298,7 +299,7 @@ export default function Catalog() {
 
         <Select value={selectedType} onValueChange={setSelectedType}>
           <SelectTrigger>
-            <SelectValue placeholder="Food Type" />
+            <SelectValue placeholder="Tipo de Comida" />
           </SelectTrigger>
           <SelectContent>
             {placeTypes.map((type) => (
@@ -311,7 +312,7 @@ export default function Catalog() {
 
         <Select value={selectedState} onValueChange={setSelectedState}>
           <SelectTrigger>
-            <SelectValue placeholder="State" />
+            <SelectValue placeholder="Estado" />
           </SelectTrigger>
           <SelectContent>
             {states.map((state) => (
@@ -324,7 +325,7 @@ export default function Catalog() {
 
         <Select value={selectedPrice} onValueChange={setSelectedPrice}>
           <SelectTrigger>
-            <SelectValue placeholder="Price Range" />
+            <SelectValue placeholder="Faixa de Preço" />
           </SelectTrigger>
           <SelectContent>
             {priceRanges.map((price) => (
@@ -337,12 +338,12 @@ export default function Catalog() {
 
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger>
-            <SelectValue placeholder="Sort By" />
+            <SelectValue placeholder="Ordenar Por" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rating">Rating</SelectItem>
-            <SelectItem value="reviews">Most Reviews</SelectItem>
-            <SelectItem value="name">Name A-Z</SelectItem>
+            <SelectItem value="rating">Avaliação</SelectItem>
+            <SelectItem value="reviews">Mais Avaliações</SelectItem>
+            <SelectItem value="name">Nome A-Z</SelectItem>
           </SelectContent>
         </Select>
       </div>
