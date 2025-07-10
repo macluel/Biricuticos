@@ -111,15 +111,15 @@ export default function Home() {
             <div className="flex flex-wrap gap-8 text-primary-100">
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
-                <span className="text-lg">129+ Food Places</span>
+                <span className="text-lg">89 On Our List</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
-                <span className="text-lg">25 Tried & Loved</span>
+                <span className="text-lg">17 Tried Together</span>
               </div>
               <div className="flex items-center gap-2">
                 <Heart className="h-5 w-5" />
-                <span className="text-lg">Personal Wishlist</span>
+                <span className="text-lg">Date Night Ready</span>
               </div>
             </div>
           </div>
