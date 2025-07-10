@@ -74,9 +74,11 @@ export default function Home() {
         // Create more intelligent matching rules
         const matchingRules = {
           "fine dining": ["fine dining", "fine", "dining"],
+          pizzaria: ["pizzaria", "pizza"],
+          confeitaria: ["confeitaria", "confeitarias", "doces", "patisserie"],
           churrascaria: ["churrascaria", "churrasco"],
           cafeterias: ["cafeteria", "cafe", "café", "coffee"],
-          padarias: ["padaria", "bakery", "confeitaria"],
+          padarias: ["padaria", "bakery"],
           botecos: ["boteco", "bar", "pub"],
           açaí: ["açaí", "acai"],
         };
