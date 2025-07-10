@@ -20,9 +20,13 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
+import { places, filterOptions } from "@/data/config";
+
+// Use places from config
+const allPlaces = places;
 
 // Sample data - in a real app this would come from an API
-const allPlaces = [
+const originalAllPlaces = [
   {
     id: 1,
     name: "Oro",
