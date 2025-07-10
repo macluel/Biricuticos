@@ -277,7 +277,7 @@ export default function MapView() {
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "📍 Sua localização não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
+                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
               break;
             case 3: // TIMEOUT
               errorMessage =
@@ -402,10 +402,28 @@ export default function MapView() {
         }
       });
 
-      // Handle errors
+      // Handle errors and fallback
       map.current.on("error", (e) => {
-        console.error("Mapbox error:", e);
+        console.error("Mapbox error:", e.error || e);
+        console.log("Falling back to visual map...");
         setMapboxFailed(true);
+      });
+
+      // Set a timeout to fallback if map doesn't load
+      const loadTimeout = setTimeout(() => {
+        if (map.current && !map.current.loaded()) {
+          console.log("Mapbox load timeout, falling back to visual map...");
+          setMapboxFailed(true);
+        }
+      }, 10000); // 10 second timeout
+
+      map.current.on("load", () => {
+        clearTimeout(loadTimeout);
+        console.log("Mapbox map loaded successfully");
+        addMarkersToMap();
+        if (userLocation) {
+          addUserLocationMarker();
+        }
       });
     } catch (error) {
       console.error("Failed to initialize Mapbox:", error);
