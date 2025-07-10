@@ -285,104 +285,160 @@ export default function MapView() {
   const addMarkersToMap = () => {
     if (!map.current) return;
 
-    // Clear existing markers (but keep user location marker)
-    markers.current.forEach((marker) => marker.remove());
-    markers.current = [];
-
-    // Add markers for filtered places
-    filteredPlaces.forEach((place) => {
-      // Create a custom marker element
-      const markerElement = document.createElement("div");
-      markerElement.className = "custom-marker";
-
-      // Color based on distance if user location is available
-      const distanceFromUser = userLocation
-        ? calculateDistance(
-            userLocation.lat,
-            userLocation.lng,
-            place.lat,
-            place.lng,
-          )
-        : null;
-      const isNearby = distanceFromUser && distanceFromUser <= 2; // Within 2km
-      const markerColor = isNearby ? "#10b981" : "#ef4444"; // Green if nearby, red otherwise
-
-      markerElement.innerHTML = `
-        <div style="
-          width: 32px;
-          height: 32px;
-          background-color: ${markerColor};
-          border: 2px solid white;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-          cursor: pointer;
-          position: relative;
-        ">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
-            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-          <div style="
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 20px;
-            height: 20px;
-            background: white;
-            border: 2px solid ${markerColor};
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: ${markerColor};
-          ">${place.rating}</div>
-        </div>
-      `;
-
-      // Create popup with navigation option
-      const distanceText = distanceFromUser
-        ? `<br><span style="color: #059669; font-weight: bold;">📍 ${distanceFromUser.toFixed(1)}km de você</span>`
-        : "";
-      const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-        <div style="padding: 8px; min-width: 200px;">
-          <h3 style="margin: 0 0 8px 0; font-weight: bold; color: #1f2937;">${place.name}</h3>
-          <div style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
-            <span style="background: #f3f4f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; color: #374151;">${place.type}</span>
-            <span style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #374151;">
-              ⭐ ${place.rating}
-            </span>
-            ${place.price ? `<span style="background: #f3f4f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; color: #374151;">${place.price}</span>` : ""}
-          </div>
-          <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 8px;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="#9ca3af">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <span style="font-size: 12px; color: #6b7280;">${place.location}${distanceText}</span>
-          </div>
-          ${place.description ? `<p style="margin: 0 0 8px 0; font-size: 12px; color: #6b7280; line-height: 1.4;">${place.description}</p>` : ""}
-          ${userLocation ? `<button onclick="window.open('https://www.google.com/maps/dir/${userLocation.lat},${userLocation.lng}/${place.lat},${place.lng}', '_blank')" style="background: #3b82f6; color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer; margin-top: 4px;">🧭 Navegar</button>` : ""}
-        </div>
-      `);
-
-      // Create marker
-      const marker = new mapboxgl.Marker(markerElement)
-        .setLngLat([place.lng, place.lat])
-        .setPopup(popup)
-        .addTo(map.current!);
-
-      // Add click event to marker
-      markerElement.addEventListener("click", () => {
-        setSelectedPlace(place);
+    try {
+      // Clear existing markers (but keep user location marker)
+      markers.current.forEach((marker) => {
+        try {
+          marker.remove();
+        } catch (e) {
+          console.warn("Error removing marker:", e);
+        }
       });
+      markers.current = [];
 
-      markers.current.push(marker);
-    });
+      // Add markers for filtered places
+      filteredPlaces.forEach((place) => {
+        try {
+          // Create a custom marker element using DOM properties instead of innerHTML
+          const markerElement = document.createElement("div");
+          markerElement.className = "custom-marker";
+
+          // Color based on distance if user location is available
+          const distanceFromUser = userLocation
+            ? calculateDistance(
+                userLocation.lat,
+                userLocation.lng,
+                place.lat,
+                place.lng,
+              )
+            : null;
+          const isNearby = distanceFromUser && distanceFromUser <= 2; // Within 2km
+          const markerColor = isNearby ? "#10b981" : "#ef4444"; // Green if nearby, red otherwise
+
+          // Create marker container
+          const markerContainer = document.createElement("div");
+          markerContainer.style.width = "32px";
+          markerContainer.style.height = "32px";
+          markerContainer.style.backgroundColor = markerColor;
+          markerContainer.style.border = "2px solid white";
+          markerContainer.style.borderRadius = "50%";
+          markerContainer.style.display = "flex";
+          markerContainer.style.alignItems = "center";
+          markerContainer.style.justifyContent = "center";
+          markerContainer.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
+          markerContainer.style.cursor = "pointer";
+          markerContainer.style.position = "relative";
+
+          // Create SVG icon
+          const svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg",
+          );
+          svg.setAttribute("width", "16");
+          svg.setAttribute("height", "16");
+          svg.setAttribute("viewBox", "0 0 24 24");
+          svg.setAttribute("fill", "white");
+
+          const path1 = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path",
+          );
+          path1.setAttribute(
+            "d",
+            "M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z",
+          );
+
+          const circle = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle",
+          );
+          circle.setAttribute("cx", "12");
+          circle.setAttribute("cy", "10");
+          circle.setAttribute("r", "3");
+
+          svg.appendChild(path1);
+          svg.appendChild(circle);
+          markerContainer.appendChild(svg);
+
+          // Create rating badge
+          const ratingBadge = document.createElement("div");
+          ratingBadge.style.position = "absolute";
+          ratingBadge.style.top = "-8px";
+          ratingBadge.style.right = "-8px";
+          ratingBadge.style.width = "20px";
+          ratingBadge.style.height = "20px";
+          ratingBadge.style.background = "white";
+          ratingBadge.style.border = `2px solid ${markerColor}`;
+          ratingBadge.style.borderRadius = "50%";
+          ratingBadge.style.display = "flex";
+          ratingBadge.style.alignItems = "center";
+          ratingBadge.style.justifyContent = "center";
+          ratingBadge.style.fontSize = "10px";
+          ratingBadge.style.fontWeight = "bold";
+          ratingBadge.style.color = markerColor;
+          ratingBadge.textContent = place.rating.toString();
+
+          markerContainer.appendChild(ratingBadge);
+          markerElement.appendChild(markerContainer);
+
+          // Create simple popup without complex inline onclick
+          const distanceText = distanceFromUser
+            ? `\n📍 ${distanceFromUser.toFixed(1)}km de você`
+            : "";
+
+          const popupContent = document.createElement("div");
+          popupContent.style.padding = "8px";
+          popupContent.style.minWidth = "200px";
+
+          const title = document.createElement("h3");
+          title.textContent = place.name;
+          title.style.margin = "0 0 8px 0";
+          title.style.fontWeight = "bold";
+          title.style.color = "#1f2937";
+          popupContent.appendChild(title);
+
+          const info = document.createElement("p");
+          info.textContent = `${place.type} • ⭐ ${place.rating}\n${place.location}${distanceText}`;
+          info.style.margin = "0";
+          info.style.fontSize = "12px";
+          info.style.color = "#6b7280";
+          info.style.lineHeight = "1.4";
+          info.style.whiteSpace = "pre-line";
+          popupContent.appendChild(info);
+
+          if (place.description) {
+            const desc = document.createElement("p");
+            desc.textContent = place.description;
+            desc.style.margin = "8px 0 0 0";
+            desc.style.fontSize = "12px";
+            desc.style.color = "#6b7280";
+            desc.style.lineHeight = "1.4";
+            popupContent.appendChild(desc);
+          }
+
+          const popup = new mapboxgl.Popup({ offset: 25 }).setDOMContent(
+            popupContent,
+          );
+
+          // Create marker
+          const marker = new mapboxgl.Marker(markerElement)
+            .setLngLat([place.lng, place.lat])
+            .setPopup(popup)
+            .addTo(map.current!);
+
+          // Add click event to marker
+          markerElement.addEventListener("click", () => {
+            setSelectedPlace(place);
+          });
+
+          markers.current.push(marker);
+        } catch (error) {
+          console.warn("Error creating marker for place:", place.name, error);
+        }
+      });
+    } catch (error) {
+      console.error("Error adding markers to map:", error);
+    }
   };
 
   const flyToPlace = (place: (typeof mapPlaces)[0]) => {
