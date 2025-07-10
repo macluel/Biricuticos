@@ -206,70 +206,10 @@ export default function MapView() {
   };
 
   useEffect(() => {
-    if (map.current) return; // Initialize map only once
-
-    if (!mapContainer.current) return;
-
-    try {
-      map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/streets-v12",
-        center: [-43.1729, -22.9068], // Rio de Janeiro coordinates
-        zoom: 11,
-        collectResourceTiming: false,
-        trackResize: true,
-        preserveDrawingBuffer: false,
-        antialias: false,
-        localIdeographFontFamily: false,
-        transformRequest: (url, resourceType) => {
-          // Block telemetry and events requests
-          if (
-            url.includes("events.mapbox.com") ||
-            url.includes("api.mapbox.com/events") ||
-            url.includes("events.mapbox.cn")
-          ) {
-            return { url: "" };
-          }
-          return { url };
-        },
-      });
-
-      // Disable telemetry and error reporting
-      map.current.on("error", (e) => {
-        console.warn("Map error (non-critical):", e);
-        // Auto-fallback to visual map on persistent errors
-        if (e.error && e.error.message && e.error.message.includes("fetch")) {
-          console.log("Falling back to visual map due to network issues");
-          setMapboxFailed(true);
-        }
-      });
-
-      // Add navigation control
-      map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-      // Add markers when map loads
-      map.current.on("load", () => {
-        addMarkersToMap();
-      });
-
-      // Also add markers immediately
-      addMarkersToMap();
-    } catch (error) {
-      console.error("Failed to initialize Mapbox:", error);
-      setMapboxFailed(true);
-      setLocationError(
-        "Usando mapa visual como alternativa. Todas as funcionalidades GPS disponíveis!",
-      );
-    }
-
+    // Use visual map only to avoid all Mapbox fetch errors
+    console.log("Using visual map to avoid network issues");
     return () => {
-      if (map.current) {
-        try {
-          map.current.remove();
-        } catch (e) {
-          console.warn("Error removing map:", e);
-        }
-      }
+      // No cleanup needed for visual map
     };
   }, []);
 
