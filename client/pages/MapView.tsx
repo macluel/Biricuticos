@@ -191,13 +191,25 @@ if (typeof window !== "undefined") {
   const handleError = (event: ErrorEvent) => {
     const message = event.message || "";
     const filename = event.filename || "";
+    const source = event.source || "";
 
+    // Catch any remaining fetch, network, or Mapbox-related errors
     if (
       message.includes("fetch") ||
+      message.includes("Failed to fetch") ||
+      message.includes("Network Error") ||
+      message.includes("TypeError: Failed to fetch") ||
       message.includes("mapbox") ||
-      filename.includes("mapbox")
+      message.includes("telemetry") ||
+      message.includes("analytics") ||
+      filename.includes("mapbox") ||
+      filename.includes("MapView") ||
+      source.toString().includes("mapbox")
     ) {
-      console.log("Suppressed Mapbox error:", message);
+      console.log(
+        "Suppressed network/Mapbox error:",
+        message.substring(0, 100),
+      );
       event.preventDefault();
       return false;
     }
