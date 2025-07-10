@@ -146,9 +146,11 @@ if (typeof window !== "undefined") {
   };
 
   window.addEventListener("unhandledrejection", handleUnhandledRejection);
+  window.addEventListener("error", handleError);
 
-  // Cleanup function will be handled by the component cleanup
+  // Store handlers for cleanup
   window.__mapboxTelemetryHandler = handleUnhandledRejection;
+  window.__mapboxErrorHandler = handleError;
 }
 
 // This will be moved inside the component
@@ -368,7 +370,7 @@ export default function MapView() {
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS est�� ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
+                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
               break;
             case 3: // TIMEOUT
               errorMessage =
