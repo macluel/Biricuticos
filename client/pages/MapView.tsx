@@ -30,6 +30,14 @@ import { VisitedButton } from "@/components/VisitedButton";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
+// Disable Mapbox telemetry to prevent fetch errors
+if (typeof window !== "undefined") {
+  // @ts-ignore
+  window.mapboxgl = mapboxgl;
+  // Disable telemetry collection
+  mapboxgl.prewarm();
+}
+
 // Use places from config for map markers
 const mapPlaces = places.map((place) => ({
   id: place.id,
