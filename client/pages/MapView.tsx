@@ -393,15 +393,6 @@ export default function MapView() {
       // Add navigation controls
       map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-      // Handle map load
-      map.current.on("load", () => {
-        console.log("Mapbox map loaded successfully");
-        addMarkersToMap();
-        if (userLocation) {
-          addUserLocationMarker();
-        }
-      });
-
       // Handle errors and fallback
       map.current.on("error", (e) => {
         console.error("Mapbox error:", e.error || e);
