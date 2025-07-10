@@ -15,49 +15,49 @@ import { Input } from "@/components/ui/input";
 const featuredPlaces = [
   {
     id: 1,
-    name: "Blue Ridge Parkway",
-    location: "Virginia & North Carolina",
-    type: "Scenic Drive",
-    rating: 4.8,
-    reviews: 2847,
+    name: "The French Laundry",
+    location: "Yountville, CA",
+    type: "Fine Dining",
+    rating: 4.9,
+    reviews: 1847,
     image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
     description:
-      "A breathtaking 469-mile scenic highway through the Appalachian Mountains.",
+      "Michelin-starred restaurant offering exquisite French cuisine in Napa Valley.",
   },
   {
     id: 2,
-    name: "Central Park",
+    name: "Joe's Pizza",
     location: "New York City, NY",
-    type: "Park",
-    rating: 4.7,
-    reviews: 5632,
+    type: "Pizza",
+    rating: 4.6,
+    reviews: 3421,
     image:
-      "https://images.unsplash.com/photo-1511593358241-7eea1f3c84e5?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
     description:
-      "An iconic urban oasis in the heart of Manhattan with endless activities.",
+      "Authentic NYC pizza slice that's been a local favorite since 1975.",
   },
   {
     id: 3,
-    name: "Golden Gate Bridge",
+    name: "Tartine Bakery",
     location: "San Francisco, CA",
-    type: "Landmark",
-    rating: 4.9,
-    reviews: 8294,
+    type: "Bakery",
+    rating: 4.7,
+    reviews: 2156,
     image:
-      "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
     description:
-      "World-famous suspension bridge with stunning views of San Francisco Bay.",
+      "Artisanal bakery famous for fresh bread, pastries, and morning coffee.",
   },
 ];
 
 const trendingCategories = [
-  { name: "National Parks", count: 127, icon: "🏔️" },
-  { name: "Museums", count: 89, icon: "🏛️" },
-  { name: "Beaches", count: 156, icon: "🏖️" },
-  { name: "Historic Sites", count: 73, icon: "🏰" },
-  { name: "Gardens", count: 45, icon: "🌸" },
-  { name: "Adventure", count: 92, icon: "🧗" },
+  { name: "Fine Dining", count: 24, icon: "🍽️" },
+  { name: "Pizza", count: 18, icon: "🍕" },
+  { name: "Coffee & Cafes", count: 31, icon: "☕" },
+  { name: "Bakery", count: 15, icon: "🥐" },
+  { name: "Pubs & Bars", count: 22, icon: "🍻" },
+  { name: "Dessert", count: 19, icon: "🍰" },
 ];
 
 export default function Home() {
