@@ -45,6 +45,7 @@ const navItems = [
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
+  const { stats } = usePlaceStats();
 
   return (
     <>
