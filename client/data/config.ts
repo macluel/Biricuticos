@@ -22,8 +22,8 @@ export const categories = [
   { name: "Churrascaria", count: 12, icon: "🥩" },
   { name: "Cafeterias", count: 25, icon: "☕" },
   { name: "Padarias", count: 19, icon: "🥐" },
-  { name: "Botecos", count: 31, icon: "🍺" },
-  { name: "Açaí", count: 14, icon: "🫐" },
+  { name: "Botecos", count: 31, icon: "��" },
+  { name: "A��a��", count: 14, icon: "🫐" },
 ];
 
 // ===== FILTER OPTIONS =====
@@ -154,7 +154,7 @@ export const navigationItems = [
   },
   {
     name: "Mapa",
-    href: "/MapView",
+    href: "/map",
     icon: "Map",
   },
   // Add more navigation items if needed
