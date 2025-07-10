@@ -482,16 +482,33 @@ export default function MapView() {
           <Button
             onClick={getCurrentLocation}
             disabled={isTrackingLocation}
-            variant="outline"
+            variant={userLocation ? "default" : "outline"}
             className="flex items-center gap-2"
           >
             {isTrackingLocation ? (
               <div className="animate-spin h-4 w-4 border-2 border-primary-600 border-t-transparent rounded-full" />
+            ) : userLocation ? (
+              <LocateFixed className="h-4 w-4 text-green-500" />
             ) : (
               <LocateFixed className="h-4 w-4" />
             )}
-            {isTrackingLocation ? "Localizando..." : "Minha Localização"}
+            {isTrackingLocation
+              ? "Localizando..."
+              : userLocation
+                ? "Localização Ativa"
+                : "Ativar Localização"}
           </Button>
+          {locationError && (
+            <Button
+              onClick={getCurrentLocation}
+              disabled={isTrackingLocation}
+              variant="outline"
+              size="sm"
+              className="text-xs"
+            >
+              Tentar Novamente
+            </Button>
+          )}
         </div>
       </div>
 
