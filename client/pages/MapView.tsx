@@ -126,7 +126,7 @@ export default function MapView() {
     setIsTrackingLocation(true);
 
     if (!navigator.geolocation) {
-      setLocationError("Geolocalização não é suportada neste navegador");
+      setLocationError("Geolocaliza��ão não é suportada neste navegador");
       setIsTrackingLocation(false);
       return;
     }
@@ -252,7 +252,7 @@ export default function MapView() {
       console.error("Failed to initialize map:", error);
       setMapboxFailed(true);
       setLocationError(
-        "Usando mapa visual como alternativa. GPS ainda funciona!",
+        "Mapa visual carregado. Todas as funcionalidades GPS disponíveis!",
       );
     }
 
@@ -711,7 +711,7 @@ export default function MapView() {
       <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
         <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
           Lugares no Mapa ({filteredPlaces.length})
-          {userLocation && " - Ordenados por Dist��ncia"}
+          {userLocation && " - Ordenados por Distância"}
         </h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {(userLocation
