@@ -951,9 +951,17 @@ export default function MapView() {
                   <span className="font-medium text-green-700 dark:text-green-300">
                     {place.name}
                   </span>
-                  <span className="text-green-600 dark:text-green-400 text-sm ml-2">
-                    {place.distance.toFixed(1)}km
-                  </span>
+                  <div className="text-green-600 dark:text-green-400 text-sm ml-2">
+                    <span>
+                      {place.distance.toFixed(1)}km
+                      {place.isTravel ? " 🚗" : " ✈️"}
+                    </span>
+                    {place.travelTime && (
+                      <span className="ml-1">
+                        • {place.travelTime.toFixed(0)} min
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="flex gap-2">
                   <Button
