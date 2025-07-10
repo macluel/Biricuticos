@@ -136,9 +136,13 @@ const interactionTypes = [
 
 export default function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { places } = usePlaces();
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("search") || "",
   );
+
+  // Use places from context
+  const allPlaces = places;
   const [selectedType, setSelectedType] = useState("Todos");
   const [selectedState, setSelectedState] = useState("Todos");
   const [selectedPrice, setSelectedPrice] = useState("Todos");
