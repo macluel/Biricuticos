@@ -160,19 +160,30 @@ if (typeof window !== "undefined") {
     const message = reason?.message || reason?.toString() || "";
     const stack = reason?.stack || "";
 
-    // Detect telemetry and network-related errors
-    const isTelemetryError =
+    // Detect any network, telemetry, or Mapbox-related errors
+    const isMapboxError =
       message.includes("fetch") ||
       message.includes("telemetry") ||
       message.includes("events.mapbox") ||
       message.includes("Failed to fetch") ||
+      message.includes("Network Error") ||
+      message.includes("TypeError: Failed to fetch") ||
+      message.includes("api.mapbox.com") ||
+      message.includes("analytics") ||
+      message.includes("metrics") ||
       stack.includes("mapbox") ||
-      stack.includes("events");
+      stack.includes("events") ||
+      stack.includes("telemetry") ||
+      // Check for generic network errors that might be from Mapbox
+      (message.includes("fetch") && stack.includes("mapbox-gl"));
 
-    if (isTelemetryError) {
-      console.log("Suppressed network/telemetry error:", message);
+    if (isMapboxError) {
+      console.log(
+        "Suppressed Mapbox/network error:",
+        message.substring(0, 100),
+      );
       event.preventDefault(); // Prevent the error from showing in console
-      return;
+      return false;
     }
   };
 
