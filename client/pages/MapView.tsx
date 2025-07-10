@@ -596,8 +596,17 @@ export default function MapView() {
       </div>
 
       {/* Map Container */}
-      <div className="relative h-[600px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
-        <div ref={mapContainer} className="w-full h-full" />
+      <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+        {mapboxFailed ? (
+          <FallbackMap
+            places={filteredPlaces}
+            userLocation={userLocation}
+            onPlaceSelect={setSelectedPlace}
+            onNavigate={navigateToPlace}
+          />
+        ) : (
+          <div ref={mapContainer} className="w-full h-[600px]" />
+        )}
 
         {/* Map Legend */}
         <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
