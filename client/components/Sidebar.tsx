@@ -139,15 +139,17 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   variant="default"
                   size="sm"
                   className="w-full"
-                  onClick={() => {
-                    // Mock login - will be replaced with real auth
-                    setUser({ name: "Samuel", email: "samuel@example.com" });
-                  }}
+                  onClick={() => setShowLoginModal(true)}
                 >
                   <User className="h-4 w-4 mr-2" />
                   Entrar
                 </Button>
-                <Button variant="outline" size="sm" className="w-full text-xs">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full text-xs"
+                  onClick={() => setShowLoginModal(true)}
+                >
                   Criar Conta
                 </Button>
               </div>
