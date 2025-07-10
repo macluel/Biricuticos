@@ -80,10 +80,24 @@ const calculateDistance = (
 };
 
 export default function MapView() {
+  const { places } = usePlaces();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markers = useRef<mapboxgl.Marker[]>([]);
   const userLocationMarker = useRef<mapboxgl.Marker | null>(null);
+
+  // Use places from context for map markers
+  const mapPlaces = places.map((place) => ({
+    id: place.id,
+    name: place.name,
+    location: place.location,
+    type: place.type,
+    rating: place.rating,
+    lat: place.lat || -22.9068,
+    lng: place.lng || -43.1729,
+    price: place.price,
+    description: place.description,
+  }));
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("Todos");
   const [selectedPlace, setSelectedPlace] = useState<
