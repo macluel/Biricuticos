@@ -183,7 +183,7 @@ export default function Catalog() {
 
   const PlaceCard = ({ place }: { place: (typeof allPlaces)[0] }) => (
     <div
-      className={`group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 ${viewMode === "list" ? "flex" : ""}`}
+      className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 ${viewMode === "list" ? "flex" : ""}`}
     >
       <div
         className={`relative overflow-hidden ${viewMode === "list" ? "w-48 flex-shrink-0" : ""}`}
