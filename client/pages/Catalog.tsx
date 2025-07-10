@@ -197,9 +197,7 @@ export default function Catalog() {
           <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">
             {place.name}
           </h3>
-          <button className="p-1 hover:text-red-500 transition-colors">
-            <Heart className="h-5 w-5" />
-          </button>
+          <FavoriteButton placeId={place.id} />
         </div>
         <div className="flex items-center gap-2 mb-3">
           <MapPin className="h-4 w-4 text-gray-400" />
