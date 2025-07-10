@@ -138,9 +138,11 @@ export default function Catalog() {
   const [selectedType, setSelectedType] = useState("Todos");
   const [selectedState, setSelectedState] = useState("Todos");
   const [selectedPrice, setSelectedPrice] = useState("Todos");
+  const [selectedInteraction, setSelectedInteraction] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("rating");
   const [showFilters, setShowFilters] = useState(false);
+  const { getPlaceInteraction } = usePlaceStats();
 
   const filteredPlaces = useMemo(() => {
     let filtered = allPlaces.filter((place) => {
