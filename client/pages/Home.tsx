@@ -20,18 +20,7 @@ const featuredPlaces = places.slice(0, 3); // Show first 3 places
 
 // Sample data - in a real app this would come from an API
 const originalFeaturedPlaces = [
-  {
-    id: 1,
-    name: "Oro",
-    location: "Leblon, Rio de Janeiro",
-    type: "Fine Dining",
-    rating: 4.9,
-    reviews: 1247,
-    image:
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-    description:
-      "Restaurante premiado com estrela Michelin, oferecendo alta gastronomia brasileira.",
-  },
+  
   {
     id: 2,
     name: "Pizzaria Guanabara",
