@@ -24,6 +24,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { filterOptions } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { PlaceActionsModal } from "@/components/PlaceActionsModal";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
 
