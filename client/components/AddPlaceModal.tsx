@@ -133,12 +133,8 @@ export function AddPlaceModal({
         addedAt: new Date().toISOString(),
       };
 
-      // Save to localStorage (in real app, this would be an API call)
-      const existingPlaces = JSON.parse(
-        localStorage.getItem("user-added-places") || "[]",
-      );
-      existingPlaces.push(newPlace);
-      localStorage.setItem("user-added-places", JSON.stringify(existingPlaces));
+      // Add place using context (automatically updates all components)
+      addPlace(newPlace);
 
       // Trigger callback
       onPlaceAdded?.(newPlace);
