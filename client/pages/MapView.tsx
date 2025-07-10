@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { places } from "@/data/config";
+import { usePlaces } from "@/contexts/PlacesContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { FallbackMap } from "@/components/FallbackMap";
