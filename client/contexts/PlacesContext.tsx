@@ -54,6 +54,9 @@ export function PlacesProvider({ children }: PlacesProviderProps) {
         localStorage.getItem("user-added-places") || "[]",
       );
       const allPlaces = [...defaultPlaces, ...userAddedPlaces];
+      console.log(
+        `PlacesContext: Loaded ${defaultPlaces.length} default + ${userAddedPlaces.length} user places = ${allPlaces.length} total`,
+      );
       setPlaces(allPlaces);
     } catch (error) {
       console.error("Error loading user places:", error);
