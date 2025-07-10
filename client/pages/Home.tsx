@@ -131,7 +131,7 @@ export default function Home() {
         <div className="flex items-center gap-3 mb-8">
           <TrendingUp className="h-6 w-6 text-primary-600" />
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Food Categories
+            Categorias
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
