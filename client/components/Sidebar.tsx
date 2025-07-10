@@ -20,8 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/data/config";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
-import { useAuth } from "@/contexts/AuthContext";
-import { LoginModal } from "@/components/LoginModal";
+import { useNetlifyAuth } from "@/contexts/NetlifyAuthContext";
 
 interface SidebarProps {
   isOpen: boolean;
