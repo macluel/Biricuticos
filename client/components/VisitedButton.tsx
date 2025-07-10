@@ -52,12 +52,12 @@ export function VisitedButton({
           className,
         )}
         title={
-          interaction.isVisited
+          interaction.isVisited || isUserVisited
             ? "Marcar como não visitado"
             : "Marcar como visitado"
         }
       >
-        {interaction.isVisited ? (
+        {interaction.isVisited || isUserVisited ? (
           <Check className="h-4 w-4 fill-current" />
         ) : (
           <MapPin className="h-4 w-4" />
