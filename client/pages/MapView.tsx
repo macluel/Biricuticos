@@ -1,27 +1,5 @@
-import { useState } from "react";
-import {
-  Map,
-  MapPin,
-  Search,
-  Filter,
-  Navigation,
-  Layers,
-  ZoomIn,
-  ZoomOut,
-  RotateCcw,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
-import { places } from "@/data/config";
-import { InteractiveMap } from "@/components/InteractiveMap";
+// Simple map view that works without external dependencies
+export { default } from "./SimpleMapView";
 
 // Use places from config for map markers
 const mapPlaces = places.map((place) => ({
