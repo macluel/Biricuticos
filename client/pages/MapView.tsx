@@ -25,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { places } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { FallbackMap } from "@/components/FallbackMap";
 
 // Mapbox access token
 mapboxgl.accessToken =
