@@ -72,18 +72,33 @@ if (typeof window !== "undefined") {
       return new Promise((resolve) => {
         // This promise NEVER rejects - always resolves
         try {
-          originalFetch
-            .apply(this, args)
-            .then((response) => resolve(response))
-            .catch((error) => {
-              console.log("Mapbox request failed, using fallback");
-              resolve(
-                new Response('{"status":"fallback"}', {
-                  status: 200,
-                  headers: { "Content-Type": "application/json" },
-                }),
-              );
-            });
+          const fetchPromise = originalFetch.apply(this, args);
+
+          // Handle the promise
+          if (fetchPromise && typeof fetchPromise.then === "function") {
+            fetchPromise
+              .then((response) => resolve(response))
+              .catch((error) => {
+                console.log("Mapbox request failed, using fallback");
+                resolve(
+                  new Response('{"status":"fallback"}', {
+                    status: 200,
+                    headers: { "Content-Type": "application/json" },
+                  }),
+                );
+              });
+          } else {
+            // If originalFetch doesn't return a promise, return fallback
+            console.log(
+              "originalFetch didn't return a promise, using fallback",
+            );
+            resolve(
+              new Response('{"status":"fallback"}', {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+              }),
+            );
+          }
         } catch (syncError) {
           console.log("Sync error in Mapbox request, using fallback");
           resolve(
@@ -986,7 +1001,7 @@ export default function MapView() {
       {nearestPlaces.length > 0 && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
-            🎯 Restaurantes Próximos a Você
+            🎯 Restaurantes Próximos a Voc��
           </h3>
           <div className="space-y-2">
             {nearestPlaces.slice(0, 3).map((place) => (
