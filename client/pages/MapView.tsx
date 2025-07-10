@@ -126,7 +126,7 @@ export default function MapView() {
     setIsTrackingLocation(true);
 
     if (!navigator.geolocation) {
-      setLocationError("Geolocaliza��ão não é suportada neste navegador");
+      setLocationError("Geolocaliza����ão não é suportada neste navegador");
       setIsTrackingLocation(false);
       return;
     }
@@ -458,10 +458,26 @@ export default function MapView() {
 
       {/* Location Error */}
       {locationError && (
-        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-          <p className="text-red-700 dark:text-red-300 text-sm">
-            {locationError}
-          </p>
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+          <div className="flex items-start gap-3">
+            <div className="text-amber-500 mt-0.5">📍</div>
+            <div>
+              <h3 className="font-medium text-amber-800 dark:text-amber-200 mb-1">
+                Como ativar sua localização:
+              </h3>
+              <p className="text-amber-700 dark:text-amber-300 text-sm mb-3">
+                {locationError}
+              </p>
+              <div className="space-y-1 text-xs text-amber-600 dark:text-amber-400">
+                <p>
+                  💡 <strong>Dica:</strong> Sem GPS você ainda pode:
+                </p>
+                <p>• Ver todos os restaurantes no mapa visual</p>
+                <p>• Navegar para qualquer lugar</p>
+                <p>• Usar todas as funcionalidades normalmente</p>
+              </div>
+            </div>
+          </div>
         </div>
       )}
 
