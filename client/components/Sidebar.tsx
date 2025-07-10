@@ -16,7 +16,8 @@ import {
   UtensilsCrossed,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { appConfig, stats } from "@/data/config";
+import { appConfig } from "@/data/config";
+import { usePlaceStats } from "@/hooks/usePlaceStats";
 
 interface SidebarProps {
   isOpen: boolean;
