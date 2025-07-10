@@ -69,7 +69,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-0 h-full w-64 bg-white/95 backdrop-blur-md border-r border-gray-200/50 shadow-xl z-40 transition-all duration-300 ease-in-out",
+          "fixed left-0 top-0 h-full w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-r border-gray-200/50 dark:border-gray-700/50 shadow-xl z-40 transition-all duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
       >
