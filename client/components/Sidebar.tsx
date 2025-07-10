@@ -50,11 +50,8 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const { stats } = usePlaceStats();
-
-  // Mock user state - will be replaced with real auth later
-  const [user, setUser] = useState<{ name: string; email: string } | null>(
-    null,
-  );
+  const { user, logout } = useAuth();
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   return (
     <>
