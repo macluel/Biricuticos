@@ -70,6 +70,22 @@ if (typeof window !== "undefined") {
     // For ALL Mapbox requests, wrap in bulletproof error handling
     if (isMapboxRequest) {
       return new Promise((resolve) => {
+        let resolved = false;
+
+        // Set a timeout to ensure promise always resolves
+        const timeoutId = setTimeout(() => {
+          if (!resolved) {
+            resolved = true;
+            console.log("Mapbox request timed out, using fallback");
+            resolve(
+              new Response('{"status":"timeout"}', {
+                status: 200,
+                headers: { "Content-Type": "application/json" },
+              }),
+            );
+          }
+        }, 10000); // 10 second timeout
+
         // This promise NEVER rejects - always resolves
         try {
           const fetchPromise = originalFetch.apply(this, args);
@@ -77,21 +93,47 @@ if (typeof window !== "undefined") {
           // Handle the promise
           if (fetchPromise && typeof fetchPromise.then === "function") {
             fetchPromise
-              .then((response) => resolve(response))
+              .then((response) => {
+                if (!resolved) {
+                  resolved = true;
+                  clearTimeout(timeoutId);
+                  resolve(response);
+                }
+              })
               .catch((error) => {
-                console.log("Mapbox request failed, using fallback");
-                resolve(
-                  new Response('{"status":"fallback"}', {
-                    status: 200,
-                    headers: { "Content-Type": "application/json" },
-                  }),
-                );
+                if (!resolved) {
+                  resolved = true;
+                  clearTimeout(timeoutId);
+                  console.log("Mapbox request failed, using fallback");
+                  resolve(
+                    new Response('{"status":"fallback"}', {
+                      status: 200,
+                      headers: { "Content-Type": "application/json" },
+                    }),
+                  );
+                }
               });
           } else {
             // If originalFetch doesn't return a promise, return fallback
-            console.log(
-              "originalFetch didn't return a promise, using fallback",
-            );
+            if (!resolved) {
+              resolved = true;
+              clearTimeout(timeoutId);
+              console.log(
+                "originalFetch didn't return a promise, using fallback",
+              );
+              resolve(
+                new Response('{"status":"fallback"}', {
+                  status: 200,
+                  headers: { "Content-Type": "application/json" },
+                }),
+              );
+            }
+          }
+        } catch (syncError) {
+          if (!resolved) {
+            resolved = true;
+            clearTimeout(timeoutId);
+            console.log("Sync error in Mapbox request, using fallback");
             resolve(
               new Response('{"status":"fallback"}', {
                 status: 200,
@@ -99,14 +141,6 @@ if (typeof window !== "undefined") {
               }),
             );
           }
-        } catch (syncError) {
-          console.log("Sync error in Mapbox request, using fallback");
-          resolve(
-            new Response('{"status":"fallback"}', {
-              status: 200,
-              headers: { "Content-Type": "application/json" },
-            }),
-          );
         }
       });
     }
@@ -1001,7 +1035,7 @@ export default function MapView() {
       {nearestPlaces.length > 0 && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
-            🎯 Restaurantes Próximos a Voc��
+            🎯 Restaurantes Próximos a Você
           </h3>
           <div className="space-y-2">
             {nearestPlaces.slice(0, 3).map((place) => (
