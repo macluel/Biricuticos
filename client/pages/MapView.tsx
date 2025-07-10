@@ -250,8 +250,9 @@ export default function MapView() {
       addMarkersToMap();
     } catch (error) {
       console.error("Failed to initialize map:", error);
+      setMapboxFailed(true);
       setLocationError(
-        "Erro ao carregar o mapa. Alguns recursos podem não funcionar.",
+        "Usando mapa visual como alternativa. GPS ainda funciona!",
       );
     }
 
