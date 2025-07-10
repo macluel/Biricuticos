@@ -88,7 +88,7 @@ export default function Home() {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
                   type="text"
-                  placeholder="Search restaurants, cafes, or cuisines..."
+                  placeholder="Buscar restaurantes, cafeterias ou culinárias..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-0 focus:bg-white"
@@ -101,7 +101,7 @@ export default function Home() {
                 asChild
               >
                 <Link to="/catalog">
-                  Browse Food Places
+                  Explorar Restaurantes
                   <ExternalLink className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
