@@ -163,11 +163,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     mockUsers.push(newUser);
     localStorage.setItem("biricuticos-users", JSON.stringify(mockUsers));
 
-    // Set user (without password)
-    const { password: _, ...userWithoutPassword } = newUser;
-    setUser(userWithoutPassword);
-    setIsLoading(false);
-    return { success: true };
+    try {
+      // Set user (without password)
+      const { password: _, ...userWithoutPassword } = newUser;
+      setUser(userWithoutPassword);
+      setIsLoading(false);
+      return { success: true };
+    } catch (error) {
+      console.error("Error setting user after signup:", error);
+      setIsLoading(false);
+      return { success: false, error: "Erro interno após criar conta" };
+    }
   };
 
   const logout = () => {
