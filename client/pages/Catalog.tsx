@@ -161,7 +161,35 @@ export default function Catalog() {
         matchesPrice = place.price === selectedPrice;
       }
 
-      return matchesSearch && matchesType && matchesState && matchesPrice;
+      // Filter by interaction status
+      let matchesInteraction = true;
+      if (selectedInteraction !== "Todos") {
+        const interaction = getPlaceInteraction(place.id);
+        switch (selectedInteraction) {
+          case "Quero Provar":
+            matchesInteraction =
+              interaction.isFavorited && !interaction.isVisited;
+            break;
+          case "Já Visitamos":
+            matchesInteraction = interaction.isVisited;
+            break;
+          case "Favoritos":
+            matchesInteraction = interaction.isFavorited;
+            break;
+          case "Ainda não Tentei":
+            matchesInteraction =
+              !interaction.isFavorited && !interaction.isVisited;
+            break;
+        }
+      }
+
+      return (
+        matchesSearch &&
+        matchesType &&
+        matchesState &&
+        matchesPrice &&
+        matchesInteraction
+      );
     });
 
     // Sort results
