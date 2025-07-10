@@ -24,17 +24,17 @@ interface SidebarProps {
 
 const navItems = [
   {
-    name: "Home",
+    name: "Início",
     href: "/",
     icon: Home,
   },
   {
-    name: "Food Places",
+    name: "Restaurantes",
     href: "/catalog",
     icon: UtensilsCrossed,
   },
   {
-    name: "Map View",
+    name: "Mapa",
     href: "/map",
     icon: Map,
   },
