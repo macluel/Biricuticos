@@ -115,7 +115,10 @@ export default function Home() {
             </p>
 
             {/* Search Bar */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-8">
+            <form
+              onSubmit={handleSearch}
+              className="flex flex-col sm:flex-row gap-4 mb-8"
+            >
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
@@ -127,17 +130,25 @@ export default function Home() {
                 />
               </div>
               <Button
+                type="submit"
                 size="lg"
                 variant="secondary"
                 className="px-8 py-4 text-lg font-semibold"
-                asChild
+                disabled={!searchQuery.trim()}
               >
-                <Link to="/catalog">
-                  Explorar Restaurantes
-                  <ExternalLink className="ml-2 h-5 w-5" />
-                </Link>
+                {searchQuery.trim() ? (
+                  <>
+                    <Search className="mr-2 h-5 w-5" />
+                    Buscar
+                  </>
+                ) : (
+                  <>
+                    <ExternalLink className="mr-2 h-5 w-5" />
+                    Explorar Restaurantes
+                  </>
+                )}
               </Button>
-            </div>
+            </form>
 
             {/* Quick Stats */}
             <div className="flex flex-wrap gap-8 text-primary-100">
