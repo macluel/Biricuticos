@@ -36,11 +36,13 @@ if (typeof window !== "undefined") {
   // Store original fetch before any overrides
   const originalFetch = window.fetch;
 
-  window.fetch = function (...args) {
-    const url = args[0];
-    const urlString = typeof url === "string" ? url : url?.toString() || "";
+    window.fetch = function (...args) {
+    // Ultimate safety wrapper - catch ANY possible error
+    try {
+      const url = args[0];
+      const urlString = typeof url === "string" ? url : url?.toString() || "";
 
-    // Detect ANY Mapbox-related request - ultra-comprehensive
+        // Detect ANY Mapbox-related request - ultra-comprehensive
     const isMapboxRequest =
       urlString.includes("mapbox") ||
       urlString.includes("events.mapbox") ||
@@ -57,9 +59,7 @@ if (typeof window !== "undefined") {
       // Check if it's from any mapbox domain pattern
       /mapbox/i.test(urlString) ||
       // Check if it contains common Mapbox API patterns
-      /\/(v\d+|styles|fonts|tiles|events|analytics|telemetry)/i.test(
-        urlString,
-      ) ||
+      /\/(v\d+|styles|fonts|tiles|events|analytics|telemetry)/i.test(urlString) ||
       // Check for base64 encoded mapbox URLs
       (urlString.includes("data:") && urlString.includes("mapbox"));
 
