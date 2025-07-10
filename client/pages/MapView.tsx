@@ -55,25 +55,16 @@ if (typeof window !== "undefined") {
 
       // Block ALL external requests (including ALL Mapbox)
       if (!isSafeRequest) {
-        console.log("Intercepted Mapbox request:", urlString.substring(0, 60));
+        console.log("Blocked external request:", urlString.substring(0, 60));
 
-        // Determine response type based on URL
-        let responseData;
-        if (
-          urlString.includes("events") ||
-          urlString.includes("telemetry") ||
-          urlString.includes("analytics")
-        ) {
-          responseData = '{"success":true,"message":"Telemetry blocked"}';
-        } else if (urlString.includes("styles")) {
-          // For map style requests, return a minimal valid style
+        // Return appropriate mock response
+        let responseData = '{"success":true,"blocked":true}';
+
+        // Special handling for common request types
+        if (urlString.includes("styles") || urlString.includes("mapbox")) {
           responseData = '{"version":8,"sources":{},"layers":[]}';
         } else if (urlString.includes("fonts")) {
-          // For font requests, return empty but valid response
           responseData = "{}";
-        } else {
-          // For any other Mapbox request, return generic success
-          responseData = '{"status":"ok","data":null}';
         }
 
         return Promise.resolve(
