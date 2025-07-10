@@ -53,6 +53,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // Load user from localStorage on init
   useEffect(() => {
+    // Initialize demo users if they don't exist
+    const existingUsers = localStorage.getItem("biricuticos-users");
+    if (!existingUsers) {
+      const demoUsers = [
+        {
+          id: "1",
+          name: "Samuel Macedo",
+          email: "samuel@exemplo.com",
+          password: "123456",
+          preferences: {
+            favorites: [1, 3],
+            visited: [2],
+            wantToTry: [1, 3],
+          },
+        },
+      ];
+      localStorage.setItem("biricuticos-users", JSON.stringify(demoUsers));
+    }
+
     const savedUser = localStorage.getItem("biricuticos-user");
     if (savedUser) {
       try {
