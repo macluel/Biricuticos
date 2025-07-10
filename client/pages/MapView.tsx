@@ -466,6 +466,16 @@ export default function MapView() {
         map.current.remove();
         map.current = null;
       }
+
+      // Cleanup global error handler
+      // @ts-ignore
+      if (window.__mapboxTelemetryHandler) {
+        // @ts-ignore
+        window.removeEventListener(
+          "unhandledrejection",
+          window.__mapboxTelemetryHandler,
+        );
+      }
     };
   }, [mapboxFailed]);
 
