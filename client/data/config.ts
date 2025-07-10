@@ -22,7 +22,7 @@ export const categories = [
   { name: "Pizzaria", count: 1, icon: "🍕" },
   { name: "Confeitaria", count: 1, icon: "🧁" },
   { name: "Churrascaria", count: 0, icon: "🥩" },
-  { name: "Boteco", count: 0, icon: "🍺" },
+  { name: "Botecos", count: 0, icon: "🍺" },
   { name: "Açaí", count: 0, icon: "🫐" },
 ];
 
