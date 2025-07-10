@@ -131,7 +131,7 @@ export default function MapView() {
     // Check if geolocation is supported
     if (!navigator.geolocation) {
       setLocationError(
-        "🚫 Geolocalização não é suportada neste navegador\n\n💡 Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
+        "🚫 Geolocalização não é suportada neste navegador\n\n���� Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
       );
       setIsTrackingLocation(false);
       return;
@@ -160,11 +160,32 @@ export default function MapView() {
         }
       }
 
-      // Get position with better settings for mobile
+      // Test geolocation availability
+      const testGeoAvailability = () => {
+        return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            () => resolve(true),
+            (error) => reject(error),
+            { timeout: 5000, enableHighAccuracy: false, maximumAge: 300000 },
+          );
+        });
+      };
+
+      console.log("Testing geolocation availability...");
+
+      // Try a quick test first with relaxed settings
+      try {
+        await testGeoAvailability();
+        console.log("Geolocation test passed, getting precise location...");
+      } catch (testError) {
+        console.error("Geolocation test failed:", testError);
+      }
+
+      // Get position with adaptive settings
       const options = {
         enableHighAccuracy: true,
-        timeout: 15000, // 15 seconds
-        maximumAge: 60000, // 1 minute cache
+        timeout: 20000, // 20 seconds for mobile
+        maximumAge: 30000, // 30 seconds cache
       };
 
       navigator.geolocation.getCurrentPosition(
