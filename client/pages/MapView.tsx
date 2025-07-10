@@ -1,13 +1,7 @@
-import { useState } from "react";
-import {
-  Map,
-  MapPin,
-  Search,
-  Filter,
-  Navigation,
-  Star,
-  Heart,
-} from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { Search, Filter, Star, Heart, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -21,6 +15,10 @@ import { Badge } from "@/components/ui/badge";
 import { places } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+
+// Mapbox access token - using a demo token (you'll need to replace this with your own)
+mapboxgl.accessToken =
+  "pk.eyJ1IjoiZGVtby1hY2NvdW50IiwiYSI6ImNrZjV2NXE3YTBhZ3QycW9hbWJ1dzZjOXUifQ.9A2n0gLnbBj5mSW7Cvu3jA";
 
 // Use places from config for map markers
 const mapPlaces = places.map((place) => ({
@@ -36,6 +34,9 @@ const mapPlaces = places.map((place) => ({
 }));
 
 export default function MapView() {
+  const mapContainer = useRef<HTMLDivElement>(null);
+  const map = useRef<mapboxgl.Map | null>(null);
+  const markers = useRef<mapboxgl.Marker[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("Todos");
   const [selectedPlace, setSelectedPlace] = useState<
@@ -51,6 +52,135 @@ export default function MapView() {
     return matchesSearch && matchesType;
   });
 
+  useEffect(() => {
+    if (map.current) return; // Initialize map only once
+
+    if (!mapContainer.current) return;
+
+    map.current = new mapboxgl.Map({
+      container: mapContainer.current,
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [-43.1729, -22.9068], // Rio de Janeiro coordinates
+      zoom: 11,
+    });
+
+    // Add navigation control
+    map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+    // Add markers for all places
+    addMarkersToMap();
+
+    return () => {
+      if (map.current) {
+        map.current.remove();
+      }
+    };
+  }, []);
+
+  // Update markers when filtered places change
+  useEffect(() => {
+    if (map.current) {
+      addMarkersToMap();
+    }
+  }, [filteredPlaces]);
+
+  const addMarkersToMap = () => {
+    if (!map.current) return;
+
+    // Clear existing markers
+    markers.current.forEach((marker) => marker.remove());
+    markers.current = [];
+
+    // Add markers for filtered places
+    filteredPlaces.forEach((place) => {
+      // Create a custom marker element
+      const markerElement = document.createElement("div");
+      markerElement.className = "custom-marker";
+      markerElement.innerHTML = `
+        <div style="
+          width: 32px;
+          height: 32px;
+          background-color: #ef4444;
+          border: 2px solid white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          cursor: pointer;
+          position: relative;
+        ">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div style="
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 2px solid #ef4444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #ef4444;
+          ">${place.rating}</div>
+        </div>
+      `;
+
+      // Create popup
+      const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
+        <div style="padding: 8px; min-width: 200px;">
+          <h3 style="margin: 0 0 8px 0; font-weight: bold; color: #1f2937;">${place.name}</h3>
+          <div style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
+            <span style="background: #f3f4f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; color: #374151;">${place.type}</span>
+            <span style="display: flex; align-items: center; gap: 4px; font-size: 12px; color: #374151;">
+              ⭐ ${place.rating}
+            </span>
+            ${place.price ? `<span style="background: #f3f4f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; color: #374151;">${place.price}</span>` : ""}
+          </div>
+          <div style="display: flex; align-items: center; gap: 4px; margin-bottom: 8px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#9ca3af">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span style="font-size: 12px; color: #6b7280;">${place.location}</span>
+          </div>
+          ${place.description ? `<p style="margin: 0; font-size: 12px; color: #6b7280; line-height: 1.4;">${place.description}</p>` : ""}
+        </div>
+      `);
+
+      // Create marker
+      const marker = new mapboxgl.Marker(markerElement)
+        .setLngLat([place.lng, place.lat])
+        .setPopup(popup)
+        .addTo(map.current!);
+
+      // Add click event to marker
+      markerElement.addEventListener("click", () => {
+        setSelectedPlace(place);
+      });
+
+      markers.current.push(marker);
+    });
+  };
+
+  const flyToPlace = (place: (typeof mapPlaces)[0]) => {
+    if (map.current) {
+      map.current.flyTo({
+        center: [place.lng, place.lat],
+        zoom: 15,
+        duration: 1000,
+      });
+      setSelectedPlace(place);
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -60,7 +190,7 @@ export default function MapView() {
             Mapa dos Restaurantes
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
-            Explore restaurantes em um mapa interativo
+            Explore restaurantes em um mapa interativo real
           </p>
         </div>
       </div>
@@ -96,72 +226,8 @@ export default function MapView() {
       </div>
 
       {/* Map Container */}
-      <div className="relative h-[600px] bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
-        {/* Map Background with Rio de Janeiro styling */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-green-50 to-yellow-50 dark:from-gray-700 dark:via-gray-600 dark:to-gray-800">
-          {/* Map roads and districts */}
-          <div className="absolute top-0 left-1/4 w-1 h-full bg-gray-300/40 dark:bg-gray-500/40 transform rotate-12"></div>
-          <div className="absolute top-1/4 left-0 w-full h-1 bg-gray-300/40 dark:bg-gray-500/40"></div>
-          <div className="absolute top-3/4 left-0 w-full h-1 bg-gray-300/40 dark:bg-gray-500/40 transform -rotate-3"></div>
-          <div className="absolute top-0 right-1/3 w-1 h-full bg-gray-300/40 dark:bg-gray-500/40 transform -rotate-6"></div>
-
-          {/* Districts/areas */}
-          <div className="absolute top-16 left-16 w-28 h-24 bg-green-200/20 dark:bg-green-600/15 rounded-lg border border-green-300/30 dark:border-green-500/20"></div>
-          <div className="absolute bottom-20 right-16 w-32 h-20 bg-blue-200/20 dark:bg-blue-600/15 rounded-lg border border-blue-300/30 dark:border-blue-500/20"></div>
-          <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-yellow-200/20 dark:bg-yellow-600/15 rounded-lg border border-yellow-300/30 dark:border-yellow-500/20 transform -translate-x-1/2 -translate-y-1/2"></div>
-
-          {/* Water feature (Guanabara Bay) */}
-          <div className="absolute bottom-8 left-8 w-24 h-16 bg-blue-300/30 dark:bg-blue-600/25 rounded-full"></div>
-        </div>
-
-        {/* Map Header */}
-        <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
-          <div className="flex items-center gap-2">
-            <Map className="h-5 w-5 text-primary-600" />
-            <span className="font-medium text-gray-900 dark:text-gray-100">
-              Rio de Janeiro
-            </span>
-          </div>
-        </div>
-
-        {/* Place Markers */}
-        {filteredPlaces.map((place, index) => {
-          // Distribute places across the map area
-          const positions = [
-            { top: "25%", left: "20%" },
-            { top: "40%", left: "60%" },
-            { top: "65%", left: "30%" },
-            { top: "30%", left: "75%" },
-            { top: "70%", left: "65%" },
-            { top: "50%", left: "45%" },
-          ];
-          const position = positions[index % positions.length];
-
-          return (
-            <div
-              key={place.id}
-              className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10"
-              style={{ top: position.top, left: position.left }}
-              onClick={() => setSelectedPlace(place)}
-            >
-              <div className="relative group">
-                <div className="w-8 h-8 bg-red-500 rounded-full border-2 border-white shadow-lg hover:scale-110 transition-transform duration-200 flex items-center justify-center">
-                  <MapPin className="h-4 w-4 text-white fill-current" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-5 h-5 bg-white rounded-full border-2 border-red-500 flex items-center justify-center shadow-sm">
-                  <span className="text-xs font-bold text-red-500">
-                    {place.rating}
-                  </span>
-                </div>
-
-                {/* Hover tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-                  {place.name}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="relative h-[600px] rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+        <div ref={mapContainer} className="w-full h-full" />
 
         {/* Place Info Popup */}
         {selectedPlace && (
@@ -179,7 +245,12 @@ export default function MapView() {
             </div>
 
             <div className="flex items-center gap-2 mb-2">
-              <Badge variant="secondary">{selectedPlace.type}</Badge>
+              <Badge
+                variant="secondary"
+                className="dark:bg-primary-800 dark:text-primary-100"
+              >
+                {selectedPlace.type}
+              </Badge>
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 text-yellow-400 fill-current" />
                 <span className="text-sm font-medium">
@@ -210,18 +281,6 @@ export default function MapView() {
             </div>
           </div>
         )}
-
-        {/* Map Controls */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2 z-20">
-          <Button
-            size="sm"
-            variant="secondary"
-            className="w-10 h-10 p-0"
-            disabled
-          >
-            <Navigation className="h-4 w-4" />
-          </Button>
-        </div>
       </div>
 
       {/* Places List */}
@@ -234,7 +293,7 @@ export default function MapView() {
             <div
               key={place.id}
               className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-primary-300 transition-colors cursor-pointer"
-              onClick={() => setSelectedPlace(place)}
+              onClick={() => flyToPlace(place)}
             >
               <div className="flex items-start justify-between mb-2">
                 <h4 className="font-medium text-gray-900 dark:text-gray-100">
@@ -246,7 +305,10 @@ export default function MapView() {
                 {place.location}
               </p>
               <div className="flex items-center gap-2">
-                <Badge variant="secondary" className="text-xs">
+                <Badge
+                  variant="secondary"
+                  className="text-xs dark:bg-primary-800 dark:text-primary-100"
+                >
                   {place.type}
                 </Badge>
                 <div className="flex items-center gap-1">
