@@ -100,18 +100,18 @@ const allPlaces = [
   },
   {
     id: 6,
-    name: "Katz's Delicatessen",
-    location: "New York City, NY",
-    state: "New York",
-    type: "Deli",
+    name: "Galeto Sat's",
+    location: "Copacabana, Rio de Janeiro",
+    state: "Rio de Janeiro",
+    type: "Galeto",
     rating: 4.4,
-    reviews: 8765,
+    reviews: 3765,
     price: "$$",
     image:
       "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=300&fit=crop",
     description:
-      "Historic deli famous for their pastrami sandwiches since 1888.",
-    tags: ["deli", "pastrami", "historic"],
+      "Famoso galeto carioca desde 1962, especializado em frango grelhado e acompanhamentos.",
+    tags: ["galeto", "frango", "tradicional"],
   },
 ];
 
