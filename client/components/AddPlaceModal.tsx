@@ -150,9 +150,6 @@ export function AddPlaceModal({
         imageUrl: "",
       });
       onClose();
-
-      // Show success message
-      alert(`${newPlace.name} foi adicionado com sucesso! 🎉`);
     } catch (error) {
       setError("Erro ao adicionar lugar. Tente novamente.");
     } finally {
