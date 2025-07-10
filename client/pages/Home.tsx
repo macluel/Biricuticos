@@ -61,7 +61,11 @@ const originalFeaturedPlaces = [
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const { stats } = usePlaceStats();
+  const { places } = usePlaces();
   const navigate = useNavigate();
+
+  // Featured places - show first 3 places
+  const featuredPlaces = places.slice(0, 3);
 
   // Calculate dynamic category counts from actual places
   const dynamicCategories = useMemo(() => {
