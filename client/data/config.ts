@@ -126,8 +126,19 @@ const defaultPlaces = [
     lat: -22.0000, // Coordenada latitude
     lng: -43.0000, // Coordenada longitude
   },
-  */
+    */
 ];
+
+// Function to get all places including user-added ones
+export function getAllPlaces() {
+  const userAddedPlaces = JSON.parse(
+    localStorage.getItem("user-added-places") || "[]",
+  );
+  return [...defaultPlaces, ...userAddedPlaces];
+}
+
+// Export default places for backwards compatibility and initial render
+export const places = defaultPlaces;
 
 // ===== MAP CONFIGURATION =====
 export const mapConfig = {
