@@ -50,7 +50,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border border-gray-200 lg:hidden hover:bg-white transition-colors"
+        className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700 lg:hidden hover:bg-white dark:hover:bg-gray-800 transition-colors"
       >
         {isOpen ? (
           <X className="h-5 w-5 text-gray-600" />
