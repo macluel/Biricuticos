@@ -155,8 +155,8 @@ if (typeof window !== "undefined") {
 
 // This will be moved inside the component
 
-// Calculate distance between two coordinates (Haversine formula)
-const calculateDistance = (
+// Calculate geographic distance between two coordinates (Haversine formula)
+const calculateGeographicDistance = (
   lat1: number,
   lng1: number,
   lat2: number,
@@ -174,6 +174,57 @@ const calculateDistance = (
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
+
+// Calculate travel distance using routing API (with fallback to geographic distance)
+const calculateTravelDistance = async (
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number,
+): Promise<{ distance: number; travelTime?: number; isTravel: boolean }> => {
+  try {
+    // Use OpenRouteService (free routing API) for travel distance
+    const response = await fetch(
+      `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248a3b6b9b4e36b48ad9e7e4a03bebb4d75&start=${lng1},${lat1}&end=${lng2},${lat2}`,
+      {
+        headers: {
+          Accept:
+            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+        },
+      },
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.features && data.features[0] && data.features[0].properties) {
+        const route = data.features[0].properties.segments[0];
+        const distanceKm = route.distance / 1000; // Convert meters to km
+        const durationMinutes = route.duration / 60; // Convert seconds to minutes
+
+        console.log(
+          `Travel distance: ${distanceKm.toFixed(1)}km, ${durationMinutes.toFixed(0)} min`,
+        );
+        return {
+          distance: distanceKm,
+          travelTime: durationMinutes,
+          isTravel: true,
+        };
+      }
+    }
+  } catch (error) {
+    console.log(
+      "Travel distance calculation failed, using geographic distance:",
+      error,
+    );
+  }
+
+  // Fallback to geographic distance
+  const geoDistance = calculateGeographicDistance(lat1, lng1, lat2, lng2);
+  return { distance: geoDistance, isTravel: false };
+};
+
+// Backward compatibility - use geographic distance by default
+const calculateDistance = calculateGeographicDistance;
 
 export default function MapView() {
   const { places } = usePlaces();
