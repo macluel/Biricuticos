@@ -128,7 +128,7 @@ export default function Home() {
       {/* Trending Categories */}
       <section>
         <div className="flex items-center gap-3 mb-8">
-          <Trending className="h-6 w-6 text-primary-600" />
+          <TrendingUp className="h-6 w-6 text-primary-600" />
           <h2 className="text-3xl font-bold text-gray-900">
             Trending Categories
           </h2>
