@@ -132,7 +132,7 @@ export function FallbackMap({
                 place.lng,
               )
             : null;
-          const isNearby = distance && distance <= 2;
+          const isNearby = distance && distance <= 5;
 
           return (
             <div
