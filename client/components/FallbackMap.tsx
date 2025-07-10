@@ -185,7 +185,7 @@ export function FallbackMap({
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 bg-green-500 rounded-full"></div>
               <span className="text-gray-700 dark:text-gray-300">
-                Próximo (≤2km)
+                Próximo (≤5km)
               </span>
             </div>
             <div className="flex items-center gap-2">
