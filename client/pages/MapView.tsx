@@ -36,75 +36,87 @@ if (typeof window !== "undefined") {
   // Store original fetch before any overrides
   const originalFetch = window.fetch;
 
-    window.fetch = function (...args) {
+  window.fetch = function (...args) {
     // Ultimate safety wrapper - catch ANY possible error
     try {
       const url = args[0];
       const urlString = typeof url === "string" ? url : url?.toString() || "";
 
-        // Detect ANY Mapbox-related request - ultra-comprehensive
-    const isMapboxRequest =
-      urlString.includes("mapbox") ||
-      urlString.includes("events.mapbox") ||
-      urlString.includes("/events/") ||
-      urlString.includes("telemetry") ||
-      urlString.includes("analytics") ||
-      urlString.includes("api.mapbox") ||
-      urlString.includes(".mapbox.") ||
-      urlString.includes("tiles.mapbox") ||
-      urlString.includes("fonts.mapbox") ||
-      urlString.includes("styles.mapbox") ||
-      urlString.includes("metrics") ||
-      urlString.includes("tracking") ||
-      // Check if it's from any mapbox domain pattern
-      /mapbox/i.test(urlString) ||
-      // Check if it contains common Mapbox API patterns
-      /\/(v\d+|styles|fonts|tiles|events|analytics|telemetry)/i.test(urlString) ||
-      // Check for base64 encoded mapbox URLs
-      (urlString.includes("data:") && urlString.includes("mapbox"));
-
-    // For ALL Mapbox requests, return immediate success - NEVER call originalFetch
-    if (isMapboxRequest) {
-      console.log("Intercepted Mapbox request:", urlString.substring(0, 60));
-
-      // Determine response type based on URL
-      let responseData;
-      if (
-        urlString.includes("events") ||
+      // Detect ANY Mapbox-related request - ultra-comprehensive
+      const isMapboxRequest =
+        urlString.includes("mapbox") ||
+        urlString.includes("events.mapbox") ||
+        urlString.includes("/events/") ||
         urlString.includes("telemetry") ||
-        urlString.includes("analytics")
-      ) {
-        responseData = '{"success":true,"message":"Telemetry blocked"}';
-      } else if (urlString.includes("styles")) {
-        // For map style requests, return a minimal valid style
-        responseData = '{"version":8,"sources":{},"layers":[]}';
-      } else if (urlString.includes("fonts")) {
-        // For font requests, return empty but valid response
-        responseData = "{}";
-      } else {
-        // For any other Mapbox request, return generic success
-        responseData = '{"status":"ok","data":null}';
+        urlString.includes("analytics") ||
+        urlString.includes("api.mapbox") ||
+        urlString.includes(".mapbox.") ||
+        urlString.includes("tiles.mapbox") ||
+        urlString.includes("fonts.mapbox") ||
+        urlString.includes("styles.mapbox") ||
+        urlString.includes("metrics") ||
+        urlString.includes("tracking") ||
+        // Check if it's from any mapbox domain pattern
+        /mapbox/i.test(urlString) ||
+        // Check if it contains common Mapbox API patterns
+        /\/(v\d+|styles|fonts|tiles|events|analytics|telemetry)/i.test(
+          urlString,
+        ) ||
+        // Check for base64 encoded mapbox URLs
+        (urlString.includes("data:") && urlString.includes("mapbox"));
+
+      // For ALL Mapbox requests, return immediate success - NEVER call originalFetch
+      if (isMapboxRequest) {
+        console.log("Intercepted Mapbox request:", urlString.substring(0, 60));
+
+        // Determine response type based on URL
+        let responseData;
+        if (
+          urlString.includes("events") ||
+          urlString.includes("telemetry") ||
+          urlString.includes("analytics")
+        ) {
+          responseData = '{"success":true,"message":"Telemetry blocked"}';
+        } else if (urlString.includes("styles")) {
+          // For map style requests, return a minimal valid style
+          responseData = '{"version":8,"sources":{},"layers":[]}';
+        } else if (urlString.includes("fonts")) {
+          // For font requests, return empty but valid response
+          responseData = "{}";
+        } else {
+          // For any other Mapbox request, return generic success
+          responseData = '{"status":"ok","data":null}';
+        }
+
+        return Promise.resolve(
+          new Response(responseData, {
+            status: 200,
+            statusText: "OK",
+            headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
+            },
+          }),
+        );
       }
 
+      // For non-Mapbox requests, use original fetch with safety wrapper
+      try {
+        return originalFetch.apply(this, args);
+      } catch (error) {
+        console.log("Non-Mapbox fetch error, returning fallback");
+        return Promise.resolve(
+          new Response('{"error":"Fetch failed"}', {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }),
+        );
+      }
+    } catch (outerError) {
+      // Ultimate fallback - if anything goes wrong in the interceptor
+      console.log("Fetch interceptor error, using ultimate fallback");
       return Promise.resolve(
-        new Response(responseData, {
-          status: 200,
-          statusText: "OK",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }),
-      );
-    }
-
-    // For non-Mapbox requests, use original fetch with safety wrapper
-    try {
-      return originalFetch.apply(this, args);
-    } catch (error) {
-      console.log("Non-Mapbox fetch error, returning fallback");
-      return Promise.resolve(
-        new Response('{"error":"Fetch failed"}', {
+        new Response('{"error":"Interceptor failed","fallback":true}', {
           status: 200,
           headers: { "Content-Type": "application/json" },
         }),
