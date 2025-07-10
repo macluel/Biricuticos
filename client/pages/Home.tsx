@@ -10,9 +10,13 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { appConfig, stats, categories, places } from "@/data/config";
+
+// Featured places from config
+const featuredPlaces = places.slice(0, 3); // Show first 3 places
 
 // Sample data - in a real app this would come from an API
-const featuredPlaces = [
+const originalFeaturedPlaces = [
   {
     id: 1,
     name: "Oro",
