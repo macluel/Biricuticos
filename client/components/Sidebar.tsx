@@ -125,7 +125,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setUser(null)}
+                onClick={logout}
                 className="w-full text-xs"
               >
                 <LogOut className="h-3 w-3 mr-2" />
