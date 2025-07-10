@@ -52,7 +52,7 @@ export function FavoriteButton({
         className,
       )}
       title={
-        interaction.isFavorited
+        interaction.isFavorited || isUserFavorite
           ? "Remover dos favoritos"
           : "Adicionar aos favoritos"
       }
