@@ -152,12 +152,13 @@ export default function Catalog() {
         place.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         place.description.toLowerCase().includes(searchQuery.toLowerCase());
 
-      const matchesType = selectedType === "All" || place.type === selectedType;
+      const matchesType =
+        selectedType === "Todos" || place.type === selectedType;
       const matchesState =
-        selectedState === "All" || place.state === selectedState;
+        selectedState === "Todos" || place.state === selectedState;
 
       let matchesPrice = true;
-      if (selectedPrice !== "All") {
+      if (selectedPrice !== "Todos") {
         matchesPrice = place.price === selectedPrice;
       }
 
