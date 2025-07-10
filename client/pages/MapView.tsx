@@ -417,14 +417,19 @@ export default function MapView() {
     };
   }, [mapboxFailed]);
 
-  // Visual map handles markers internally, no need for separate effects
+  // Update markers when places change
   useEffect(() => {
-    // Visual map doesn't need marker updates
-  }, [filteredPlaces]);
+    if (!mapboxFailed && map.current) {
+      addMarkersToMap();
+    }
+  }, [filteredPlaces, mapboxFailed]);
 
+  // Update user location marker when location changes
   useEffect(() => {
-    // Visual map handles user location internally
-  }, [userLocation]);
+    if (!mapboxFailed && map.current && userLocation) {
+      addUserLocationMarker();
+    }
+  }, [userLocation, mapboxFailed]);
 
   const addUserLocationMarker = () => {
     if (!map.current || !userLocation) return;
