@@ -21,14 +21,35 @@ export function FloatingActionButton() {
 
   return (
     <>
-      {/* Floating Action Button */}
-      <Button
-        onClick={() => setShowAddModal(true)}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-40 group"
-        title="Adicionar novo lugar"
-      >
-        <Plus className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
-      </Button>
+      {/* Floating Action Buttons */}
+      <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
+        {/* Clear Data Button (temporary) */}
+        <Button
+          onClick={() => {
+            if (
+              confirm(
+                "Tem certeza que deseja limpar todos os favoritos e lugares visitados?",
+              )
+            ) {
+              clearUserInteractions();
+            }
+          }}
+          variant="destructive"
+          className="h-12 w-12 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
+          title="Limpar favoritos e visitados"
+        >
+          <Trash2 className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
+        </Button>
+
+        {/* Add Place Button */}
+        <Button
+          onClick={() => setShowAddModal(true)}
+          className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group"
+          title="Adicionar novo lugar"
+        >
+          <Plus className="h-6 w-6 group-hover:scale-110 transition-transform duration-200" />
+        </Button>
+      </div>
 
       {/* Add Place Modal */}
       <AddPlaceModal
