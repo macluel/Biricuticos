@@ -10,6 +10,7 @@ import { Layout } from "@/components/Layout";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PlaceStatsProvider } from "@/contexts/PlaceStatsContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { PlacesProvider } from "@/contexts/PlacesContext";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import MapView from "./pages/MapView";
