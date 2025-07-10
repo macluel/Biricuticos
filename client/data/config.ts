@@ -55,7 +55,7 @@ export const filterOptions = {
 };
 
 // ===== YOUR FOOD PLACES =====
-export const places = [
+const defaultPlaces = [
   {
     id: 1,
     name: "Oro",
