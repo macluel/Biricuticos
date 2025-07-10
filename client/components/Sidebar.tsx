@@ -137,7 +137,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   variant="default"
                   size="sm"
                   className="w-full"
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={login}
                 >
                   <User className="h-4 w-4 mr-2" />
                   Entrar
@@ -146,7 +146,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   variant="outline"
                   size="sm"
                   className="w-full text-xs"
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={signup}
                 >
                   Criar Conta
                 </Button>
