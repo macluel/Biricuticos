@@ -20,26 +20,27 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="light" storageKey="places-theme">
+    <ThemeProvider defaultTheme="light" storageKey="places-theme">
       <AuthProvider>
         <PlacesProvider>
           <PlaceStatsProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Layout>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/catalog" element={<Catalog />} />
-                  <Route path="/map" element={<MapView />} />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Layout>
-            </BrowserRouter>
-          </TooltipProvider>
-        </PlaceStatsProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Layout>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/catalog" element={<Catalog />} />
+                    <Route path="/map" element={<MapView />} />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Layout>
+              </BrowserRouter>
+            </TooltipProvider>
+          </PlaceStatsProvider>
+        </PlacesProvider>
       </AuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
