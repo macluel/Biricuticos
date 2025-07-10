@@ -311,6 +311,13 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Place Actions Modal */}
+      <PlaceActionsModal
+        isOpen={!!selectedPlaceForActions}
+        onClose={() => setSelectedPlaceForActions(null)}
+        place={selectedPlaceForActions}
+      />
     </div>
   );
 }
