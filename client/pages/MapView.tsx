@@ -182,6 +182,17 @@ const calculateTravelDistance = async (
   lat2: number,
   lng2: number,
 ): Promise<{ distance: number; travelTime?: number; isTravel: boolean }> => {
+  // First check geographic distance - if it's over 10km, don't bother with routing API
+  const geoDistance = calculateGeographicDistance(lat1, lng1, lat2, lng2);
+
+  // If geographic distance is over 10km, skip routing API to save calls
+  if (geoDistance > 10) {
+    console.log(
+      `Geographic distance ${geoDistance.toFixed(1)}km > 10km, skipping routing API`,
+    );
+    return { distance: geoDistance, isTravel: false };
+  }
+
   try {
     // Use OpenRouteService (free routing API) for travel distance
     const response = await fetch(
@@ -201,8 +212,16 @@ const calculateTravelDistance = async (
         const distanceKm = route.distance / 1000; // Convert meters to km
         const durationMinutes = route.duration / 60; // Convert seconds to minutes
 
+        // Validate the travel distance - if it's unreasonably large, use geographic instead
+        if (distanceKm > 50 || distanceKm < 0) {
+          console.log(
+            `Invalid travel distance ${distanceKm}km, using geographic distance ${geoDistance.toFixed(1)}km`,
+          );
+          return { distance: geoDistance, isTravel: false };
+        }
+
         console.log(
-          `Travel distance: ${distanceKm.toFixed(1)}km, ${durationMinutes.toFixed(0)} min`,
+          `Travel distance: ${distanceKm.toFixed(1)}km, ${durationMinutes.toFixed(0)} min (vs ${geoDistance.toFixed(1)}km geo)`,
         );
         return {
           distance: distanceKm,
@@ -219,7 +238,6 @@ const calculateTravelDistance = async (
   }
 
   // Fallback to geographic distance
-  const geoDistance = calculateGeographicDistance(lat1, lng1, lat2, lng2);
   return { distance: geoDistance, isTravel: false };
 };
 
