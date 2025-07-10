@@ -71,11 +71,23 @@ export default function Home() {
         const placeType = place.type.toLowerCase();
         const categoryName = category.name.toLowerCase();
 
-        // Direct match or partial match
-        return (
-          placeType === categoryName ||
-          placeType.includes(categoryName) ||
-          categoryName.includes(placeType)
+        // Create more intelligent matching rules
+        const matchingRules = {
+          "fine dining": ["fine dining", "fine", "dining"],
+          churrascaria: ["churrascaria", "churrasco"],
+          cafeterias: ["cafeteria", "cafe", "café", "coffee"],
+          padarias: ["padaria", "bakery", "confeitaria"],
+          botecos: ["boteco", "bar", "pub"],
+          açaí: ["açaí", "acai"],
+        };
+
+        // Check direct match first
+        if (placeType === categoryName) return true;
+
+        // Check specific rules
+        const rules = matchingRules[categoryName] || [categoryName];
+        return rules.some(
+          (rule) => placeType.includes(rule) || rule.includes(placeType),
         );
       }).length;
 
