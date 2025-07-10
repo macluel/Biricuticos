@@ -31,12 +31,41 @@ import { FallbackMap } from "@/components/FallbackMap";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
-// Configure Mapbox without fetch override to avoid conflicts
+// Handle Mapbox telemetry gracefully to prevent fetch errors
 if (typeof window !== "undefined") {
-  // @ts-ignore - Set Mapbox configuration
+  // Intercept fetch calls to handle telemetry requests gracefully
+  const originalFetch = window.fetch;
+  window.fetch = function (...args) {
+    const url = args[0];
+    if (typeof url === "string") {
+      // Handle telemetry and analytics endpoints gracefully
+      if (
+        url.includes("events.mapbox.com") ||
+        url.includes("/events/") ||
+        url.includes("events.mapbox.cn") ||
+        url.includes("api.mapbox.com/events")
+      ) {
+        // Return a successful response for telemetry to prevent errors
+        return Promise.resolve(
+          new Response(JSON.stringify({ success: true }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }),
+        );
+      }
+    }
+    // Allow all legitimate map requests (tiles, styles, etc.)
+    return originalFetch.apply(this, args);
+  };
+
+  // Configure Mapbox to minimize telemetry
+  // @ts-ignore
   if (window.mapboxgl) {
     // @ts-ignore
-    window.mapboxgl.config = { REQUIRE_ACCESS_TOKEN: true };
+    window.mapboxgl.config = {
+      REQUIRE_ACCESS_TOKEN: true,
+      EVENTS_URL: false, // Disable events URL
+    };
   }
 }
 
