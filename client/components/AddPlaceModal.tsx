@@ -37,12 +37,17 @@ interface AddPlaceModalProps {
 
 interface PlaceFormData {
   name: string;
-  location: string;
+  address: string;
+  neighborhood: string;
+  city: string;
+  state: string;
   type: string;
   description: string;
   price: string;
   rating: number;
   imageUrl: string;
+  lat?: number;
+  lng?: number;
 }
 
 export function AddPlaceModal({
