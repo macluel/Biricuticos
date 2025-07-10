@@ -105,17 +105,17 @@ export default function MapView() {
       </div>
 
       {/* Map Container */}
-      <div className="relative h-[600px] bg-gray-100 rounded-2xl overflow-hidden border border-gray-200">
+      <div className="relative h-[600px] bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Map Placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
           <div className="text-center">
-            <Map className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">
-              Interactive Map
+            <Map className="h-16 w-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Interactive Food Map
             </h3>
-            <p className="text-gray-500 max-w-md">
+            <p className="text-gray-500 dark:text-gray-400 max-w-md">
               This is where an interactive map would be displayed showing all
-              the places with markers. In a real application, this would
+              our food places with markers. In a real application, this would
               integrate with mapping services like Google Maps, Mapbox, or
               OpenStreetMap.
             </p>
@@ -169,14 +169,14 @@ export default function MapView() {
 
         {/* Place Info Popup */}
         {selectedPlace && (
-          <div className="absolute bottom-4 left-4 right-4 lg:left-4 lg:right-auto lg:w-80 bg-white rounded-xl shadow-xl border border-gray-200 p-4">
+          <div className="absolute bottom-4 left-4 right-4 lg:left-4 lg:right-auto lg:w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4">
             <div className="flex items-start justify-between mb-2">
-              <h3 className="font-semibold text-gray-900">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                 {selectedPlace.name}
               </h3>
               <button
                 onClick={() => setSelectedPlace(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
               >
                 ×
               </button>
@@ -202,24 +202,34 @@ export default function MapView() {
       </div>
 
       {/* Map Legend */}
-      <div className="bg-white rounded-xl border border-gray-200 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Map Legend</h3>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
+        <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">
+          Map Legend
+        </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-primary-600 rounded-full"></div>
-            <span className="text-sm text-gray-600">Featured Places</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              Featured Food Places
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-green-600 rounded-full"></div>
-            <span className="text-sm text-gray-600">Parks & Nature</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              Cafes & Coffee
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-blue-600 rounded-full"></div>
-            <span className="text-sm text-gray-600">Museums & Culture</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              Fine Dining
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 bg-orange-600 rounded-full"></div>
-            <span className="text-sm text-gray-600">Landmarks</span>
+            <span className="text-sm text-gray-600 dark:text-gray-300">
+              Casual Dining
+            </span>
           </div>
         </div>
       </div>
