@@ -257,7 +257,19 @@ export default function Catalog() {
           <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">
             {place.name}
           </h3>
-          <FavoriteButton placeId={place.id} />
+          <div className="flex items-center gap-2">
+            <FavoriteButton placeId={place.id} />
+            {user && place.addedBy === user.id && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedPlaceForActions(place)}
+                className="p-1 h-8 w-8"
+              >
+                <MoreVertical className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-2 mb-3">
           <MapPin className="h-4 w-4 text-gray-400" />
