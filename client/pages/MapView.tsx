@@ -627,7 +627,7 @@ export default function MapView() {
                 place.lng,
               )
             : null;
-          const isNearby = distanceFromUser && distanceFromUser <= 2; // Within 2km
+          const isNearby = distanceFromUser && distanceFromUser <= 5; // Within 5km
           const markerColor = isNearby ? "#10b981" : "#ef4444"; // Green if nearby, red otherwise
 
           // Create marker container
