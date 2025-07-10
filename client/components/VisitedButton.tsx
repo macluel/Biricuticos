@@ -46,7 +46,7 @@ export function VisitedButton({
         onClick={handleClick}
         className={cn(
           "p-1 rounded-full transition-all duration-200 hover:scale-110",
-          interaction.isVisited
+          interaction.isVisited || isUserVisited
             ? "text-green-500 hover:text-green-600"
             : "text-gray-400 hover:text-green-500",
           className,
