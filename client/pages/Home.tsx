@@ -197,24 +197,34 @@ export default function Home() {
             Categorias
           </h2>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {dynamicCategories.map((category) => (
-            <Link
-              key={category.name}
-              to={`/catalog?category=${category.name.toLowerCase().replace(" ", "-")}`}
-              className="group p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:shadow-lg transition-all duration-200"
-            >
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
-                {category.icon}
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
-                {category.name}
-              </h3>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {category.count} locais
-              </p>
-            </Link>
-          ))}
+        {/* Horizontal scrollable container */}
+        <div className="relative">
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800">
+            {dynamicCategories.map((category) => (
+              <Link
+                key={category.name}
+                to={`/catalog?category=${category.name.toLowerCase().replace(" ", "-")}`}
+                className="group flex-shrink-0 w-36 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:shadow-lg transition-all duration-200 snap-start"
+              >
+                <div className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-200 text-center">
+                  {category.icon}
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-center text-sm">
+                  {category.name}
+                </h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                  {category.count} locais
+                </p>
+              </Link>
+            ))}
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="flex justify-center mt-2">
+            <p className="text-xs text-gray-400 dark:text-gray-500">
+              ← Deslize para ver mais categorias →
+            </p>
+          </div>
         </div>
       </section>
 
