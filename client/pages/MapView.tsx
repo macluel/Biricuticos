@@ -213,19 +213,14 @@ export default function MapView() {
     };
   }, []);
 
-  // Update markers when filtered places change
+  // Visual map handles markers internally, no need for separate effects
   useEffect(() => {
-    if (map.current && !mapboxFailed) {
-      addMarkersToMap();
-    }
-  }, [filteredPlaces, mapboxFailed]);
+    // Visual map doesn't need marker updates
+  }, [filteredPlaces]);
 
-  // Update user location marker when location changes
   useEffect(() => {
-    if (userLocation && map.current && !mapboxFailed) {
-      addUserLocationMarker();
-    }
-  }, [userLocation, mapboxFailed]);
+    // Visual map handles user location internally
+  }, [userLocation]);
 
   const addUserLocationMarker = () => {
     if (!map.current || !userLocation) return;
