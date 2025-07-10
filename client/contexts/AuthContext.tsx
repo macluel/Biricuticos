@@ -53,8 +53,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // Load user from localStorage on init
   useEffect(() => {
-    // Clear any existing place interactions to start fresh
+    // Clear ALL user data to start completely fresh
     localStorage.removeItem("place-interactions");
+    localStorage.removeItem("biricuticos-user");
+    localStorage.removeItem("user-added-places");
 
     // Initialize demo users with clean preferences
     const existingUsers = localStorage.getItem("biricuticos-users");
