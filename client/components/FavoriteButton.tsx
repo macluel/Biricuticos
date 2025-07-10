@@ -33,6 +33,16 @@ export function FavoriteButton({
         e.preventDefault(); // Prevent any parent link clicks
         e.stopPropagation();
         toggleFavorite(placeId);
+
+        // Also update user preferences if logged in
+        if (user) {
+          const currentFavorites = user.preferences.favorites;
+          const newFavorites = currentFavorites.includes(placeId)
+            ? currentFavorites.filter((id) => id !== placeId)
+            : [...currentFavorites, placeId];
+
+          updateUserPreferences({ favorites: newFavorites });
+        }
       }}
       className={cn(
         "p-1 rounded-full transition-all duration-200 hover:scale-110",
