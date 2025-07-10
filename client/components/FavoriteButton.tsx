@@ -1,6 +1,6 @@
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { usePlaceStats } from "@/hooks/usePlaceStats";
+import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
 interface FavoriteButtonProps {
   placeId: number;
