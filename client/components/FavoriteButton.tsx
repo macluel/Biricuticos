@@ -61,7 +61,7 @@ export function FavoriteButton({
         className={cn(
           sizeClasses[size],
           "transition-all duration-200",
-          interaction.isFavorited ? "fill-current" : "",
+          interaction.isFavorited || isUserFavorite ? "fill-current" : "",
         )}
       />
     </button>
