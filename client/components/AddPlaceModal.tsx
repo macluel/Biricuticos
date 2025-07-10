@@ -180,12 +180,25 @@ export function AddPlaceModal({
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      // Create full address for display
+      const fullLocation = [
+        formData.address,
+        formData.neighborhood,
+        formData.city,
+        formData.state,
+      ]
+        .filter(Boolean)
+        .join(", ");
+
       // Create new place object
       const newPlace = {
         id: Date.now(), // In real app, this would come from the server
         name: formData.name,
-        location: formData.location,
-        state: "Rio de Janeiro", // Default for now
+        location: fullLocation,
+        address: formData.address,
+        neighborhood: formData.neighborhood || "",
+        city: formData.city,
+        state: formData.state,
         type: formData.type,
         rating: formData.rating,
         reviews: 0, // New place starts with 0 reviews
@@ -195,8 +208,8 @@ export function AddPlaceModal({
           "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
         description: formData.description,
         tags: [formData.type.toLowerCase(), "user-added"],
-        lat: -22.9068 + (Math.random() - 0.5) * 0.1, // Random coordinates near Rio
-        lng: -43.1729 + (Math.random() - 0.5) * 0.1,
+        lat: formData.lat || -22.9068 + (Math.random() - 0.5) * 0.1,
+        lng: formData.lng || -43.1729 + (Math.random() - 0.5) * 0.1,
         addedBy: user.id,
         addedAt: new Date().toISOString(),
       };
