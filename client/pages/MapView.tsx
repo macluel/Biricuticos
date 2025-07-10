@@ -252,36 +252,34 @@ export default function MapView() {
   const addUserLocationMarker = () => {
     if (!map.current || !userLocation) return;
 
-    // Remove existing user location marker
-    if (userLocationMarker.current) {
-      userLocationMarker.current.remove();
+    try {
+      // Remove existing user location marker
+      if (userLocationMarker.current) {
+        userLocationMarker.current.remove();
+      }
+
+      // Create user location marker element
+      const userMarkerElement = document.createElement("div");
+      userMarkerElement.className = "user-location-marker";
+
+      // Apply styles via properties instead of innerHTML for CSP safety
+      const markerDiv = document.createElement("div");
+      markerDiv.style.width = "20px";
+      markerDiv.style.height = "20px";
+      markerDiv.style.backgroundColor = "#3b82f6";
+      markerDiv.style.border = "3px solid white";
+      markerDiv.style.borderRadius = "50%";
+      markerDiv.style.boxShadow = "0 0 0 3px rgba(59, 130, 246, 0.3)";
+
+      userMarkerElement.appendChild(markerDiv);
+
+      // Create user location marker
+      userLocationMarker.current = new mapboxgl.Marker(userMarkerElement)
+        .setLngLat([userLocation.lng, userLocation.lat])
+        .addTo(map.current);
+    } catch (error) {
+      console.warn("Error adding user location marker:", error);
     }
-
-    // Create user location marker element
-    const userMarkerElement = document.createElement("div");
-    userMarkerElement.innerHTML = `
-      <div style="
-        width: 20px;
-        height: 20px;
-        background-color: #3b82f6;
-        border: 3px solid white;
-        border-radius: 50%;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-        animation: pulse 2s infinite;
-      "></div>
-      <style>
-        @keyframes pulse {
-          0% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
-          50% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0.1); }
-          100% { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
-        }
-      </style>
-    `;
-
-    // Create user location marker
-    userLocationMarker.current = new mapboxgl.Marker(userMarkerElement)
-      .setLngLat([userLocation.lng, userLocation.lat])
-      .addTo(map.current);
   };
 
   const addMarkersToMap = () => {
