@@ -632,8 +632,8 @@ export default function MapView() {
           </div>
         </div>
 
-        {/* Place Info Popup */}
-        {selectedPlace && (
+        {/* Place Info Popup - only show for Mapbox, FallbackMap handles its own */}
+        {selectedPlace && !mapboxFailed && (
           <div className="absolute bottom-4 left-4 right-4 lg:left-4 lg:right-auto lg:w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 p-4 z-20">
             <div className="flex items-start justify-between mb-2">
               <h3 className="font-semibold text-gray-900 dark:text-gray-100">
