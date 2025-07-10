@@ -119,26 +119,9 @@ const originalAllPlaces = [
   },
 ];
 
-const placeTypes = [
-  "Todos",
-  "Fine Dining",
-  "Pizzaria",
-  "Confeitaria",
-  "Churrascaria",
-  "Boteco",
-  "Galeto",
-  "Açaí",
-];
-const states = [
-  "Todos",
-  "Rio de Janeiro",
-  "São Paulo",
-  "Minas Gerais",
-  "Bahia",
-  "Pernambuco",
-  "Rio Grande do Sul",
-];
-const priceRanges = ["Todos", "$", "$$", "$$$", "$$$$"];
+const placeTypes = filterOptions.placeTypes;
+const states = filterOptions.states;
+const priceRanges = filterOptions.priceRanges;
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
