@@ -37,7 +37,7 @@ const navItems = [
   },
   {
     name: "Mapa",
-    href: "/MapView",
+    href: "/map",
     icon: Map,
   },
 ];
