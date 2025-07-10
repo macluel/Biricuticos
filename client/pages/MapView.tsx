@@ -79,11 +79,11 @@ if (typeof window !== "undefined") {
         );
       }
 
-      // For non-Mapbox requests, use original fetch with safety wrapper
+      // Only for explicitly safe requests, use original fetch
       try {
         return originalFetch.apply(this, args);
       } catch (error) {
-        console.log("Non-Mapbox fetch error, returning fallback");
+        console.log("Safe request failed, providing fallback");
         return Promise.resolve(
           new Response('{"error":"Fetch failed"}', {
             status: 200,
