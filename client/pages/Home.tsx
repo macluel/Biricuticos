@@ -15,49 +15,49 @@ import { Input } from "@/components/ui/input";
 const featuredPlaces = [
   {
     id: 1,
-    name: "The French Laundry",
-    location: "Yountville, CA",
+    name: "Oro",
+    location: "Leblon, Rio de Janeiro",
     type: "Fine Dining",
     rating: 4.9,
-    reviews: 1847,
+    reviews: 1247,
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
     description:
-      "Michelin-starred restaurant offering exquisite French cuisine in Napa Valley.",
+      "Restaurante premiado com estrela Michelin, oferecendo alta gastronomia brasileira.",
   },
   {
     id: 2,
-    name: "Joe's Pizza",
-    location: "New York City, NY",
-    type: "Pizza",
+    name: "Pizzaria Guanabara",
+    location: "Copacabana, Rio de Janeiro",
+    type: "Pizzaria",
     rating: 4.6,
-    reviews: 3421,
+    reviews: 2341,
     image:
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
     description:
-      "Authentic NYC pizza slice that's been a local favorite since 1975.",
+      "Pizza tradicional carioca desde 1969, famosa pela massa fininha e ingredientes frescos.",
   },
   {
     id: 3,
-    name: "Tartine Bakery",
-    location: "San Francisco, CA",
-    type: "Bakery",
+    name: "Confeitaria Colombo",
+    location: "Centro, Rio de Janeiro",
+    type: "Confeitaria",
     rating: 4.7,
-    reviews: 2156,
+    reviews: 3156,
     image:
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
     description:
-      "Artisanal bakery famous for fresh bread, pastries, and morning coffee.",
+      "Confeitaria histórica de 1894, famosa pelos doces tradicionais e arquitetura belle époque.",
   },
 ];
 
 const trendingCategories = [
-  { name: "Fine Dining", count: 24, icon: "🍽️" },
-  { name: "Pizza", count: 18, icon: "🍕" },
-  { name: "Coffee & Cafes", count: 31, icon: "☕" },
-  { name: "Bakery", count: 15, icon: "🥐" },
-  { name: "Pubs & Bars", count: 22, icon: "🍻" },
-  { name: "Dessert", count: 19, icon: "🍰" },
+  { name: "Fine Dining", count: 18, icon: "🍽️" },
+  { name: "Churrascaria", count: 12, icon: "🥩" },
+  { name: "Cafeterias", count: 25, icon: "☕" },
+  { name: "Padarias", count: 19, icon: "🥐" },
+  { name: "Botecos", count: 31, icon: "🍻" },
+  { name: "Açaí", count: 14, icon: "🫐" },
 ];
 
 export default function Home() {
