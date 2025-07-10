@@ -125,6 +125,13 @@ const originalAllPlaces = [
 const placeTypes = filterOptions.placeTypes;
 const states = filterOptions.states;
 const priceRanges = filterOptions.priceRanges;
+const interactionTypes = [
+  "Todos",
+  "Quero Provar", // Favorited but not visited
+  "Já Visitamos", // Visited
+  "Favoritos", // All favorited
+  "Ainda não Tentei", // Not favorited and not visited
+];
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
