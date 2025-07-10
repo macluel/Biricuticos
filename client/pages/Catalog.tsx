@@ -235,9 +235,11 @@ export default function Catalog() {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Place Catalog</h1>
-          <p className="text-gray-600">
-            Discover {allPlaces.length} amazing places to visit
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Food Places
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            Our collection of {allPlaces.length} amazing food places to try
           </p>
         </div>
 
@@ -282,7 +284,7 @@ export default function Catalog() {
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
               type="text"
-              placeholder="Search places..."
+              placeholder="Search restaurants, cafes, cuisines..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-12"
@@ -292,7 +294,7 @@ export default function Catalog() {
 
         <Select value={selectedType} onValueChange={setSelectedType}>
           <SelectTrigger>
-            <SelectValue placeholder="Place Type" />
+            <SelectValue placeholder="Food Type" />
           </SelectTrigger>
           <SelectContent>
             {placeTypes.map((type) => (
@@ -343,8 +345,8 @@ export default function Catalog() {
 
       {/* Results */}
       <div className="flex items-center justify-between">
-        <p className="text-gray-600">
-          Showing {filteredPlaces.length} of {allPlaces.length} places
+        <p className="text-gray-600 dark:text-gray-300">
+          Showing {filteredPlaces.length} of {allPlaces.length} food places
         </p>
       </div>
 
@@ -364,10 +366,10 @@ export default function Catalog() {
       {filteredPlaces.length === 0 && (
         <div className="text-center py-12">
           <Search className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">
-            No places found
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+            No food places found
           </h3>
-          <p className="text-gray-600">
+          <p className="text-gray-600 dark:text-gray-300">
             Try adjusting your search criteria or filters
           </p>
         </div>
