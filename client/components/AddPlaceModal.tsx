@@ -163,8 +163,13 @@ export function AddPlaceModal({
     }
 
     // Validation
-    if (!formData.name || !formData.location || !formData.type) {
-      setError("Nome, localização e tipo são obrigatórios");
+    if (
+      !formData.name ||
+      !formData.address ||
+      !formData.city ||
+      !formData.type
+    ) {
+      setError("Nome, endereço, cidade e tipo são obrigatórios");
       return;
     }
 
