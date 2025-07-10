@@ -10,7 +10,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { appConfig, categories, places } from "@/data/config";
+import { appConfig, categories } from "@/data/config";
+import { usePlaces } from "@/contexts/PlacesContext";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
