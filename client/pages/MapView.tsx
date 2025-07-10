@@ -131,7 +131,7 @@ export default function MapView() {
     // Check if geolocation is supported
     if (!navigator.geolocation) {
       setLocationError(
-        "🚫 Geolocalização não é suportada neste navegador\n\n���� Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
+        "🚫 Geolocalização não é suportada neste navegador\n\n💡 Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
       );
       setIsTrackingLocation(false);
       return;
@@ -252,8 +252,69 @@ export default function MapView() {
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
           }
 
-          setLocationError(errorMessage);
-          setIsTrackingLocation(false);
+          // Try again with lower accuracy if the first attempt failed
+          if (error.code === 3 && options.enableHighAccuracy) {
+            console.log("High accuracy failed, trying with lower accuracy...");
+
+            const fallbackOptions = {
+              enableHighAccuracy: false,
+              timeout: 30000,
+              maximumAge: 60000,
+            };
+
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const { latitude, longitude, accuracy } = position.coords;
+                console.log("Fallback location found:", {
+                  latitude,
+                  longitude,
+                  accuracy,
+                });
+
+                setUserLocation({ lat: latitude, lng: longitude });
+                setIsTrackingLocation(false);
+                setLocationError(null);
+
+                // Update map center to user location
+                if (map.current) {
+                  map.current.flyTo({
+                    center: [longitude, latitude],
+                    zoom: 15,
+                    duration: 1500,
+                  });
+                }
+
+                // Calculate nearest places
+                const placesWithDistance = mapPlaces.map((place) => ({
+                  ...place,
+                  distance: calculateDistance(
+                    latitude,
+                    longitude,
+                    place.lat,
+                    place.lng,
+                  ),
+                }));
+
+                const nearest = placesWithDistance
+                  .sort((a, b) => a.distance - b.distance)
+                  .slice(0, 5);
+
+                setNearestPlaces(nearest);
+              },
+              (fallbackError) => {
+                console.error(
+                  "Fallback geolocation also failed:",
+                  fallbackError,
+                );
+                setLocationError(errorMessage);
+                setIsTrackingLocation(false);
+              },
+              fallbackOptions,
+            );
+          } else {
+            setLocationError(errorMessage);
+            setIsTrackingLocation(false);
+          }
         },
         options,
       );
