@@ -46,7 +46,7 @@ export function FavoriteButton({
       }}
       className={cn(
         "p-1 rounded-full transition-all duration-200 hover:scale-110",
-        interaction.isFavorited
+        interaction.isFavorited || isUserFavorite
           ? "text-red-500 hover:text-red-600"
           : "text-gray-400 hover:text-red-500",
         className,
