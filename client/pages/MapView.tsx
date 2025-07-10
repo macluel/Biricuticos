@@ -20,9 +20,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import { places } from "@/data/config";
+
+// Use places from config for map markers
+const mapPlaces = places.map((place) => ({
+  id: place.id,
+  name: place.name,
+  type: place.type,
+  rating: place.rating,
+  lat: place.lat || -22.9068, // Default to Rio if no coordinates
+  lng: place.lng || -43.1729,
+}));
 
 // Sample places for map markers
-const mapPlaces = [
+const originalMapPlaces = [
   {
     id: 1,
     name: "Pizzaria Guanabara",
