@@ -62,13 +62,21 @@ export function AddPlaceModal({
 
   const [formData, setFormData] = useState<PlaceFormData>({
     name: "",
-    location: "",
+    address: "",
+    neighborhood: "",
+    city: "Rio de Janeiro",
+    state: "Rio de Janeiro",
     type: "",
     description: "",
     price: "",
     rating: 5,
     imageUrl: "",
+    lat: -22.9068,
+    lng: -43.1729,
   });
+
+  const [isGeocoding, setIsGeocoding] = useState(false);
+  const [coordinatesSet, setCoordinatesSet] = useState(false);
 
   const foodTypes = [
     "Fine Dining",
