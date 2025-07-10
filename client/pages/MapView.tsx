@@ -217,6 +217,17 @@ export default function MapView() {
         preserveDrawingBuffer: false,
         antialias: false,
         localIdeographFontFamily: false,
+        transformRequest: (url, resourceType) => {
+          // Block telemetry and events requests
+          if (
+            url.includes("events.mapbox.com") ||
+            url.includes("api.mapbox.com/events") ||
+            url.includes("events.mapbox.cn")
+          ) {
+            return { url: "" }; // Return empty URL to cancel request
+          }
+          return { url };
+        },
       });
 
       // Disable telemetry and error reporting
