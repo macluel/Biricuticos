@@ -28,7 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { useAuth } from "@/contexts/AuthContext";
+import { useNetlifyAuth as useAuth } from "@/contexts/NetlifyAuthContext";
 import { usePlaces } from "@/contexts/PlacesContext";
 
 interface PlaceActionsModalProps {
