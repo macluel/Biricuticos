@@ -340,23 +340,39 @@ export default function MapView() {
             });
           }
 
-          // Calculate nearest places
-          const placesWithDistance = mapPlaces.map((place) => ({
-            ...place,
-            distance: calculateDistance(
-              latitude,
-              longitude,
-              place.lat,
-              place.lng,
-            ),
-          }));
+          // Calculate nearest places with travel distance
+          const calculateNearestPlaces = async () => {
+            const placesWithTravelDistance = await Promise.all(
+              mapPlaces.map(async (place) => {
+                const travelData = await calculateTravelDistance(
+                  latitude,
+                  longitude,
+                  place.lat,
+                  place.lng,
+                );
+                return {
+                  ...place,
+                  distance: travelData.distance,
+                  travelTime: travelData.travelTime,
+                  isTravel: travelData.isTravel,
+                };
+              }),
+            );
 
-          // Sort by distance and take top 5
-          const nearest = placesWithDistance
-            .sort((a, b) => a.distance - b.distance)
-            .slice(0, 5);
+            // Sort by distance and take top 5
+            const nearest = placesWithTravelDistance
+              .sort((a, b) => a.distance - b.distance)
+              .slice(0, 5);
 
-          setNearestPlaces(nearest);
+            setNearestPlaces(nearest);
+            console.log(
+              "Nearest places calculated with travel distance:",
+              nearest,
+            );
+          };
+
+          // Calculate travel distances asynchronously
+          calculateNearestPlaces();
 
           // If accuracy is poor and we used low accuracy, try high accuracy
           if (accuracy > 100 && !options.enableHighAccuracy) {
