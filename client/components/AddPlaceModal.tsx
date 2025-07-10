@@ -223,13 +223,19 @@ export function AddPlaceModal({
       // Reset form and close modal
       setFormData({
         name: "",
-        location: "",
+        address: "",
+        neighborhood: "",
+        city: "Rio de Janeiro",
+        state: "Rio de Janeiro",
         type: "",
         description: "",
         price: "",
         rating: 5,
         imageUrl: "",
+        lat: -22.9068,
+        lng: -43.1729,
       });
+      setCoordinatesSet(false);
       onClose();
     } catch (error) {
       setError("Erro ao adicionar lugar. Tente novamente.");
