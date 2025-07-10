@@ -198,24 +198,31 @@ export default function MapView() {
           setNearestPlaces(nearest);
         },
         (error) => {
-          console.error("Geolocation error:", error);
+          console.error("Geolocation error details:", {
+            code: error.code,
+            message: error.message,
+            PERMISSION_DENIED: error.PERMISSION_DENIED,
+            POSITION_UNAVAILABLE: error.POSITION_UNAVAILABLE,
+            TIMEOUT: error.TIMEOUT,
+          });
+
           let errorMessage = "Erro ao obter localização";
 
           switch (error.code) {
-            case error.PERMISSION_DENIED:
+            case 1: // PERMISSION_DENIED
               errorMessage =
-                "Permissão de localização negada. Para ativar: \n\n1) Clique no ícone de cadeado/localização na barra do navegador\n2) Selecione 'Permitir localização'\n3) Atualize a página e tente novamente\n\nNo celular: Vá em Configurações > Site > Localização > Permitir";
+                "❌ Permissão de localização negada\n\n📱 Para ativar no celular:\n• Vá em Configurações do navegador\n• Procure por 'Permissões do site'\n• Encontre este site e ative 'Localização'\n\n💻 Para ativar no computador:\n• Clique no ícone de cadeado na barra do navegador\n• Selecione 'Permitir localização'\n• Atualize a página";
               break;
-            case error.POSITION_UNAVAILABLE:
+            case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "Sua localização não está disponível. Verifique se:\n• O GPS está ligado no seu dispositivo\n• Você tem conexão com a internet\n• Está em um local com boa recepção de GPS";
+                "📍 Sua localização não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
               break;
-            case error.TIMEOUT:
+            case 3: // TIMEOUT
               errorMessage =
-                "O GPS demorou para responder. Tente novamente - pode levar alguns segundos no celular.";
+                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
-              errorMessage = `Erro de localização (código ${error.code}): ${error.message}`;
+              errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
           }
 
           setLocationError(errorMessage);
