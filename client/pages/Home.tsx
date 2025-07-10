@@ -129,8 +129,8 @@ export default function Home() {
       <section>
         <div className="flex items-center gap-3 mb-8">
           <TrendingUp className="h-6 w-6 text-primary-600" />
-          <h2 className="text-3xl font-bold text-gray-900">
-            Trending Categories
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Food Categories
           </h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -138,15 +138,17 @@ export default function Home() {
             <Link
               key={category.name}
               to={`/catalog?category=${category.name.toLowerCase().replace(" ", "-")}`}
-              className="group p-6 bg-white rounded-2xl border border-gray-200 hover:border-primary-300 hover:shadow-lg transition-all duration-200"
+              className="group p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 hover:border-primary-300 hover:shadow-lg transition-all duration-200"
             >
               <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-200">
                 {category.icon}
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1">
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
                 {category.name}
               </h3>
-              <p className="text-sm text-gray-500">{category.count} places</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {category.count} places
+              </p>
             </Link>
           ))}
         </div>
@@ -155,7 +157,9 @@ export default function Home() {
       {/* Featured Places */}
       <section>
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">Featured Places</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+            Featured Food Places
+          </h2>
           <Button variant="outline" asChild>
             <Link to="/catalog">View All Places</Link>
           </Button>
@@ -164,7 +168,7 @@ export default function Home() {
           {featuredPlaces.map((place) => (
             <div
               key={place.id}
-              className="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
             >
               <div className="relative overflow-hidden">
                 <img
@@ -183,7 +187,7 @@ export default function Home() {
               </div>
               <div className="p-6">
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">
                     {place.name}
                   </h3>
                   <button className="p-1 hover:text-red-500 transition-colors">
@@ -192,16 +196,18 @@ export default function Home() {
                 </div>
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="h-4 w-4 text-gray-400" />
-                  <span className="text-gray-600">{place.location}</span>
-                  <span className="px-2 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
+                  <span className="text-gray-600 dark:text-gray-300">
+                    {place.location}
+                  </span>
+                  <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
                     {place.type}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-4 line-clamp-2">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
                   {place.description}
                 </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
                     {place.reviews.toLocaleString()} reviews
                   </span>
                   <Button size="sm" variant="outline">
