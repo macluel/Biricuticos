@@ -308,9 +308,9 @@ export default function Catalog() {
 
       {/* Search and Filters */}
       <div
-        className={`grid lg:grid-cols-4 gap-4 ${showFilters || window.innerWidth >= 1024 ? "block" : "hidden lg:grid"}`}
+        className={`grid lg:grid-cols-5 gap-4 ${showFilters || window.innerWidth >= 1024 ? "block" : "hidden lg:grid"}`}
       >
-        <div className="lg:col-span-4">
+        <div className="lg:col-span-5">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
@@ -357,6 +357,22 @@ export default function Catalog() {
             {priceRanges.map((price) => (
               <SelectItem key={price} value={price}>
                 {price}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={selectedInteraction}
+          onValueChange={setSelectedInteraction}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Status" />
+          </SelectTrigger>
+          <SelectContent>
+            {interactionTypes.map((type) => (
+              <SelectItem key={type} value={type}>
+                {type}
               </SelectItem>
             ))}
           </SelectContent>
