@@ -141,7 +141,7 @@ export default function Home() {
                   placeholder="Buscar restaurantes, cafeterias ou culinárias..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-0 focus:bg-white"
+                  className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-2xl"
                 />
               </div>
               <Button
