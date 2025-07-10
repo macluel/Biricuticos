@@ -99,10 +99,19 @@ export default function MapView() {
       <div className="relative h-[600px] bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
         {/* Map Background with Rio de Janeiro styling */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-green-50 to-yellow-50 dark:from-gray-700 dark:via-gray-600 dark:to-gray-800">
-          {/* Decorative map elements */}
-          <div className="absolute top-20 left-20 w-32 h-20 bg-blue-200/30 dark:bg-blue-600/20 rounded-full blur-xl"></div>
-          <div className="absolute bottom-32 right-24 w-40 h-24 bg-green-200/30 dark:bg-green-600/20 rounded-full blur-xl"></div>
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-yellow-200/30 dark:bg-yellow-600/20 rounded-full blur-xl"></div>
+          {/* Map roads and districts */}
+          <div className="absolute top-0 left-1/4 w-1 h-full bg-gray-300/40 dark:bg-gray-500/40 transform rotate-12"></div>
+          <div className="absolute top-1/4 left-0 w-full h-1 bg-gray-300/40 dark:bg-gray-500/40"></div>
+          <div className="absolute top-3/4 left-0 w-full h-1 bg-gray-300/40 dark:bg-gray-500/40 transform -rotate-3"></div>
+          <div className="absolute top-0 right-1/3 w-1 h-full bg-gray-300/40 dark:bg-gray-500/40 transform -rotate-6"></div>
+
+          {/* Districts/areas */}
+          <div className="absolute top-16 left-16 w-28 h-24 bg-green-200/20 dark:bg-green-600/15 rounded-lg border border-green-300/30 dark:border-green-500/20"></div>
+          <div className="absolute bottom-20 right-16 w-32 h-20 bg-blue-200/20 dark:bg-blue-600/15 rounded-lg border border-blue-300/30 dark:border-blue-500/20"></div>
+          <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-yellow-200/20 dark:bg-yellow-600/15 rounded-lg border border-yellow-300/30 dark:border-yellow-500/20 transform -translate-x-1/2 -translate-y-1/2"></div>
+
+          {/* Water feature (Guanabara Bay) */}
+          <div className="absolute bottom-8 left-8 w-24 h-16 bg-blue-300/30 dark:bg-blue-600/25 rounded-full"></div>
         </div>
 
         {/* Map Header */}
