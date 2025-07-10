@@ -105,6 +105,56 @@ export function AddPlaceModal({
     { value: "$$$$", label: "$$$$ - Muito Caro" },
   ];
 
+  // Geocoding function using Nominatim (free OpenStreetMap service)
+  const geocodeAddress = async (fullAddress: string) => {
+    setIsGeocoding(true);
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1&countrycodes=br`,
+      );
+      const data = await response.json();
+
+      if (data && data.length > 0) {
+        const lat = parseFloat(data[0].lat);
+        const lng = parseFloat(data[0].lon);
+
+        setFormData((prev) => ({ ...prev, lat, lng }));
+        setCoordinatesSet(true);
+        console.log("Geocoded coordinates:", {
+          lat,
+          lng,
+          address: fullAddress,
+        });
+        return { lat, lng };
+      } else {
+        console.log("No coordinates found for address:", fullAddress);
+        return null;
+      }
+    } catch (error) {
+      console.error("Geocoding error:", error);
+      return null;
+    } finally {
+      setIsGeocoding(false);
+    }
+  };
+
+  // Auto-geocode when address changes
+  const handleAddressChange = async () => {
+    const fullAddress = [
+      formData.address,
+      formData.neighborhood,
+      formData.city,
+      formData.state,
+      "Brazil",
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    if (formData.address && formData.city) {
+      await geocodeAddress(fullAddress);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user) {
