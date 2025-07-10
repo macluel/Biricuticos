@@ -57,8 +57,11 @@ if (typeof window !== "undefined") {
   }
 }
 
-// Use places from config for map markers
-const mapPlaces = places.map((place) => ({
+export default function MapView() {
+  const { places } = usePlaces();
+
+  // Use places from context for map markers
+  const mapPlaces = places.map((place) => ({
   id: place.id,
   name: place.name,
   location: place.location,
@@ -109,7 +112,7 @@ export default function MapView() {
   const [nearestPlaces, setNearestPlaces] = useState<
     (typeof mapPlaces & { distance: number })[]
   >([]);
-  const [mapboxFailed, setMapboxFailed] = useState(true); // Use visual map by default to avoid fetch errors
+    const [mapboxFailed, setMapboxFailed] = useState(true); // Use visual map by default to avoid fetch errors
 
   // Filter places based on search and type
   const filteredPlaces = mapPlaces.filter((place) => {
@@ -205,7 +208,7 @@ export default function MapView() {
     window.open(googleMapsUrl, "_blank");
   };
 
-  useEffect(() => {
+      useEffect(() => {
     // Use visual map only to avoid all Mapbox fetch errors
     console.log("Using visual map to avoid network issues");
     return () => {
@@ -213,7 +216,7 @@ export default function MapView() {
     };
   }, []);
 
-  // Visual map handles markers internally, no need for separate effects
+      // Visual map handles markers internally, no need for separate effects
   useEffect(() => {
     // Visual map doesn't need marker updates
   }, [filteredPlaces]);
