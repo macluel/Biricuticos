@@ -321,17 +321,18 @@ export function AddPlaceModal({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="location">Localização *</Label>
+              <Label htmlFor="address">Endereço *</Label>
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
-                  id="location"
+                  id="address"
                   type="text"
-                  placeholder="Ex: Ipanema, Rio de Janeiro"
-                  value={formData.location}
-                  onChange={(e) =>
-                    setFormData({ ...formData, location: e.target.value })
-                  }
+                  placeholder="Ex: Rua Visconde de Pirajá, 120"
+                  value={formData.address}
+                  onChange={(e) => {
+                    setFormData({ ...formData, address: e.target.value });
+                  }}
+                  onBlur={handleAddressChange}
                   className="pl-10"
                   disabled={isSubmitting}
                 />
