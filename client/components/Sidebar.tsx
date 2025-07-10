@@ -242,6 +242,12 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
           </div>
         </div>
       </aside>
+
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+      />
     </>
   );
 }
