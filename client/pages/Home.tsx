@@ -137,7 +137,6 @@ export default function Home() {
                 size="lg"
                 variant="secondary"
                 className="px-8 py-4 text-lg font-semibold"
-                disabled={!searchQuery.trim()}
               >
                 {searchQuery.trim() ? (
                   <>
