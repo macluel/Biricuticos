@@ -25,6 +25,19 @@ export function FloatingActionButton() {
     <>
       {/* Floating Action Buttons */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3 z-40">
+        {/* Debug Button */}
+        <Button
+          onClick={() => {
+            console.log("Current places:", places);
+            alert(`Total places: ${places.length}`);
+          }}
+          variant="outline"
+          className="h-10 w-10 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 group text-xs"
+          title="Debug: Show places count"
+        >
+          {places.length}
+        </Button>
+
         {/* Clear Data Button (temporary) */}
         <Button
           onClick={() => {
