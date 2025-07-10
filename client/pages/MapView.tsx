@@ -31,29 +31,9 @@ import { FallbackMap } from "@/components/FallbackMap";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
-// Only disable Mapbox telemetry, allow legitimate API calls
+// Configure Mapbox without fetch override to avoid conflicts
 if (typeof window !== "undefined") {
-  // Override fetch to block only telemetry/analytics calls
-  const originalFetch = window.fetch;
-  window.fetch = function (...args) {
-    const url = args[0];
-    if (typeof url === "string") {
-      // Only block specific telemetry endpoints
-      if (
-        url.includes("events.mapbox.com") ||
-        url.includes("/events/v2") ||
-        url.includes("events.mapbox.cn")
-      ) {
-        // Return a fake successful response for telemetry calls only
-        return Promise.resolve(new Response("{}", { status: 200 }));
-      }
-    }
-    // Allow all other requests (map tiles, styles, API calls)
-    return originalFetch.apply(this, args);
-  };
-
-  // Disable telemetry at the library level
-  // @ts-ignore
+  // @ts-ignore - Set Mapbox configuration
   if (window.mapboxgl) {
     // @ts-ignore
     window.mapboxgl.config = { REQUIRE_ACCESS_TOKEN: true };
