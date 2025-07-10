@@ -148,7 +148,7 @@ export default function Home() {
                 {category.name}
               </h3>
               <p className="text-sm text-gray-500 dark:text-gray-400">
-                {category.count} places
+                {category.count} locais
               </p>
             </Link>
           ))}
@@ -159,10 +159,10 @@ export default function Home() {
       <section>
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-            Featured Food Places
+            Lugares em Destaque
           </h2>
           <Button variant="outline" asChild>
-            <Link to="/catalog">View All Places</Link>
+            <Link to="/catalog">Ver Todos os Lugares</Link>
           </Button>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -209,10 +209,10 @@ export default function Home() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {place.reviews.toLocaleString()} reviews
+                    {place.reviews.toLocaleString()} avaliações
                   </span>
                   <Button size="sm" variant="outline">
-                    Learn More
+                    Saiba Mais
                   </Button>
                 </div>
               </div>
