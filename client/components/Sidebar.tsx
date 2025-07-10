@@ -29,9 +29,9 @@ const navItems = [
     icon: Home,
   },
   {
-    name: "Catalog",
+    name: "Food Places",
     href: "/catalog",
-    icon: Search,
+    icon: UtensilsCrossed,
   },
   {
     name: "Map View",
