@@ -340,6 +340,85 @@ export function AddPlaceModal({
             </div>
           </div>
 
+          {/* Address Details */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="neighborhood">Bairro</Label>
+              <Input
+                id="neighborhood"
+                type="text"
+                placeholder="Ex: Ipanema"
+                value={formData.neighborhood}
+                onChange={(e) => {
+                  setFormData({ ...formData, neighborhood: e.target.value });
+                }}
+                onBlur={handleAddressChange}
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="city">Cidade *</Label>
+              <Input
+                id="city"
+                type="text"
+                placeholder="Ex: Rio de Janeiro"
+                value={formData.city}
+                onChange={(e) => {
+                  setFormData({ ...formData, city: e.target.value });
+                }}
+                onBlur={handleAddressChange}
+                disabled={isSubmitting}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="state">Estado</Label>
+              <Input
+                id="state"
+                type="text"
+                placeholder="Ex: Rio de Janeiro"
+                value={formData.state}
+                onChange={(e) => {
+                  setFormData({ ...formData, state: e.target.value });
+                }}
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          {/* Coordinates Display */}
+          {coordinatesSet && (
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <div className="text-green-500 mt-0.5">📍</div>
+                <div>
+                  <h3 className="font-medium text-green-800 dark:text-green-200 mb-1">
+                    Localização Encontrada!
+                  </h3>
+                  <p className="text-green-700 dark:text-green-300 text-sm mb-2">
+                    Coordenadas: {formData.lat?.toFixed(6)},{" "}
+                    {formData.lng?.toFixed(6)}
+                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400">
+                    O local será exibido no mapa usando essas coordenadas.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {isGeocoding && (
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <div className="flex items-center gap-3">
+                <div className="animate-spin h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                <span className="text-blue-700 dark:text-blue-300 text-sm">
+                  Procurando localização no mapa...
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Type and Price */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
