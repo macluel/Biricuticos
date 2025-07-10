@@ -16,8 +16,7 @@ import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 
-// Featured places from config
-const featuredPlaces = places.slice(0, 3); // Show first 3 places
+// This will be replaced with dynamic places from context
 
 // Sample data - in a real app this would come from an API
 const originalFeaturedPlaces = [
