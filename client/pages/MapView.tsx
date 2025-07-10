@@ -211,18 +211,13 @@ export default function MapView() {
     };
   }, []);
 
-  // Update markers when filtered places change
+  // No map-dependent effects needed for visual map
   useEffect(() => {
-    if (map.current) {
-      addMarkersToMap();
-    }
+    // Visual map doesn't need marker updates
   }, [filteredPlaces]);
 
-  // Update user location marker when location changes
   useEffect(() => {
-    if (userLocation && map.current) {
-      addUserLocationMarker();
-    }
+    // Visual map handles user location internally
   }, [userLocation]);
 
   const addUserLocationMarker = () => {
