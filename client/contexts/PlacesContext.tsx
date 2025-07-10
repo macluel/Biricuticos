@@ -66,6 +66,7 @@ export function PlacesProvider({ children }: PlacesProviderProps) {
 
   const addPlace = (newPlace: Place) => {
     try {
+      console.log("PlacesContext: Adding new place:", newPlace);
       const userAddedPlaces = JSON.parse(
         localStorage.getItem("user-added-places") || "[]",
       );
@@ -74,6 +75,7 @@ export function PlacesProvider({ children }: PlacesProviderProps) {
         "user-added-places",
         JSON.stringify(userAddedPlaces),
       );
+      console.log("PlacesContext: Place added to localStorage, refreshing...");
       refreshPlaces();
     } catch (error) {
       console.error("Error adding place:", error);
