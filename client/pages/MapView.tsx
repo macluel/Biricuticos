@@ -234,9 +234,10 @@ export default function MapView() {
           console.error("Geolocation error details:", {
             code: error.code,
             message: error.message,
-            PERMISSION_DENIED: error.PERMISSION_DENIED,
-            POSITION_UNAVAILABLE: error.POSITION_UNAVAILABLE,
-            TIMEOUT: error.TIMEOUT,
+            PERMISSION_DENIED: error.PERMISSION_DENIED || 1,
+            POSITION_UNAVAILABLE: error.POSITION_UNAVAILABLE || 2,
+            TIMEOUT: error.TIMEOUT || 3,
+            errorType: "GeolocationPositionError",
           });
 
           let errorMessage = "Erro ao obter localização";
