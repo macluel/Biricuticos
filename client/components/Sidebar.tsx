@@ -129,7 +129,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-500 dark:text-gray-400">
-                  Theme
+                  Tema
                 </span>
                 <Button
                   variant="outline"
@@ -143,7 +143,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     <Moon className="h-4 w-4" />
                   )}
                   <span className="ml-2 text-xs">
-                    {theme === "dark" ? "Light" : "Dark"}
+                    {theme === "dark" ? "Claro" : "Escuro"}
                   </span>
                 </Button>
               </div>
@@ -152,7 +152,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500 dark:text-gray-400">
-                    Want to Try
+                    Quero Provar
                   </span>
                   <div className="flex items-center gap-1">
                     <Heart className="h-4 w-4 text-red-400" />
@@ -163,7 +163,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500 dark:text-gray-400">
-                    Tried Together
+                    Provamos Juntos
                   </span>
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 text-yellow-400" />
