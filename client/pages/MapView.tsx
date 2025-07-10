@@ -169,13 +169,15 @@ export default function MapView() {
         switch (error.code) {
           case error.PERMISSION_DENIED:
             errorMessage =
-              "Permissão de localização negada. Permita o acesso à localização para usar esta funcionalidade.";
+              "Para usar o GPS: 1) Clique no ícone de localização na barra do navegador 2) Selecione 'Permitir' 3) Tente novamente";
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = "Localização indisponível";
+            errorMessage =
+              "GPS indisponível. Verifique se o GPS está ligado no seu dispositivo.";
             break;
           case error.TIMEOUT:
-            errorMessage = "Timeout ao obter localização";
+            errorMessage =
+              "GPS demorou para responder. Tente novamente em alguns segundos.";
             break;
         }
         setLocationError(errorMessage);
