@@ -62,6 +62,7 @@ const trendingCategories = categories;
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { stats } = usePlaceStats();
 
   return (
     <div className="space-y-12">
