@@ -1,7 +1,20 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
-import { Home, Search, Map, MapPin, Menu, X, Star, Heart } from "lucide-react";
+import { useTheme } from "@/components/ThemeProvider";
+import {
+  Home,
+  Search,
+  Map,
+  MapPin,
+  Menu,
+  X,
+  Star,
+  Heart,
+  Moon,
+  Sun,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -28,6 +41,7 @@ const navItems = [
 
 export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
 
   return (
     <>
@@ -105,21 +119,53 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             </ul>
           </nav>
 
-          {/* Quick stats/info */}
-          <div className="p-4 border-t border-gray-200/50">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">Saved Places</span>
-                <div className="flex items-center gap-1">
-                  <Heart className="h-4 w-4 text-red-400" />
-                  <span className="font-medium text-gray-700">24</span>
-                </div>
+          {/* Dark Mode Toggle */}
+          <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-500 dark:text-gray-400">
+                  Theme
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  className="w-auto h-8 px-3"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="h-4 w-4" />
+                  ) : (
+                    <Moon className="h-4 w-4" />
+                  )}
+                  <span className="ml-2 text-xs">
+                    {theme === "dark" ? "Light" : "Dark"}
+                  </span>
+                </Button>
               </div>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">Reviewed</span>
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 text-yellow-400" />
-                  <span className="font-medium text-gray-700">12</span>
+
+              {/* Quick stats/info */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Want to Try
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Heart className="h-4 w-4 text-red-400" />
+                    <span className="font-medium text-gray-700 dark:text-gray-300">
+                      18
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">
+                    Been There
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-400" />
+                    <span className="font-medium text-gray-700 dark:text-gray-300">
+                      7
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
