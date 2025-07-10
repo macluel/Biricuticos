@@ -71,15 +71,15 @@ export default function Home() {
         <div className="relative px-8 py-16 lg:px-12 lg:py-24">
           <div className="max-w-4xl">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Our Foodie
+              Nossa Aventura
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                Adventure List
+                Gastronômica
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-2xl">
-              From cozy date night spots to weekend brunch adventures, this is
-              our personal collection of amazing food places we want to try
-              together. ❤️
+              De jantares românticos a brunches de fim de semana, esta é nossa
+              coleção pessoal de lugares incríveis que queremos conhecer juntos.
+              ❤️
             </p>
 
             {/* Search Bar */}
