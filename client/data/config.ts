@@ -3,7 +3,7 @@
 
 // ===== APP BRANDING =====
 export const appConfig = {
-  name: "GuiaFood", // Change this to your preferred app name
+  name: "Biricuticos", // Change this to your preferred app name
   tagline: "Nossa lista gastronômica", // Your tagline
   description:
     "Nossa coleção pessoal de lugares incríveis que queremos conhecer juntos. ❤️",
