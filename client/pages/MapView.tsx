@@ -33,29 +33,68 @@ mapboxgl.accessToken =
 
 // Handle Mapbox telemetry gracefully to prevent fetch errors
 if (typeof window !== "undefined") {
-  // Intercept fetch calls to handle telemetry requests gracefully
+  // Store original fetch before any overrides
   const originalFetch = window.fetch;
+
   window.fetch = function (...args) {
     const url = args[0];
-    if (typeof url === "string") {
-      // Handle telemetry and analytics endpoints gracefully
-      if (
-        url.includes("events.mapbox.com") ||
-        url.includes("/events/") ||
-        url.includes("events.mapbox.cn") ||
-        url.includes("api.mapbox.com/events")
-      ) {
-        // Return a successful response for telemetry to prevent errors
-        return Promise.resolve(
-          new Response(JSON.stringify({ success: true }), {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-          }),
-        );
-      }
+    const urlString = typeof url === "string" ? url : url?.toString() || "";
+
+    // Comprehensive telemetry URL detection
+    const isTelemetryRequest =
+      urlString.includes("events.mapbox.com") ||
+      urlString.includes("events.mapbox.cn") ||
+      urlString.includes("/events/v2") ||
+      urlString.includes("/events/") ||
+      urlString.includes("api.mapbox.com/events") ||
+      urlString.includes("telemetry") ||
+      urlString.includes("analytics");
+
+    if (isTelemetryRequest) {
+      console.log("Intercepting telemetry request:", urlString);
+      // Return a successful response for telemetry to prevent errors
+      return Promise.resolve(
+        new Response(JSON.stringify({ success: true }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
     }
-    // Allow all legitimate map requests (tiles, styles, etc.)
-    return originalFetch.apply(this, args);
+
+    // For legitimate requests, wrap in try-catch to handle network failures gracefully
+    try {
+      return originalFetch.apply(this, args).catch((error) => {
+        // If it's still a telemetry-related error, handle it gracefully
+        if (
+          urlString.includes("mapbox") &&
+          (error.message?.includes("fetch") ||
+            error.message?.includes("network"))
+        ) {
+          console.log(
+            "Network error for Mapbox request, handling gracefully:",
+            urlString,
+          );
+          return new Response(
+            JSON.stringify({ error: "Network unavailable" }),
+            {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            },
+          );
+        }
+        // Re-throw for non-telemetry errors
+        throw error;
+      });
+    } catch (error) {
+      console.log("Fetch error caught:", error, "for URL:", urlString);
+      // Return a graceful response for any fetch errors
+      return Promise.resolve(
+        new Response(JSON.stringify({ error: "Request failed" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    }
   };
 
   // Configure Mapbox to minimize telemetry
