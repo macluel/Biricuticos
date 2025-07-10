@@ -126,12 +126,12 @@ export default function MapView() {
           <div className="text-center">
             <Map className="h-16 w-16 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
-              Interactive Food Map
+              Mapa Interativo de Restaurantes
             </h3>
             <p className="text-gray-500 dark:text-gray-400 max-w-md">
-              This is where an interactive map would be displayed showing all
-              our food places with markers. In a real application, this would
-              integrate with mapping services like Google Maps, Mapbox, or
+              Aqui seria exibido um mapa interativo mostrando todos os nossos
+              restaurantes com marcadores. Em uma aplicação real, isso seria
+              integrado com serviços de mapas como Google Maps, Mapbox ou
               OpenStreetMap.
             </p>
           </div>
