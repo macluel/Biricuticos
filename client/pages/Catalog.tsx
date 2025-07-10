@@ -23,6 +23,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { places, filterOptions } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
 // Use places from config
 const allPlaces = places;
