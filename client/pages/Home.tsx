@@ -71,14 +71,14 @@ export default function Home() {
         <div className="relative px-8 py-16 lg:px-12 lg:py-24">
           <div className="max-w-4xl">
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              Discover Amazing
+              Our Foodie
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
-                Places to Explore
+                Adventure List
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-2xl">
-              From hidden gems to world-famous landmarks, find your next
-              adventure with our curated collection of extraordinary places.
+              From cozy cafes to fine dining experiences, we're collecting all
+              the amazing food places we want to try together.
             </p>
 
             {/* Search Bar */}
@@ -87,7 +87,7 @@ export default function Home() {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <Input
                   type="text"
-                  placeholder="Search places, cities, or experiences..."
+                  placeholder="Search restaurants, cafes, or cuisines..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 py-4 text-lg bg-white/90 backdrop-blur-sm border-0 focus:bg-white"
@@ -100,7 +100,7 @@ export default function Home() {
                 asChild
               >
                 <Link to="/catalog">
-                  Explore All Places
+                  Browse Food Places
                   <ExternalLink className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -110,15 +110,15 @@ export default function Home() {
             <div className="flex flex-wrap gap-8 text-primary-100">
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
-                <span className="text-lg">1,200+ Places</span>
+                <span className="text-lg">129+ Food Places</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5" />
-                <span className="text-lg">50,000+ Reviews</span>
+                <span className="text-lg">25 Tried & Loved</span>
               </div>
               <div className="flex items-center gap-2">
                 <Heart className="h-5 w-5" />
-                <span className="text-lg">Community Curated</span>
+                <span className="text-lg">Personal Wishlist</span>
               </div>
             </div>
           </div>
