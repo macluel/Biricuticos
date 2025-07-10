@@ -77,8 +77,9 @@ export default function Home() {
               </span>
             </h1>
             <p className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-2xl">
-              From cozy cafes to fine dining experiences, we're collecting all
-              the amazing food places we want to try together.
+              From cozy date night spots to weekend brunch adventures, this is
+              our personal collection of amazing food places we want to try
+              together. ❤️
             </p>
 
             {/* Search Bar */}
