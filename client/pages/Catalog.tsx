@@ -214,11 +214,9 @@ export default function Catalog() {
         </p>
         <div className="flex items-center justify-between">
           <span className="text-sm text-gray-500 dark:text-gray-400">
-            {place.reviews.toLocaleString()} reviews
+            {place.reviews.toLocaleString()} avaliações
           </span>
-          <Button size="sm" variant="outline">
-            Learn More
-          </Button>
+          <VisitedButton placeId={place.id} size="sm" />
         </div>
       </div>
     </div>
