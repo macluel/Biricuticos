@@ -92,6 +92,9 @@ export default function Home() {
     if (searchQuery.trim()) {
       // Navigate to catalog with search query
       navigate(`/catalog?search=${encodeURIComponent(searchQuery.trim())}`);
+    } else {
+      // If no search query, just go to catalog
+      navigate("/catalog");
     }
   };
 
