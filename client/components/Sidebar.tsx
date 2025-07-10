@@ -13,6 +13,7 @@ import {
   Heart,
   Moon,
   Sun,
+  UtensilsCrossed,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
