@@ -27,8 +27,7 @@ import { VisitedButton } from "@/components/VisitedButton";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
 
-// Use places from config
-const allPlaces = places;
+// This will be replaced with dynamic places from context
 
 // Sample data - in a real app this would come from an API
 const originalAllPlaces = [
