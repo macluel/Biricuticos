@@ -67,9 +67,6 @@ const originalMapPlaces = [
 export default function MapView() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("All");
-  const [selectedPlace, setSelectedPlace] = useState<
-    (typeof mapPlaces)[0] | null
-  >(null);
 
   return (
     <div className="space-y-6">
