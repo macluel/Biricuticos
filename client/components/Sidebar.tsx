@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/data/config";
-import { usePlaceStats } from "@/hooks/usePlaceStats";
+import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
 interface SidebarProps {
   isOpen: boolean;
