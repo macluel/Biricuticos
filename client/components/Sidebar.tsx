@@ -112,7 +112,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                           "h-5 w-5 transition-transform duration-200",
                           isActive
                             ? "text-white"
-                            : "text-gray-400 group-hover:text-gray-600",
+                            : "text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300",
                         )}
                       />
                       <span className="font-medium">{item.name}</span>
