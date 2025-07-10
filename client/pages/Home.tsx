@@ -201,7 +201,7 @@ export default function Home() {
                   <span className="text-gray-600 dark:text-gray-300">
                     {place.location}
                   </span>
-                  <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full">
+                  <span className="px-2 py-1 bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-100 text-xs font-medium rounded-full">
                     {place.type}
                   </span>
                 </div>
