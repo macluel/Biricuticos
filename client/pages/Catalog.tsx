@@ -202,7 +202,7 @@ export default function Catalog() {
       </div>
       <div className="p-6 flex-1">
         <div className="flex items-start justify-between mb-2">
-          <h3 className="text-xl font-bold text-gray-900 group-hover:text-primary-600 transition-colors">
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 group-hover:text-primary-600 transition-colors">
             {place.name}
           </h3>
           <button className="p-1 hover:text-red-500 transition-colors">
@@ -211,15 +211,19 @@ export default function Catalog() {
         </div>
         <div className="flex items-center gap-2 mb-3">
           <MapPin className="h-4 w-4 text-gray-400" />
-          <span className="text-gray-600">{place.location}</span>
+          <span className="text-gray-600 dark:text-gray-300">
+            {place.location}
+          </span>
         </div>
         <div className="flex items-center gap-2 mb-3">
           <Badge variant="secondary">{place.type}</Badge>
           <Badge variant="outline">{place.price}</Badge>
         </div>
-        <p className="text-gray-600 mb-4 line-clamp-2">{place.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+          {place.description}
+        </p>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400">
             {place.reviews.toLocaleString()} reviews
           </span>
           <Button size="sm" variant="outline">
