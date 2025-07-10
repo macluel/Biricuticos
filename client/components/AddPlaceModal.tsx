@@ -53,6 +53,7 @@ export function AddPlaceModal({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const { user } = useAuth();
+  const { addPlace } = usePlaces();
 
   const [formData, setFormData] = useState<PlaceFormData>({
     name: "",
