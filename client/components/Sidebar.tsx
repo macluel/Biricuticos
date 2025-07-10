@@ -168,7 +168,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                   <div className="flex items-center gap-1">
                     <Star className="h-4 w-4 text-yellow-400" />
                     <span className="font-medium text-gray-700 dark:text-gray-300">
-                      7
+                      17
                     </span>
                   </div>
                 </div>
