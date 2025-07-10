@@ -402,11 +402,24 @@ export default function MapView() {
       // Add navigation controls
       map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-      // Handle errors and fallback
+      // Handle errors gracefully without breaking the map
       map.current.on("error", (e) => {
-        console.error("Mapbox error:", e.error || e);
-        console.log("Falling back to visual map...");
-        setMapboxFailed(true);
+        const error = e.error || e;
+        console.warn("Mapbox encountered an issue:", error);
+
+        // Only fallback for critical errors, not telemetry issues
+        if (
+          error &&
+          error.message &&
+          !error.message.includes("fetch") &&
+          !error.message.includes("telemetry") &&
+          !error.message.includes("events")
+        ) {
+          console.log("Critical map error, falling back to visual map...");
+          setMapboxFailed(true);
+        } else {
+          console.log("Non-critical error, continuing with map...");
+        }
       });
 
       // Set a timeout to fallback if map doesn't load
