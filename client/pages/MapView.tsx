@@ -138,6 +138,9 @@ export default function MapView() {
     }
 
     console.log("Starting geolocation request...");
+    console.log("Navigator geolocation available:", !!navigator.geolocation);
+    console.log("HTTPS:", location.protocol === "https:");
+    console.log("User agent:", navigator.userAgent);
 
     try {
       // First check permissions if supported
@@ -155,8 +158,11 @@ export default function MapView() {
             setIsTrackingLocation(false);
             return;
           }
-        } catch (permError) {
-          console.log("Permission API not supported:", permError);
+        } catch (permError: any) {
+          console.log(
+            "Permission API not supported:",
+            permError?.message || permError,
+          );
         }
       }
 
