@@ -352,7 +352,7 @@ export default function Catalog() {
       {/* Results */}
       <div className="flex items-center justify-between">
         <p className="text-gray-600 dark:text-gray-300">
-          Showing {filteredPlaces.length} of {allPlaces.length} food places
+          Mostrando {filteredPlaces.length} de {allPlaces.length} restaurantes
         </p>
       </div>
 
