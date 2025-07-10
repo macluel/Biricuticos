@@ -130,10 +130,14 @@ export default function MapView() {
 
     // Check if geolocation is supported
     if (!navigator.geolocation) {
-      setLocationError("Geolocalização não é suportada neste navegador");
+      setLocationError(
+        "🚫 Geolocalização não é suportada neste navegador\n\n💡 Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
+      );
       setIsTrackingLocation(false);
       return;
     }
+
+    console.log("Starting geolocation request...");
 
     try {
       // First check permissions if supported
@@ -142,15 +146,17 @@ export default function MapView() {
           const permission = await navigator.permissions.query({
             name: "geolocation",
           });
+          console.log("Permission state:", permission.state);
+
           if (permission.state === "denied") {
             setLocationError(
-              "Permissão de localização negada. Vá nas configurações do navegador e permita o acesso à localização para este site.",
+              "🚫 Permissão de localização negada permanentemente\n\n📱 Para corrigir:\n• Vá em Configurações do navegador\n• Procure 'Permissões' ou 'Sites'\n• Encontre este site\n• Ative a permissão de localização\n• Atualize a página",
             );
             setIsTrackingLocation(false);
             return;
           }
         } catch (permError) {
-          console.log("Permission check not supported, continuing...");
+          console.log("Permission API not supported:", permError);
         }
       }
 
