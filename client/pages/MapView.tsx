@@ -327,7 +327,7 @@ export default function MapView() {
   const [nearestPlaces, setNearestPlaces] = useState<
     (typeof mapPlaces & { distance: number })[]
   >([]);
-  const [mapboxFailed, setMapboxFailed] = useState(false); // Try real map first
+  const [mapboxFailed, setMapboxFailed] = useState(true); // Force visual map to avoid all fetch issues
 
   // Filter places based on search and type
   const filteredPlaces = mapPlaces.filter((place) => {
