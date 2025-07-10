@@ -39,109 +39,65 @@ if (typeof window !== "undefined") {
   window.fetch = function (...args) {
     const url = args[0];
     const urlString = typeof url === "string" ? url : url?.toString() || "";
-    const options = args[1] || {};
 
-    // Ultra-comprehensive telemetry and Mapbox analytics detection
+    // Detect ANY Mapbox-related request
+    const isMapboxRequest =
+      urlString.includes("mapbox.com") ||
+      urlString.includes("mapbox.cn") ||
+      urlString.includes("events.mapbox") ||
+      urlString.includes("/events/") ||
+      urlString.includes("telemetry") ||
+      urlString.includes("analytics");
+
+    // For telemetry/analytics, return immediate success
     const isTelemetryRequest =
       urlString.includes("events.mapbox.com") ||
       urlString.includes("events.mapbox.cn") ||
-      urlString.includes("/events/v2") ||
       urlString.includes("/events/") ||
-      urlString.includes("api.mapbox.com/events") ||
-      urlString.includes("/analytics/") ||
       urlString.includes("telemetry") ||
-      urlString.includes("analytics") ||
-      urlString.includes("metrics") ||
-      urlString.includes("tracking") ||
-      // Check request body for telemetry data
-      (options.body &&
-        typeof options.body === "string" &&
-        (options.body.includes("telemetry") ||
-          options.body.includes("analytics"))) ||
-      // Check headers for telemetry indicators
-      (options.headers &&
-        JSON.stringify(options.headers).includes("analytics"));
+      urlString.includes("analytics");
 
     if (isTelemetryRequest) {
-      console.log(
-        "Intercepting telemetry/analytics request:",
-        urlString.substring(0, 100) + "...",
-      );
-      // Return immediate successful response
+      console.log("Blocked telemetry:", urlString.substring(0, 60));
       return Promise.resolve(
-        new Response(
-          JSON.stringify({
-            success: true,
-            message: "Telemetry disabled",
-            timestamp: Date.now(),
-          }),
-          {
-            status: 200,
-            statusText: "OK",
-            headers: { "Content-Type": "application/json" },
-          },
-        ),
+        new Response('{"success":true}', {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
       );
     }
 
-    // For all other requests, add comprehensive error handling
-    const makeRequest = async () => {
-      try {
-        const response = await originalFetch.apply(this, args);
-        return response;
-      } catch (networkError) {
-        // Handle network failures for any Mapbox-related requests
-        if (urlString.includes("mapbox") || urlString.includes("mapbox.com")) {
-          console.log(
-            "Network error for Mapbox request, providing fallback:",
-            urlString.substring(0, 50) + "...",
-          );
-
-          // Return a mock successful response to prevent breaking the map
-          return new Response(
-            JSON.stringify({
-              status: "offline",
-              message: "Network unavailable, using cached data",
-              timestamp: Date.now(),
-            }),
-            {
+    // For ALL Mapbox requests, wrap in bulletproof error handling
+    if (isMapboxRequest) {
+      return new Promise((resolve) => {
+        // This promise NEVER rejects - always resolves
+        try {
+          originalFetch
+            .apply(this, args)
+            .then((response) => resolve(response))
+            .catch((error) => {
+              console.log("Mapbox request failed, using fallback");
+              resolve(
+                new Response('{"status":"fallback"}', {
+                  status: 200,
+                  headers: { "Content-Type": "application/json" },
+                }),
+              );
+            });
+        } catch (syncError) {
+          console.log("Sync error in Mapbox request, using fallback");
+          resolve(
+            new Response('{"status":"fallback"}', {
               status: 200,
-              statusText: "OK",
               headers: { "Content-Type": "application/json" },
-            },
+            }),
           );
         }
-
-        // Re-throw errors for non-Mapbox requests
-        throw networkError;
-      }
-    };
-
-    // Wrap everything in try-catch to handle any unexpected errors
-    try {
-      return makeRequest();
-    } catch (unexpectedError) {
-      console.log(
-        "Unexpected fetch error, providing fallback:",
-        unexpectedError.message,
-      );
-
-      // Last resort: return a generic successful response
-      return Promise.resolve(
-        new Response(
-          JSON.stringify({
-            error: "Request failed",
-            fallback: true,
-            timestamp: Date.now(),
-          }),
-          {
-            status: 200,
-            statusText: "OK",
-            headers: { "Content-Type": "application/json" },
-          },
-        ),
-      );
+      });
     }
+
+    // For non-Mapbox requests, use original fetch
+    return originalFetch.apply(this, args);
   };
 
   // Configure Mapbox to minimize telemetry
