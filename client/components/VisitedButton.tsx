@@ -18,12 +18,26 @@ export function VisitedButton({
   className,
 }: VisitedButtonProps) {
   const { getPlaceInteraction, toggleVisited } = usePlaceStats();
+  const { user, updateUserPreferences } = useAuth();
   const interaction = getPlaceInteraction(placeId);
+
+  // Check if user has visited this place
+  const isUserVisited = user?.preferences.visited.includes(placeId) || false;
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleVisited(placeId);
+
+    // Also update user preferences if logged in
+    if (user) {
+      const currentVisited = user.preferences.visited;
+      const newVisited = currentVisited.includes(placeId)
+        ? currentVisited.filter((id) => id !== placeId)
+        : [...currentVisited, placeId];
+
+      updateUserPreferences({ visited: newVisited });
+    }
   };
 
   if (variant === "icon") {
