@@ -42,31 +42,19 @@ if (typeof window !== "undefined") {
       const url = args[0];
       const urlString = typeof url === "string" ? url : url?.toString() || "";
 
-      // Detect ANY Mapbox-related request - ultra-comprehensive
-      const isMapboxRequest =
-        urlString.includes("mapbox") ||
-        urlString.includes("events.mapbox") ||
-        urlString.includes("/events/") ||
-        urlString.includes("telemetry") ||
-        urlString.includes("analytics") ||
-        urlString.includes("api.mapbox") ||
-        urlString.includes(".mapbox.") ||
-        urlString.includes("tiles.mapbox") ||
-        urlString.includes("fonts.mapbox") ||
-        urlString.includes("styles.mapbox") ||
-        urlString.includes("metrics") ||
-        urlString.includes("tracking") ||
-        // Check if it's from any mapbox domain pattern
-        /mapbox/i.test(urlString) ||
-        // Check if it contains common Mapbox API patterns
-        /\/(v\d+|styles|fonts|tiles|events|analytics|telemetry)/i.test(
-          urlString,
-        ) ||
-        // Check for base64 encoded mapbox URLs
-        (urlString.includes("data:") && urlString.includes("mapbox"));
+      // Ultra-aggressive: only allow explicitly safe requests
+      const isSafeRequest =
+        urlString.includes("openrouteservice.org") ||
+        urlString.includes("nominatim.openstreetmap.org") ||
+        urlString.startsWith("/") ||
+        urlString.startsWith("./") ||
+        urlString.startsWith("../") ||
+        urlString.includes(window.location.hostname) ||
+        urlString.startsWith("data:") ||
+        urlString.startsWith("blob:");
 
-      // For ALL Mapbox requests, return immediate success - NEVER call originalFetch
-      if (isMapboxRequest) {
+      // Block ALL external requests (including ALL Mapbox)
+      if (!isSafeRequest) {
         console.log("Intercepted Mapbox request:", urlString.substring(0, 60));
 
         // Determine response type based on URL
