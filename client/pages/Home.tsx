@@ -67,6 +67,11 @@ export default function Home() {
   // Featured places - show first 3 places
   const featuredPlaces = places.slice(0, 3);
 
+  // Debug: log places count whenever it changes
+  useEffect(() => {
+    console.log("Home: Places updated, count:", places.length);
+  }, [places]);
+
   // Calculate dynamic category counts from actual places
   const dynamicCategories = useMemo(() => {
     return categories.map((category) => {
