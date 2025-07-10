@@ -138,9 +138,9 @@ const priceRanges = ["Todos", "$", "$$", "$$$", "$$$$"];
 
 export default function Catalog() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState("All");
-  const [selectedState, setSelectedState] = useState("All");
-  const [selectedPrice, setSelectedPrice] = useState("All");
+  const [selectedType, setSelectedType] = useState("Todos");
+  const [selectedState, setSelectedState] = useState("Todos");
+  const [selectedPrice, setSelectedPrice] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("rating");
   const [showFilters, setShowFilters] = useState(false);
