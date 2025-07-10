@@ -67,6 +67,24 @@ if (typeof window !== "undefined") {
       EVENTS_URL: false, // Disable events URL
     };
   }
+
+  // Add global error handler for unhandled promise rejections from telemetry
+  const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+    if (
+      event.reason &&
+      (event.reason.message?.includes("fetch") ||
+        event.reason.message?.includes("telemetry") ||
+        event.reason.message?.includes("events.mapbox"))
+    ) {
+      console.log("Suppressed telemetry error:", event.reason.message);
+      event.preventDefault(); // Prevent the error from showing in console
+    }
+  };
+
+  window.addEventListener("unhandledrejection", handleUnhandledRejection);
+
+  // Cleanup function will be handled by the component cleanup
+  window.__mapboxTelemetryHandler = handleUnhandledRejection;
 }
 
 // This will be moved inside the component
