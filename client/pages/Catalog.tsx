@@ -25,18 +25,18 @@ import { Checkbox } from "@/components/ui/checkbox";
 const allPlaces = [
   {
     id: 1,
-    name: "The French Laundry",
-    location: "Yountville, CA",
-    state: "California",
+    name: "Oro",
+    location: "Leblon, Rio de Janeiro",
+    state: "Rio de Janeiro",
     type: "Fine Dining",
     rating: 4.9,
-    reviews: 1847,
+    reviews: 1247,
     price: "$$$",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
     description:
-      "Michelin-starred restaurant offering exquisite French cuisine in Napa Valley.",
-    tags: ["french", "fine-dining", "wine"],
+      "Restaurante premiado com estrela Michelin, oferecendo alta gastronomia brasileira.",
+    tags: ["brasileiro", "fine-dining", "leblon"],
   },
   {
     id: 2,
