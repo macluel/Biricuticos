@@ -30,12 +30,30 @@ import { VisitedButton } from "@/components/VisitedButton";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
-// Disable Mapbox telemetry to prevent fetch errors
+// Aggressively disable Mapbox telemetry and analytics
 if (typeof window !== "undefined") {
+  // Override fetch for mapbox domains to prevent telemetry errors
+  const originalFetch = window.fetch;
+  window.fetch = function (...args) {
+    const url = args[0];
+    if (
+      typeof url === "string" &&
+      (url.includes("events.mapbox.com") ||
+        url.includes("api.mapbox.com/events") ||
+        url.includes("events.mapbox.cn"))
+    ) {
+      // Return a fake successful response for telemetry calls
+      return Promise.resolve(new Response("{}", { status: 200 }));
+    }
+    return originalFetch.apply(this, args);
+  };
+
+  // Disable all possible telemetry collection methods
   // @ts-ignore
-  window.mapboxgl = mapboxgl;
-  // Disable telemetry collection
-  mapboxgl.prewarm();
+  if (window.mapboxgl) {
+    // @ts-ignore
+    window.mapboxgl.config = { REQUIRE_ACCESS_TOKEN: true };
+  }
 }
 
 // Use places from config for map markers
