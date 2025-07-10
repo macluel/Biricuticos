@@ -119,8 +119,18 @@ export default function MapView() {
         </Button>
       </div>
 
-      {/* Map Container */}
-      <div className="relative h-[600px] bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700">
+      {/* Interactive Map */}
+      <div className="h-[600px]">
+        <InteractiveMap
+          places={mapPlaces}
+          center={[-22.9068, -43.1729]}
+          zoom={12}
+          className="h-full w-full"
+        />
+      </div>
+
+      {/* Backup Map Container (remove this if map works) */}
+      <div className="relative h-[600px] bg-gray-100 dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 hidden">
         {/* Map Placeholder */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-green-50 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
           <div className="text-center">
