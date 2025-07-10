@@ -177,8 +177,14 @@ export default function MapView() {
       try {
         await testGeoAvailability();
         console.log("Geolocation test passed, getting precise location...");
-      } catch (testError) {
-        console.error("Geolocation test failed:", testError);
+      } catch (testError: any) {
+        console.error("Geolocation test failed:", {
+          code: testError?.code,
+          message: testError?.message,
+          PERMISSION_DENIED: testError?.PERMISSION_DENIED,
+          POSITION_UNAVAILABLE: testError?.POSITION_UNAVAILABLE,
+          TIMEOUT: testError?.TIMEOUT,
+        });
       }
 
       // Get position with adaptive settings
