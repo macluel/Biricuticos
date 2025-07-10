@@ -166,39 +166,14 @@ export default function MapView() {
         }
       }
 
-      // Test geolocation availability
-      const testGeoAvailability = () => {
-        return new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
-            () => resolve(true),
-            (error) => reject(error),
-            { timeout: 5000, enableHighAccuracy: false, maximumAge: 300000 },
-          );
-        });
-      };
-
-      console.log("Testing geolocation availability...");
-
-      // Try a quick test first with relaxed settings
-      try {
-        await testGeoAvailability();
-        console.log("Geolocation test passed, getting precise location...");
-      } catch (testError: any) {
-        console.error("Geolocation test failed:", {
-          code: testError?.code,
-          message: testError?.message,
-          PERMISSION_DENIED: testError?.PERMISSION_DENIED,
-          POSITION_UNAVAILABLE: testError?.POSITION_UNAVAILABLE,
-          TIMEOUT: testError?.TIMEOUT,
-        });
-      }
-
-      // Get position with adaptive settings
+      // Start with simple, reliable settings
       const options = {
-        enableHighAccuracy: true,
-        timeout: 20000, // 20 seconds for mobile
-        maximumAge: 30000, // 30 seconds cache
+        enableHighAccuracy: false, // Start with network-based location
+        timeout: 15000, // 15 seconds
+        maximumAge: 60000, // 1 minute cache
       };
+
+      console.log("Requesting geolocation with options:", options);
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -251,7 +226,7 @@ export default function MapView() {
           switch (error.code) {
             case 1: // PERMISSION_DENIED
               errorMessage =
-                "❌ Permissão de localização negada\n\n📱 Para ativar no celular:\n• Vá em Configurações do navegador\n• Procure por 'Permissões do site'\n• Encontre este site e ative 'Localização'\n\n💻 Para ativar no computador:\n• Clique no ícone de cadeado na barra do navegador\n• Selecione 'Permitir localização'\n• Atualize a página";
+                "❌ Permissão de localização negada\n\n📱 Para ativar no celular:\n• Vá em Configurações do navegador\n• Procure por 'Permissões do site'\n• Encontre este site e ative 'Localização'\n\n💻 Para ativar no computador:\n• Clique no ícone de cadeado na barra do navegador\n• Selecione 'Permitir localização'\n�� Atualize a página";
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
