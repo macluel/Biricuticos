@@ -83,10 +83,10 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               </div>
               <div>
                 <h2 className="font-bold text-lg text-gray-900 dark:text-gray-100">
-                  GuiaFood
+                  {appConfig.name}
                 </h2>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Nossa lista gastronômica
+                  {appConfig.tagline}
                 </p>
               </div>
             </div>
