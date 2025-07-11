@@ -133,15 +133,14 @@ const interactionTypes = [
   "Quero Provar", // Favorited but not visited
   "Já Visitamos", // Visited
   "Favoritos", // All favorited
-  "Ainda não Tentei", // Not favorited and not visited
+  "Ainda n��o Tentei", // Not favorited and not visited
 ];
 
 export default function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { places } = usePlaces();
   const { user } = useAuth();
-  const [selectedPlaceForActions, setSelectedPlaceForActions] =
-    useState<any>(null);
+
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("search") || "",
   );
