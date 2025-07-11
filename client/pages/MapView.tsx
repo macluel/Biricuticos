@@ -351,8 +351,9 @@ export default function MapView() {
               }),
             );
 
-            // Sort by distance and take top 5
+            // Filter to only places within 5km, then sort by distance and take top 5
             const nearest = placesWithTravelDistance
+              .filter((place) => place.distance <= 5) // Only places within 5km
               .sort((a, b) => a.distance - b.distance)
               .slice(0, 5);
 
