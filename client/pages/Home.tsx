@@ -291,17 +291,6 @@ export default function Home() {
                   </span>
                   <div className="flex gap-1">
                     <VisitedButton placeId={place.id} size="sm" />
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setSelectedPlaceForActions(place);
-                      }}
-                      className="p-1 rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-                      title="Gerenciar lugar"
-                    >
-                      <Star className="h-4 w-4" />
-                    </button>
                   </div>
                 </div>
               </div>
