@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { places } from "@/data/config";
+import { fetchInteractions, syncInteractions } from "@/utils/api";
 
 // Types for place interactions
 export interface PlaceInteraction {
