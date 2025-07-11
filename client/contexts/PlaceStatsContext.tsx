@@ -1,6 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { places } from "@/data/config";
-import { fetchInteractions, syncInteractions } from "@/utils/api";
+import {
+  loadSharedInteractions,
+  saveSharedInteractions,
+  mergeInteractions,
+} from "@/utils/sharing";
 
 // Types for place interactions
 export interface PlaceInteraction {
