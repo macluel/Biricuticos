@@ -54,11 +54,8 @@ export function PlaceStatsProvider({
       // Load from simple shared storage (local)
       const sharedData = loadSharedData();
 
-      // Try to get data from web (best effort) - only on first load
-      let webData: PlaceInteraction[] = [];
-      if (isLoading) {
-        webData = await tryDownloadFromWeb();
-      }
+      // Skip web download to prevent blocking/loops
+      const webData: PlaceInteraction[] = [];
 
       // Load current localStorage
       const localData = localStorage.getItem("biricuticos-interactions");
