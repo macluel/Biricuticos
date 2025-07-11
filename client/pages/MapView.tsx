@@ -31,7 +31,37 @@ import { FallbackMap } from "@/components/FallbackMap";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
-// Handle Mapbox telemetry gracefully to prevent fetch errors
+// Aggressively block Mapbox telemetry requests
+if (typeof window !== "undefined") {
+  // Store original fetch to use for legitimate requests
+  const originalFetch = window.fetch;
+
+  // Intercept ALL fetch calls to block Mapbox telemetry
+  window.fetch = function(input, init) {
+    const url = typeof input === 'string' ? input : input.url;
+
+    // Block ALL Mapbox telemetry/events URLs
+    if (url && (
+        url.includes('events.mapbox.com') ||
+        url.includes('api.mapbox.com/events') ||
+        url.includes('/events/v2') ||
+        url.includes('/events/v1') ||
+        url.includes('api.mapbox.com/analytics') ||
+        (url.includes('mapbox') && (url.includes('events') || url.includes('telemetry') || url.includes('analytics')))
+    )) {
+      // Return fake successful response to prevent errors
+      return Promise.resolve(new Response('{"success": true}', {
+        status: 200,
+        statusText: 'OK',
+        headers: { 'Content-Type': 'application/json' }
+      }));
+    }
+
+    // Allow all other requests (map tiles, styles, fonts, routing, etc.)
+    return originalFetch.call(this, input, init);
+  };
+
+// Handle remaining Mapbox configuration
 if (typeof window !== "undefined") {
   // Properly disable Mapbox telemetry to prevent fetch errors
   // @ts-ignore
