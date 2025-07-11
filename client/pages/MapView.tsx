@@ -45,73 +45,19 @@ if (typeof window !== "undefined") {
     };
   }
 
-  // Add comprehensive global error handler for unhandled promise rejections
-  const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-    const reason = event.reason;
-    const message = reason?.message || reason?.toString() || "";
-    const stack = reason?.stack || "";
+  // Simple error suppression - only suppress fetch errors to prevent console spam
+  window.addEventListener("unhandledrejection", (event) => {
+    const message = event.reason?.message || "";
+    const stack = event.reason?.stack || "";
 
-    // Detect any network, telemetry, or Mapbox-related errors
-    const isMapboxError =
-      message.includes("fetch") ||
-      message.includes("telemetry") ||
-      message.includes("events.mapbox") ||
-      message.includes("Failed to fetch") ||
-      message.includes("Network Error") ||
-      message.includes("TypeError: Failed to fetch") ||
-      message.includes("api.mapbox.com") ||
-      message.includes("analytics") ||
-      message.includes("metrics") ||
-      stack.includes("mapbox") ||
-      stack.includes("events") ||
-      stack.includes("telemetry") ||
-      // Check for generic network errors that might be from Mapbox
-      (message.includes("fetch") && stack.includes("mapbox-gl"));
-
-    if (isMapboxError) {
-      console.log(
-        "Suppressed Mapbox/network error:",
-        message.substring(0, 100),
-      );
-      event.preventDefault(); // Prevent the error from showing in console
-      return false;
-    }
-  };
-
-  // Add global error handler for other types of errors
-  const handleError = (event: ErrorEvent) => {
-    const message = event.message || "";
-    const filename = event.filename || "";
-    const source = event.source || "";
-
-    // Catch any remaining fetch, network, or Mapbox-related errors
+    // Only suppress "Failed to fetch" errors from Mapbox telemetry
     if (
-      message.includes("fetch") ||
-      message.includes("Failed to fetch") ||
-      message.includes("Network Error") ||
-      message.includes("TypeError: Failed to fetch") ||
-      message.includes("mapbox") ||
-      message.includes("telemetry") ||
-      message.includes("analytics") ||
-      filename.includes("mapbox") ||
-      filename.includes("MapView") ||
-      source.toString().includes("mapbox")
+      message.includes("Failed to fetch") &&
+      (stack.includes("mapbox") || stack.includes("telemetry"))
     ) {
-      console.log(
-        "Suppressed network/Mapbox error:",
-        message.substring(0, 100),
-      );
       event.preventDefault();
-      return false;
     }
-  };
-
-  window.addEventListener("unhandledrejection", handleUnhandledRejection);
-  window.addEventListener("error", handleError);
-
-  // Store handlers for cleanup
-  window.__mapboxTelemetryHandler = handleUnhandledRejection;
-  window.__mapboxErrorHandler = handleError;
+  });
 }
 
 // This will be moved inside the component
