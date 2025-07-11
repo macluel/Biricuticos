@@ -35,15 +35,16 @@ export function PlaceStatsProvider({
   const [interactions, setInteractions] = useState<PlaceInteraction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load shared data from JSON file and localStorage
+  // Auto-sync functionality
   useEffect(() => {
     loadSharedData();
+    setupAutoSync();
   }, []);
 
   const loadSharedData = async () => {
     try {
-      // Load from the shared JSON file first
-      const response = await fetch("/client/data/shared-interactions.json");
+      // Load from the API endpoint (Netlify Function)
+      const response = await fetch("/.netlify/functions/interactions");
       let sharedData: PlaceInteraction[] = [];
 
       if (response.ok) {
@@ -79,6 +80,90 @@ export function PlaceStatsProvider({
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const syncDataToServer = async (data: PlaceInteraction[]) => {
+    try {
+      const response = await fetch("/.netlify/functions/interactions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("✅ Data synced automatically:", result.message);
+      } else {
+        console.error("❌ Failed to sync data to server");
+      }
+    } catch (error) {
+      console.error("❌ Error syncing data:", error);
+    }
+  };
+
+  const setupAutoSync = () => {
+    // Auto-sync when user leaves the page
+    const handleBeforeUnload = () => {
+      const data = localStorage.getItem("biricuticos-interactions");
+      if (data) {
+        try {
+          const interactions = JSON.parse(data);
+          // Use sendBeacon for reliable delivery even when page is closing
+          const blob = new Blob([JSON.stringify(interactions)], {
+            type: "application/json",
+          });
+          navigator.sendBeacon("/.netlify/functions/interactions", blob);
+        } catch (error) {
+          console.error("Error syncing on page unload:", error);
+        }
+      }
+    };
+
+    // Auto-sync when page becomes hidden (tab switch, minimize, etc.)
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        const data = localStorage.getItem("biricuticos-interactions");
+        if (data) {
+          try {
+            const interactions = JSON.parse(data);
+            syncDataToServer(interactions);
+          } catch (error) {
+            console.error("Error syncing on visibility change:", error);
+          }
+        }
+      }
+    };
+
+    // Auto-sync periodically (every 5 minutes if there are changes)
+    let lastSyncData = "";
+    const handlePeriodicSync = () => {
+      const data = localStorage.getItem("biricuticos-interactions") || "[]";
+      if (data !== lastSyncData) {
+        try {
+          const interactions = JSON.parse(data);
+          syncDataToServer(interactions);
+          lastSyncData = data;
+        } catch (error) {
+          console.error("Error in periodic sync:", error);
+        }
+      }
+    };
+
+    // Set up event listeners
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Periodic sync every 5 minutes
+    const syncInterval = setInterval(handlePeriodicSync, 5 * 60 * 1000);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      clearInterval(syncInterval);
+    };
   };
 
   // Merge function to combine shared and local interactions
