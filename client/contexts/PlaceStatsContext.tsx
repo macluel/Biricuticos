@@ -133,9 +133,6 @@ export function PlaceStatsProvider({
             : existing.dateAdded,
         };
 
-        // Automatically sync to cloud
-        saveCloudInteraction(updatedInteraction);
-
         return prev.map((i) =>
           i.placeId === placeId ? updatedInteraction : i,
         );
@@ -146,9 +143,6 @@ export function PlaceStatsProvider({
           isVisited: false,
           dateAdded: new Date().toISOString(),
         };
-
-        // Automatically sync to cloud
-        saveCloudInteraction(updatedInteraction);
 
         return [...prev, updatedInteraction];
       }
@@ -170,9 +164,6 @@ export function PlaceStatsProvider({
             : existing.dateVisited,
         };
 
-        // Automatically sync to cloud
-        saveCloudInteraction(updatedInteraction);
-
         return prev.map((i) =>
           i.placeId === placeId ? updatedInteraction : i,
         );
@@ -183,9 +174,6 @@ export function PlaceStatsProvider({
           isVisited: true,
           dateVisited: new Date().toISOString(),
         };
-
-        // Automatically sync to cloud
-        saveCloudInteraction(updatedInteraction);
 
         return [...prev, updatedInteraction];
       }
