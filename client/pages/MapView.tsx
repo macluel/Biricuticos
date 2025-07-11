@@ -95,19 +95,25 @@ if (typeof window !== "undefined") {
     const message = event.reason?.message || "";
     const stack = event.reason?.stack || "";
 
-    // Suppress only Mapbox telemetry-related fetch errors
+    // Suppress fetch errors from Mapbox telemetry or travel distance API calls
     if (
-      (message.includes("Failed to fetch") ||
-        message.includes("TypeError: Failed to fetch")) &&
-      (stack.includes("mapbox") ||
+      message.includes("Failed to fetch") ||
+      message.includes("TypeError: Failed to fetch")
+    ) {
+      // Check if it's from known sources we want to suppress
+      if (
+        stack.includes("mapbox") ||
         stack.includes("telemetry") ||
         stack.includes("postEvent") ||
         stack.includes("postTurnstileEvent") ||
         stack.includes("processRequests") ||
-        stack.includes("queueRequest"))
-    ) {
-      event.preventDefault();
-      return;
+        stack.includes("queueRequest") ||
+        stack.includes("calculateTravelDistance") ||
+        stack.includes("openrouteservice")
+      ) {
+        event.preventDefault();
+        return;
+      }
     }
   });
 
@@ -145,80 +151,24 @@ const calculateGeographicDistance = (
   return R * c;
 };
 
-// Rate limiting for API calls
-let lastApiCall = 0;
-const API_RATE_LIMIT = 1000; // 1 second between calls
-let apiCallCount = 0;
-const MAX_API_CALLS = 10; // Max 10 API calls per session to prevent abuse
-
-// Calculate travel distance using routing API (with fallback to geographic distance)
+// Calculate travel distance using only geographic distance (no external API calls)
 const calculateTravelDistance = async (
   lat1: number,
   lng1: number,
   lat2: number,
   lng2: number,
 ): Promise<{ distance: number; travelTime?: number; isTravel: boolean }> => {
-  // First check geographic distance - if it's over 10km, don't bother with routing API
+  // Use geographic distance only to avoid fetch errors
   const geoDistance = calculateGeographicDistance(lat1, lng1, lat2, lng2);
 
-  // If geographic distance is over 10km, skip routing API to save calls
-  if (geoDistance > 10) {
-    return { distance: geoDistance, isTravel: false };
-  }
+  // Estimate travel time based on geographic distance (assuming 30km/h average in city)
+  const estimatedTravelTime = (geoDistance / 30) * 60; // minutes
 
-  // Rate limiting and API call count limiting
-  const now = Date.now();
-  if (apiCallCount >= MAX_API_CALLS || now - lastApiCall < API_RATE_LIMIT) {
-    // Too many calls or too frequent, use geographic distance
-    return { distance: geoDistance, isTravel: false };
-  }
-
-  try {
-    apiCallCount++;
-    lastApiCall = now;
-
-    // Use OpenRouteService (free routing API) for travel distance with timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
-
-    const response = await fetch(
-      `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248a3b6b9b4e36b48ad9e7e4a03bebb4d75&start=${lng1},${lat1}&end=${lng2},${lat2}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-        signal: controller.signal,
-      },
-    );
-
-    clearTimeout(timeoutId);
-
-    if (response.ok) {
-      const data = await response.json();
-      if (data.features && data.features[0] && data.features[0].properties) {
-        const route = data.features[0].properties.segments[0];
-        const distanceKm = route.distance / 1000; // Convert meters to km
-        const durationMinutes = route.duration / 60; // Convert seconds to minutes
-
-        // Validate the travel distance - if it's unreasonably large, use geographic instead
-        if (distanceKm > 50 || distanceKm < 0) {
-          return { distance: geoDistance, isTravel: false };
-        }
-
-        return {
-          distance: distanceKm,
-          travelTime: durationMinutes,
-          isTravel: true,
-        };
-      }
-    }
-  } catch (error) {
-    // Silently fail routing API calls to prevent console spam
-    // The fallback to geographic distance is perfectly acceptable
-  }
-
-  // Fallback to geographic distance
-  return { distance: geoDistance, isTravel: false };
+  return {
+    distance: geoDistance,
+    travelTime: estimatedTravelTime,
+    isTravel: false, // Indicate this is geographic, not travel distance
+  };
 };
 
 // Backward compatibility - use geographic distance by default
