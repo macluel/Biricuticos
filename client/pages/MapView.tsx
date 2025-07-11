@@ -305,14 +305,79 @@ export default function MapView() {
         }
       }
 
-      // Start with simple, reliable settings
-      const options = {
-        enableHighAccuracy: false, // Start with network-based location
-        timeout: 15000, // 15 seconds
-        maximumAge: 60000, // 1 minute cache
+      // Try multiple approaches for better reliability
+      const attemptGeolocation = async (attempt = 1) => {
+        const maxAttempts = 3;
+
+        // Different strategies for each attempt
+        let options;
+        switch (attempt) {
+          case 1:
+            // First try: Simple network-based location (fastest)
+            options = {
+              enableHighAccuracy: false,
+              timeout: 10000,
+              maximumAge: 300000, // 5 minutes cache
+            };
+            console.log("Attempt 1: Network-based location");
+            break;
+          case 2:
+            // Second try: High accuracy GPS
+            options = {
+              enableHighAccuracy: true,
+              timeout: 20000,
+              maximumAge: 0, // No cache
+            };
+            console.log("Attempt 2: GPS high accuracy");
+            break;
+          case 3:
+            // Third try: Last resort with longer timeout
+            options = {
+              enableHighAccuracy: false,
+              timeout: 30000,
+              maximumAge: 600000, // 10 minutes cache
+            };
+            console.log("Attempt 3: Extended timeout fallback");
+            break;
+          default:
+            throw new Error("Max attempts reached");
+        }
+
+        return new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              console.log(`Attempt ${attempt} successful:`, {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                accuracy: position.coords.accuracy,
+              });
+              resolve(position);
+            },
+            (error) => {
+              console.log(
+                `Attempt ${attempt} failed:`,
+                error.code,
+                error.message,
+              );
+
+              if (attempt < maxAttempts) {
+                console.log(`Retrying with attempt ${attempt + 1}...`);
+                // Wait a bit before retrying
+                setTimeout(() => {
+                  attemptGeolocation(attempt + 1)
+                    .then(resolve)
+                    .catch(reject);
+                }, 2000);
+              } else {
+                reject(error);
+              }
+            },
+            options,
+          );
+        });
       };
 
-      console.log("Requesting geolocation with options:", options);
+      console.log("Starting geolocation with retry logic...");
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
