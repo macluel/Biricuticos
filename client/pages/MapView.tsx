@@ -305,100 +305,35 @@ export default function MapView() {
         }
       }
 
-      // Try multiple approaches for better reliability
-      const attemptGeolocation = async (attempt = 1) => {
-        const maxAttempts = 3;
-
-        // Different strategies for each attempt
-        let options;
-        switch (attempt) {
-          case 1:
-            // First try: Simple network-based location (fastest)
-            options = {
-              enableHighAccuracy: false,
-              timeout: 10000,
-              maximumAge: 300000, // 5 minutes cache
-            };
-            console.log("Attempt 1: Network-based location");
-            break;
-          case 2:
-            // Second try: High accuracy GPS
-            options = {
-              enableHighAccuracy: true,
-              timeout: 20000,
-              maximumAge: 0, // No cache
-            };
-            console.log("Attempt 2: GPS high accuracy");
-            break;
-          case 3:
-            // Third try: Last resort with longer timeout
-            options = {
-              enableHighAccuracy: false,
-              timeout: 30000,
-              maximumAge: 600000, // 10 minutes cache
-            };
-            console.log("Attempt 3: Extended timeout fallback");
-            break;
-          default:
-            throw new Error("Max attempts reached");
-        }
-
-        return new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              console.log(`Attempt ${attempt} successful:`, {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-                accuracy: position.coords.accuracy,
-              });
-              resolve(position);
-            },
-            (error) => {
-              console.log(
-                `Attempt ${attempt} failed:`,
-                error.code,
-                error.message,
-              );
-
-              if (attempt < maxAttempts) {
-                console.log(`Retrying with attempt ${attempt + 1}...`);
-                // Wait a bit before retrying
-                setTimeout(() => {
-                  attemptGeolocation(attempt + 1)
-                    .then(resolve)
-                    .catch(reject);
-                }, 2000);
-              } else {
-                reject(error);
-              }
-            },
-            options,
-          );
-        });
+      // Start with simple, reliable settings
+      const options = {
+        enableHighAccuracy: false, // Start with network-based location
+        timeout: 15000, // 15 seconds
+        maximumAge: 60000, // 1 minute cache
       };
 
-            console.log("Starting geolocation with retry logic...");
+      console.log("Requesting geolocation with options:", options);
 
-            try {
-        const position = await attemptGeolocation();
-        const { latitude, longitude, accuracy } = position.coords;
-        console.log("Final location found:", { latitude, longitude, accuracy });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          console.log("Location found:", { latitude, longitude, accuracy });
 
-        setUserLocation({ lat: latitude, lng: longitude });
-        setIsTrackingLocation(false);
-        setLocationError(null);
+          setUserLocation({ lat: latitude, lng: longitude });
+          setIsTrackingLocation(false);
+          setLocationError(null);
 
-        // Update map center to user location
-        if (map.current) {
-          map.current.flyTo({
-            center: [longitude, latitude],
-            zoom: 15,
-            duration: 1500,
-          });
-        }
+          // Update map center to user location
+          if (map.current) {
+            map.current.flyTo({
+              center: [longitude, latitude],
+              zoom: 15,
+              duration: 1500,
+            });
+          }
 
-        // Calculate nearest places with travel distance
-        const calculateNearestPlaces = async () => {
+          // Calculate nearest places with travel distance
+          const calculateNearestPlaces = async () => {
             const placesWithTravelDistance = await Promise.all(
               mapPlaces.map(async (place) => {
                 const travelData = await calculateTravelDistance(
