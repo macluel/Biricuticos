@@ -434,7 +434,7 @@ export default function MapView() {
                 "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
-              errorMessage = `🚨 Erro de localizaç��o\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
+              errorMessage = `🚨 Erro de localizaç����o\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
           }
 
           // Try with different settings based on error type
@@ -518,8 +518,7 @@ export default function MapView() {
           } else {
             // Show error but provide fallback functionality
             setLocationError(
-              errorMessage +
-                "\n\n🗺️ Usando Rio de Janeiro como referência para mostrar restaurantes próximos",
+              "📍 Localização não disponível no momento\n\n🗺️ Mostrando restaurantes na região do Rio de Janeiro\n\n💡 Para sua localização exata:\n• Saia ao ar livre\n• Ative o GPS no dispositivo\n• Permita localização no navegador",
             );
             setIsTrackingLocation(false);
 
