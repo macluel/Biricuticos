@@ -60,8 +60,7 @@ const originalFeaturedPlaces = [
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedPlaceForActions, setSelectedPlaceForActions] =
-    useState<any>(null);
+
   const { stats } = usePlaceStats();
   const { places } = usePlaces();
   const navigate = useNavigate();
