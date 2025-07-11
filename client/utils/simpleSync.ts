@@ -68,58 +68,10 @@ const tryUploadToWeb = async (
   console.log("💾 Data saved locally (external sync disabled)");
 };
 
-// Try to download data from web service (with proper validation)
+// Disable external downloads to prevent blocking/loops
 export const tryDownloadFromWeb = async (): Promise<PlaceInteraction[]> => {
-  try {
-    // Try jsonbox.io first
-    try {
-      const response = await fetch("https://jsonbox.io/box_biricuticos_shared");
-      if (response.ok) {
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) {
-          const latest = data[data.length - 1]; // Get most recent
-          const interactions = latest.data;
-          if (Array.isArray(interactions)) {
-            console.log("🌐 Downloaded data from jsonbox.io");
-            return interactions;
-          }
-        }
-      }
-    } catch (error) {
-      // Silent fail - don't spam console
-    }
-
-    // Try kvdb.io
-    try {
-      const response = await fetch(
-        "https://api.kvdb.io/biricuticos/shared_interactions",
-      );
-      if (response.ok) {
-        const data = await response.json();
-
-        // Validate that data is an array of interactions
-        if (Array.isArray(data)) {
-          // Check if first item looks like a PlaceInteraction
-          if (
-            data.length === 0 ||
-            (data[0] && typeof data[0].placeId === "number")
-          ) {
-            console.log("🌐 Downloaded valid data from kvdb.io");
-            return data;
-          }
-        }
-
-        // If data is not in expected format, return empty array
-        console.log("🌐 kvdb.io data format invalid, skipping");
-        return [];
-      }
-    } catch (error) {
-      // Silent fail - don't spam console
-    }
-  } catch (error) {
-    console.log("⚠️ Web download failed:", error);
-  }
-
+  // External APIs are being blocked, so we'll skip them
+  // Use the admin panel (Ctrl+Shift+A) to manually share data instead
   return [];
 };
 
