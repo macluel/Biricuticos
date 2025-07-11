@@ -69,21 +69,15 @@ export function PlaceStatsProvider({
         }
       }
 
-      // Merge all data sources (local wins for conflicts)
+      // Merge shared and local data only (no web data to prevent loops)
       let mergedData = sharedData;
-      if (webData.length > 0) {
-        mergedData = mergeInteractionsSimple(mergedData, webData);
-      }
       if (localInteractions.length > 0) {
         mergedData = mergeInteractionsSimple(mergedData, localInteractions);
       }
 
       setInteractions(mergedData);
 
-      // Save merged data back for sharing
-      if (mergedData.length > 0) {
-        saveSharedData(mergedData);
-      }
+      // Don't save back during loading to prevent loops
     } catch (error) {
       console.error("Error loading shared data:", error);
       // Fallback to localStorage only
