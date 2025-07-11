@@ -379,25 +379,26 @@ export default function MapView() {
 
             console.log("Starting geolocation with retry logic...");
 
-      const position = await attemptGeolocation();
-      const { latitude, longitude, accuracy } = position.coords;
-      console.log("Final location found:", { latitude, longitude, accuracy });
+            try {
+        const position = await attemptGeolocation();
+        const { latitude, longitude, accuracy } = position.coords;
+        console.log("Final location found:", { latitude, longitude, accuracy });
 
-          setUserLocation({ lat: latitude, lng: longitude });
-          setIsTrackingLocation(false);
-          setLocationError(null);
+        setUserLocation({ lat: latitude, lng: longitude });
+        setIsTrackingLocation(false);
+        setLocationError(null);
 
-          // Update map center to user location
-          if (map.current) {
-            map.current.flyTo({
-              center: [longitude, latitude],
-              zoom: 15,
-              duration: 1500,
-            });
-          }
+        // Update map center to user location
+        if (map.current) {
+          map.current.flyTo({
+            center: [longitude, latitude],
+            zoom: 15,
+            duration: 1500,
+          });
+        }
 
-          // Calculate nearest places with travel distance
-          const calculateNearestPlaces = async () => {
+        // Calculate nearest places with travel distance
+        const calculateNearestPlaces = async () => {
             const placesWithTravelDistance = await Promise.all(
               mapPlaces.map(async (place) => {
                 const travelData = await calculateTravelDistance(
