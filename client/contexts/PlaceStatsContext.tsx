@@ -111,6 +111,14 @@ export function PlaceStatsProvider({
 
   // Get interaction for a specific place
   const getPlaceInteraction = (placeId: number): PlaceInteraction => {
+    if (!Array.isArray(interactions)) {
+      return {
+        placeId,
+        isFavorited: false,
+        isVisited: false,
+      };
+    }
+
     return (
       interactions.find((i) => i.placeId === placeId) || {
         placeId,
