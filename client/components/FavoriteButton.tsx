@@ -14,11 +14,7 @@ export function FavoriteButton({
   className,
 }: FavoriteButtonProps) {
   const { getPlaceInteraction, toggleFavorite } = usePlaceStats();
-  const { user, updateUserPreferences } = useAuth();
   const interaction = getPlaceInteraction(placeId);
-
-  // Check if user has this place as favorite
-  const isUserFavorite = user?.preferences.favorites.includes(placeId) || false;
 
   const sizeClasses = {
     sm: "h-4 w-4",
