@@ -36,11 +36,11 @@ if (typeof window !== "undefined") {
   // Store original fetch to use for legitimate requests
   const originalFetch = window.fetch;
 
-  // Intercept ALL fetch calls to block Mapbox telemetry
+  // Intercept fetch calls to block Mapbox telemetry only
   window.fetch = function (input, init) {
     const url = typeof input === "string" ? input : input.url;
 
-    // Block ALL Mapbox telemetry/events URLs
+    // Block only Mapbox telemetry/events URLs
     if (
       url &&
       (url.includes("events.mapbox.com") ||
@@ -63,7 +63,7 @@ if (typeof window !== "undefined") {
       );
     }
 
-    // Allow all other requests (map tiles, styles, fonts, routing, etc.)
+    // Allow all other requests (map tiles, styles, fonts, OpenRouteService API, etc.)
     return originalFetch.call(this, input, init);
   };
 
@@ -90,28 +90,24 @@ if (typeof window !== "undefined") {
     };
   }
 
-  // Comprehensive error suppression for Mapbox telemetry
+  // Suppress Mapbox telemetry errors only
   window.addEventListener("unhandledrejection", (event) => {
     const message = event.reason?.message || "";
     const stack = event.reason?.stack || "";
 
-    // Suppress all Mapbox telemetry-related fetch errors
+    // Suppress only Mapbox telemetry-related fetch errors
     if (
-      message.includes("Failed to fetch") ||
-      message.includes("TypeError: Failed to fetch")
-    ) {
-      // Check if it's from Mapbox telemetry/events
-      if (
-        stack.includes("mapbox") ||
+      (message.includes("Failed to fetch") ||
+        message.includes("TypeError: Failed to fetch")) &&
+      (stack.includes("mapbox") ||
         stack.includes("telemetry") ||
         stack.includes("postEvent") ||
         stack.includes("postTurnstileEvent") ||
         stack.includes("processRequests") ||
-        stack.includes("queueRequest")
-      ) {
-        event.preventDefault();
-        return;
-      }
+        stack.includes("queueRequest"))
+    ) {
+      event.preventDefault();
+      return;
     }
   });
 
@@ -1057,7 +1053,7 @@ export default function MapView() {
                   <div className="text-green-600 dark:text-green-400 text-sm ml-2">
                     <span>
                       {place.distance.toFixed(1)}km
-                      {place.isTravel ? " 🚗" : " ✈️"}
+                      {place.isTravel ? " 🚗" : " ✈��"}
                     </span>
                     {place.travelTime && (
                       <span className="ml-1">
