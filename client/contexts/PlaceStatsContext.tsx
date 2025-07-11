@@ -185,9 +185,15 @@ export function PlaceStatsProvider({
   // Calculate dynamic stats
   const stats = {
     totalPlaces: places.length,
-    wantToTry: interactions.filter((i) => i.isFavorited && !i.isVisited).length,
-    triedTogether: interactions.filter((i) => i.isVisited).length,
-    favorited: interactions.filter((i) => i.isFavorited).length,
+    wantToTry: Array.isArray(interactions)
+      ? interactions.filter((i) => i.isFavorited && !i.isVisited).length
+      : 0,
+    triedTogether: Array.isArray(interactions)
+      ? interactions.filter((i) => i.isVisited).length
+      : 0,
+    favorited: Array.isArray(interactions)
+      ? interactions.filter((i) => i.isFavorited).length
+      : 0,
   };
 
   const value = {
