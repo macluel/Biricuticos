@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "placeId": 1,
+    "isFavorited": true,
+    "isVisited": false,
+    "dateAdded": "2024-12-15T10:00:00.000Z"
+  },
+  {
+    "placeId": 3,
+    "isFavorited": false,
+    "isVisited": true,
+    "dateVisited": "2024-12-15T12:00:00.000Z"
+  }
+]
