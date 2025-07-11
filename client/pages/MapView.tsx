@@ -42,20 +42,16 @@ if (typeof window !== "undefined") {
       const url = args[0];
       const urlString = typeof url === "string" ? url : url?.toString() || "";
 
-      // Ultra-aggressive: only allow explicitly safe requests
-      const isSafeRequest =
-        urlString.includes("openrouteservice.org") ||
-        urlString.includes("nominatim.openstreetmap.org") ||
-        urlString.startsWith("/") ||
-        urlString.startsWith("./") ||
-        urlString.startsWith("../") ||
-        urlString.includes(window.location.hostname) ||
-        urlString.startsWith("data:") ||
-        urlString.startsWith("blob:");
+      // Allow Mapbox and essential services, block only problematic telemetry
+      const isBlockedRequest =
+        urlString.includes("telemetry") ||
+        urlString.includes("analytics") ||
+        urlString.includes("events.mapbox.com") ||
+        urlString.includes("api.mapbox.com/events");
 
-      // Block ALL external requests (including ALL Mapbox)
-      if (!isSafeRequest) {
-        console.log("Blocked external request:", urlString.substring(0, 60));
+      // Block only telemetry/analytics requests
+      if (isBlockedRequest) {
+        console.log("Blocked telemetry request:", urlString.substring(0, 60));
 
         // Return appropriate mock response
         let responseData = '{"success":true,"blocked":true}';
@@ -488,7 +484,7 @@ export default function MapView() {
               break;
             case 3: // TIMEOUT
               errorMessage =
-                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
+                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n��� Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
@@ -823,7 +819,7 @@ export default function MapView() {
 
           // Create simple popup without complex inline onclick
           const distanceText = distanceFromUser
-            ? `\n📍 ${distanceFromUser.toFixed(1)}km de você`
+            ? `\n�� ${distanceFromUser.toFixed(1)}km de você`
             : "";
 
           const popupContent = document.createElement("div");
@@ -989,7 +985,7 @@ export default function MapView() {
       {nearestPlaces.length > 0 && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
-            �� Restaurantes Próximos a Você
+            🎯 Restaurantes Próximos a Você
           </h3>
           <div className="space-y-2">
             {nearestPlaces.slice(0, 3).map((place) => (
