@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "./Sidebar";
-import { FloatingActionButton } from "./FloatingActionButton";
+
 import { cn } from "@/lib/utils";
 
 interface LayoutProps {
