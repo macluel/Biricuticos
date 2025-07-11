@@ -15,7 +15,6 @@ import { usePlaces } from "@/contexts/PlacesContext";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
-import { PlaceActionsModal } from "@/components/PlaceActionsModal";
 
 // This will be replaced with dynamic places from context
 
