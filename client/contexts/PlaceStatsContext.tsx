@@ -189,28 +189,35 @@ export function PlaceStatsProvider({
   const toggleFavorite = (placeId: number) => {
     setInteractions((prev) => {
       const existing = prev.find((i) => i.placeId === placeId);
+      let updatedInteraction: PlaceInteraction;
+
       if (existing) {
+        updatedInteraction = {
+          ...existing,
+          isFavorited: !existing.isFavorited,
+          dateAdded: !existing.isFavorited
+            ? new Date().toISOString()
+            : existing.dateAdded,
+        };
+
+        // Automatically sync to cloud
+        saveCloudInteraction(updatedInteraction);
+
         return prev.map((i) =>
-          i.placeId === placeId
-            ? {
-                ...i,
-                isFavorited: !i.isFavorited,
-                dateAdded: !i.isFavorited
-                  ? new Date().toISOString()
-                  : i.dateAdded,
-              }
-            : i,
+          i.placeId === placeId ? updatedInteraction : i,
         );
       } else {
-        return [
-          ...prev,
-          {
-            placeId,
-            isFavorited: true,
-            isVisited: false,
-            dateAdded: new Date().toISOString(),
-          },
-        ];
+        updatedInteraction = {
+          placeId,
+          isFavorited: true,
+          isVisited: false,
+          dateAdded: new Date().toISOString(),
+        };
+
+        // Automatically sync to cloud
+        saveCloudInteraction(updatedInteraction);
+
+        return [...prev, updatedInteraction];
       }
     });
   };
