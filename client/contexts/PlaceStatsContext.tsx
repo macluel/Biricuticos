@@ -1,11 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { places } from "@/data/config";
 import {
-  saveSharedData,
-  loadSharedData,
-  tryDownloadFromWeb,
-  mergeInteractionsSimple,
-} from "@/utils/simpleSync";
+  updateUrlWithData,
+  loadDataFromUrl,
+  copyShareableLink,
+} from "@/utils/urlSharing";
 
 // Types for place interactions
 export interface PlaceInteraction {
