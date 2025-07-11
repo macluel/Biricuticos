@@ -441,12 +441,15 @@ export default function MapView() {
             (error.code === 2 || error.code === 3) &&
             !options.retryAttempted
           ) {
-            console.log("High accuracy failed, trying with lower accuracy...");
+            console.log(
+              `Location error ${error.code}, trying with fallback settings...`,
+            );
 
             const fallbackOptions = {
               enableHighAccuracy: false,
               timeout: 30000,
-              maximumAge: 60000,
+              maximumAge: 300000, // 5 minutes cache for better reliability
+              retryAttempted: true, // Prevent infinite retry
             };
 
             navigator.geolocation.getCurrentPosition(
