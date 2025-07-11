@@ -42,29 +42,17 @@ if (typeof window !== "undefined") {
       const url = args[0];
       const urlString = typeof url === "string" ? url : url?.toString() || "";
 
-      // Allow Mapbox and essential services, block only problematic telemetry
-      const isBlockedRequest =
-        urlString.includes("telemetry") ||
-        urlString.includes("analytics") ||
-        urlString.includes("events.mapbox.com") ||
-        urlString.includes("api.mapbox.com/events");
+      // Only block very specific telemetry URLs, allow everything else
+      const isSpecificTelemetryRequest =
+        urlString.includes("events.mapbox.com") &&
+        (urlString.includes("/events/v2") || urlString.includes("/events/v1"));
 
-      // Block only telemetry/analytics requests
-      if (isBlockedRequest) {
+      // Block only specific telemetry endpoints
+      if (isSpecificTelemetryRequest) {
         console.log("Blocked telemetry request:", urlString.substring(0, 60));
 
-        // Return appropriate mock response
-        let responseData = '{"success":true,"blocked":true}';
-
-        // Special handling for common request types
-        if (urlString.includes("styles") || urlString.includes("mapbox")) {
-          responseData = '{"version":8,"sources":{},"layers":[]}';
-        } else if (urlString.includes("fonts")) {
-          responseData = "{}";
-        }
-
         return Promise.resolve(
-          new Response(responseData, {
+          new Response('{"success":true}', {
             status: 200,
             statusText: "OK",
             headers: {
