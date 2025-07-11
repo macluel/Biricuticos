@@ -166,7 +166,8 @@ export function PlaceStatsProvider({
   // Toggle visited status
   const toggleVisited = (placeId: number) => {
     setInteractions((prev) => {
-      const existing = prev.find((i) => i.placeId === placeId);
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const existing = safePrev.find((i) => i.placeId === placeId);
       let updatedInteraction: PlaceInteraction;
 
       if (existing) {
