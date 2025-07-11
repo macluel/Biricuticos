@@ -154,26 +154,34 @@ export const tryDownloadFromWeb = async (): Promise<PlaceInteraction[]> => {
   return [];
 };
 
-// Merge function
+// Merge function with better validation
 export const mergeInteractionsSimple = (
   shared: PlaceInteraction[],
   local: PlaceInteraction[],
 ): PlaceInteraction[] => {
   const merged = new Map<number, PlaceInteraction>();
 
+  // Validate inputs are arrays
+  const safeShared = Array.isArray(shared) ? shared : [];
+  const safeLocal = Array.isArray(local) ? local : [];
+
   // Add shared data first
-  shared.forEach((interaction) => {
-    merged.set(interaction.placeId, interaction);
+  safeShared.forEach((interaction) => {
+    if (interaction && typeof interaction.placeId === "number") {
+      merged.set(interaction.placeId, interaction);
+    }
   });
 
   // Add or update with local data (local wins for same place)
-  local.forEach((localInteraction) => {
-    const existing = merged.get(localInteraction.placeId);
-    if (!existing) {
-      merged.set(localInteraction.placeId, localInteraction);
-    } else {
-      // Local data wins if it's different
-      merged.set(localInteraction.placeId, localInteraction);
+  safeLocal.forEach((localInteraction) => {
+    if (localInteraction && typeof localInteraction.placeId === "number") {
+      const existing = merged.get(localInteraction.placeId);
+      if (!existing) {
+        merged.set(localInteraction.placeId, localInteraction);
+      } else {
+        // Local data wins if it's different
+        merged.set(localInteraction.placeId, localInteraction);
+      }
     }
   });
 
