@@ -99,7 +99,7 @@ const tryUploadToWeb = async (
   }
 };
 
-// Try to download data from web service
+// Try to download data from web service (with proper validation)
 export const tryDownloadFromWeb = async (): Promise<PlaceInteraction[]> => {
   try {
     // Try jsonbox.io first
@@ -109,12 +109,15 @@ export const tryDownloadFromWeb = async (): Promise<PlaceInteraction[]> => {
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0) {
           const latest = data[data.length - 1]; // Get most recent
-          console.log("🌐 Downloaded data from jsonbox.io");
-          return latest.data || [];
+          const interactions = latest.data;
+          if (Array.isArray(interactions)) {
+            console.log("🌐 Downloaded data from jsonbox.io");
+            return interactions;
+          }
         }
       }
     } catch (error) {
-      console.log("🌐 jsonbox.io download failed");
+      // Silent fail - don't spam console
     }
 
     // Try kvdb.io
@@ -124,11 +127,25 @@ export const tryDownloadFromWeb = async (): Promise<PlaceInteraction[]> => {
       );
       if (response.ok) {
         const data = await response.json();
-        console.log("🌐 Downloaded data from kvdb.io");
-        return data || [];
+
+        // Validate that data is an array of interactions
+        if (Array.isArray(data)) {
+          // Check if first item looks like a PlaceInteraction
+          if (
+            data.length === 0 ||
+            (data[0] && typeof data[0].placeId === "number")
+          ) {
+            console.log("🌐 Downloaded valid data from kvdb.io");
+            return data;
+          }
+        }
+
+        // If data is not in expected format, return empty array
+        console.log("🌐 kvdb.io data format invalid, skipping");
+        return [];
       }
     } catch (error) {
-      console.log("🌐 kvdb.io download failed");
+      // Silent fail - don't spam console
     }
   } catch (error) {
     console.log("⚠️ Web download failed:", error);
