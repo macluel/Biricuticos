@@ -161,14 +161,14 @@ const calculateTravelDistance = async (
 
   // If geographic distance is over 10km, skip routing API to save calls
   if (geoDistance > 10) {
-    console.log(
-      `Geographic distance ${geoDistance.toFixed(1)}km > 10km, skipping routing API`,
-    );
     return { distance: geoDistance, isTravel: false };
   }
 
   try {
-    // Use OpenRouteService (free routing API) for travel distance
+    // Use OpenRouteService (free routing API) for travel distance with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
     const response = await fetch(
       `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248a3b6b9b4e36b48ad9e7e4a03bebb4d75&start=${lng1},${lat1}&end=${lng2},${lat2}`,
       {
@@ -176,8 +176,11 @@ const calculateTravelDistance = async (
           Accept:
             "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
         },
+        signal: controller.signal,
       },
     );
+
+    clearTimeout(timeoutId);
 
     if (response.ok) {
       const data = await response.json();
@@ -188,15 +191,9 @@ const calculateTravelDistance = async (
 
         // Validate the travel distance - if it's unreasonably large, use geographic instead
         if (distanceKm > 50 || distanceKm < 0) {
-          console.log(
-            `Invalid travel distance ${distanceKm}km, using geographic distance ${geoDistance.toFixed(1)}km`,
-          );
           return { distance: geoDistance, isTravel: false };
         }
 
-        console.log(
-          `Travel distance: ${distanceKm.toFixed(1)}km, ${durationMinutes.toFixed(0)} min (vs ${geoDistance.toFixed(1)}km geo)`,
-        );
         return {
           distance: distanceKm,
           travelTime: durationMinutes,
@@ -205,10 +202,8 @@ const calculateTravelDistance = async (
       }
     }
   } catch (error) {
-    console.log(
-      "Travel distance calculation failed, using geographic distance:",
-      error,
-    );
+    // Silently fail routing API calls to prevent console spam
+    // The fallback to geographic distance is perfectly acceptable
   }
 
   // Fallback to geographic distance
@@ -413,10 +408,13 @@ export default function MapView() {
           }
         },
         (error) => {
-          console.error(
-            "Geolocation error details:",
-            `Code: ${error.code}, Message: ${error.message}, Type: GeolocationPositionError`,
-          );
+          // Only log geolocation errors in development/debug mode
+          if (process.env.NODE_ENV === "development") {
+            console.warn(
+              "Geolocation error details:",
+              `Code: ${error.code}, Message: ${error.message}, Type: GeolocationPositionError`,
+            );
+          }
 
           let errorMessage = "Erro ao obter localização";
 
@@ -505,10 +503,13 @@ export default function MapView() {
                 calculateNearestPlaces();
               },
               (fallbackError) => {
-                console.error(
-                  "Fallback geolocation also failed:",
-                  `Code: ${fallbackError.code}, Message: ${fallbackError.message}, Type: FallbackGeolocationError`,
-                );
+                // Only log fallback errors in development/debug mode
+                if (process.env.NODE_ENV === "development") {
+                  console.warn(
+                    "Fallback geolocation also failed:",
+                    `Code: ${fallbackError.code}, Message: ${fallbackError.message}, Type: FallbackGeolocationError`,
+                  );
+                }
 
                 // Both geolocation attempts failed, use Rio de Janeiro fallback
                 setLocationError(
@@ -517,9 +518,6 @@ export default function MapView() {
                 setIsTrackingLocation(false);
 
                 // Use Rio de Janeiro as fallback location for restaurant discovery
-                console.log(
-                  "Both geolocation attempts failed, using Rio de Janeiro as fallback",
-                );
                 const fallbackLat = -22.9068;
                 const fallbackLng = -43.1729;
 
@@ -573,9 +571,6 @@ export default function MapView() {
             setIsTrackingLocation(false);
 
             // Use Rio de Janeiro as fallback location for restaurant discovery
-            console.log(
-              "Using Rio de Janeiro as fallback location for restaurant discovery",
-            );
             const fallbackLat = -22.9068;
             const fallbackLng = -43.1729;
 
