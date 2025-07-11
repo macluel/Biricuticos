@@ -83,7 +83,7 @@ export function PlaceStatsProvider({
   };
 
   const syncDataToServer = async (data: PlaceInteraction[]) => {
-    await syncInteractions(data);
+    await saveSharedInteractions(data);
   };
 
   const setupAutoSync = () => {
