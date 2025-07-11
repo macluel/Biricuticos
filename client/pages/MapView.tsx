@@ -509,8 +509,59 @@ export default function MapView() {
                   "Fallback geolocation also failed:",
                   `Code: ${fallbackError.code}, Message: ${fallbackError.message}, Type: FallbackGeolocationError`,
                 );
-                setLocationError(errorMessage);
+
+                // Both geolocation attempts failed, use Rio de Janeiro fallback
+                setLocationError(
+                  "📍 Localização não disponível no momento\n\n🗺️ Mostrando restaurantes na região do Rio de Janeiro\n\n💡 Para sua localização exata:\n• Saia ao ar livre\n• Ative o GPS no dispositivo\n• Permita localização no navegador",
+                );
                 setIsTrackingLocation(false);
+
+                // Use Rio de Janeiro as fallback location for restaurant discovery
+                console.log(
+                  "Both geolocation attempts failed, using Rio de Janeiro as fallback",
+                );
+                const fallbackLat = -22.9068;
+                const fallbackLng = -43.1729;
+
+                // Calculate nearest places based on Rio center
+                const calculateNearestPlaces = async () => {
+                  try {
+                    const placesWithTravelDistance = await Promise.all(
+                      mapPlaces.map(async (place) => {
+                        const travelData = await calculateTravelDistance(
+                          fallbackLat,
+                          fallbackLng,
+                          place.lat,
+                          place.lng,
+                        );
+                        return {
+                          ...place,
+                          distance: travelData.distance,
+                          travelTime: travelData.travelTime,
+                          isTravel: travelData.isTravel,
+                        };
+                      }),
+                    );
+
+                    // Filter to places within 10km from Rio center
+                    const nearest = placesWithTravelDistance
+                      .filter((place) => place.distance <= 10)
+                      .sort((a, b) => a.distance - b.distance)
+                      .slice(0, 5);
+
+                    if (nearest.length > 0) {
+                      setNearestPlaces(nearest);
+                      console.log(
+                        "Retry fallback: Found restaurants near Rio center:",
+                        nearest.length,
+                      );
+                    }
+                  } catch (error) {
+                    console.log("Retry fallback calculation failed:", error);
+                  }
+                };
+
+                calculateNearestPlaces();
               },
               fallbackOptions,
             );
