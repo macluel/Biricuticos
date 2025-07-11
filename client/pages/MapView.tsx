@@ -426,7 +426,7 @@ export default function MapView() {
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "📍 Sua localizaç��o não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
+                "📍 Sua localização não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
               break;
             case 3: // TIMEOUT
               errorMessage =
