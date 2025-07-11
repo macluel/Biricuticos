@@ -436,8 +436,11 @@ export default function MapView() {
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
           }
 
-          // Try again with lower accuracy if the first attempt failed
-          if (error.code === 3 && options.enableHighAccuracy) {
+          // Try with different settings based on error type
+          if (
+            (error.code === 2 || error.code === 3) &&
+            !options.retryAttempted
+          ) {
             console.log("High accuracy failed, trying with lower accuracy...");
 
             const fallbackOptions = {
