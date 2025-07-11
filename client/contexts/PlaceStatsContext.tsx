@@ -48,10 +48,13 @@ export function PlaceStatsProvider({
 
   const loadSharedData = async () => {
     try {
-      // Load from cloud database
-      const cloudData = await loadCloudInteractions();
+      // Load from simple shared storage
+      const sharedData = loadSharedData();
 
-      // Load from localStorage (backup/offline data)
+      // Try to get data from web (best effort)
+      const webData = await tryDownloadFromWeb();
+
+      // Load current localStorage
       const localData = localStorage.getItem("biricuticos-interactions");
       let localInteractions: PlaceInteraction[] = [];
 
@@ -63,9 +66,21 @@ export function PlaceStatsProvider({
         }
       }
 
-      // Merge cloud and local data (cloud takes priority for newer timestamps)
-      const mergedData = mergeCloudAndLocal(cloudData, localInteractions);
+      // Merge all data sources (local wins for conflicts)
+      let mergedData = sharedData;
+      if (webData.length > 0) {
+        mergedData = mergeInteractionsSimple(mergedData, webData);
+      }
+      if (localInteractions.length > 0) {
+        mergedData = mergeInteractionsSimple(mergedData, localInteractions);
+      }
+
       setInteractions(mergedData);
+
+      // Save merged data back for sharing
+      if (mergedData.length > 0) {
+        saveSharedData(mergedData);
+      }
     } catch (error) {
       console.error("Error loading cloud data:", error);
       // Fallback to localStorage only
