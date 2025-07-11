@@ -59,44 +59,13 @@ export const loadSharedData = (): PlaceInteraction[] => {
   return [];
 };
 
-// Try to upload data to a web service (best effort)
+// Disable external uploads to prevent blocking/loops
 const tryUploadToWeb = async (
   interactions: PlaceInteraction[],
 ): Promise<void> => {
-  try {
-    // Using a simple approach: try multiple free services
-    const dataStr = JSON.stringify(interactions, null, 2);
-
-    // Method 1: Try a simple POST to jsonbox.io (free)
-    try {
-      await fetch("https://jsonbox.io/box_biricuticos_shared", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ data: interactions, timestamp: Date.now() }),
-      });
-      console.log("🌐 Data uploaded to jsonbox.io");
-      return;
-    } catch (error) {
-      console.log("🌐 jsonbox.io not available");
-    }
-
-    // Method 2: Try a simple key-value store
-    try {
-      await fetch("https://api.kvdb.io/biricuticos/shared_interactions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: dataStr,
-      });
-      console.log("🌐 Data uploaded to kvdb.io");
-      return;
-    } catch (error) {
-      console.log("🌐 kvdb.io not available");
-    }
-
-    console.log("📱 Using local storage only");
-  } catch (error) {
-    console.log("⚠️ Web upload failed:", error);
-  }
+  // External APIs are being blocked, so we'll skip them
+  // Data is still saved locally and can be shared via export
+  console.log("💾 Data saved locally (external sync disabled)");
 };
 
 // Try to download data from web service (with proper validation)
