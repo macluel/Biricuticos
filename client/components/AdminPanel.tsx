@@ -24,9 +24,39 @@ export function AdminPanel() {
     const dataStr = JSON.stringify(interactions, null, 2);
     navigator.clipboard.writeText(dataStr).then(() => {
       alert(
-        "Data copied to clipboard! Replace the content of client/data/shared-interactions.json with this data.",
+        "✅ Data copied to clipboard!\n\n" +
+          "To share with others:\n" +
+          "1. Go to gist.github.com\n" +
+          "2. Create a new gist named 'shared-interactions.json'\n" +
+          "3. Paste this data\n" +
+          "4. Make it public and save\n" +
+          "5. Get the raw URL and update the GIST_URL in the code\n\n" +
+          "OR simply replace client/data/shared-interactions.json and redeploy!",
       );
     });
+  };
+
+  const getShareableLink = () => {
+    const dataStr = JSON.stringify(interactions, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "shared-interactions.json";
+    link.click();
+
+    alert(
+      "📁 File downloaded!\n\n" +
+        "Quick sharing steps:\n" +
+        "1. Upload this file to any file hosting service\n" +
+        "2. Get the direct link to the raw JSON\n" +
+        "3. Update GIST_URL in client/utils/sharing.ts\n" +
+        "4. Redeploy your site\n\n" +
+        "Everyone will see the shared data!",
+    );
+
+    URL.revokeObjectURL(url);
   };
 
   // Hidden admin panel - press Ctrl+Shift+A to show
