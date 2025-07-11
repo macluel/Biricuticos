@@ -509,6 +509,13 @@ export default function MapView() {
     try {
       console.log("Initializing Mapbox map...");
 
+      // Disable telemetry before creating map
+      // @ts-ignore
+      if (mapboxgl.config) {
+        // @ts-ignore
+        mapboxgl.config.EVENTS_URL = false;
+      }
+
       // Initialize map
       map.current = new mapboxgl.Map({
         container: mapContainer.current,
@@ -516,6 +523,10 @@ export default function MapView() {
         center: [-43.1729, -22.9068], // Rio de Janeiro
         zoom: 12,
         attributionControl: false,
+        // Disable telemetry at map level too
+        trackResize: true,
+        // @ts-ignore - disable events
+        collectResourceTiming: false,
       });
 
       // Add navigation controls
