@@ -443,13 +443,6 @@ export default function Catalog() {
           </p>
         </div>
       )}
-
-      {/* Place Actions Modal */}
-      <PlaceActionsModal
-        place={selectedPlaceForActions}
-        isOpen={!!selectedPlaceForActions}
-        onClose={() => setSelectedPlaceForActions(null)}
-      />
     </div>
   );
 }
