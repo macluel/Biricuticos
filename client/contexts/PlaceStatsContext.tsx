@@ -179,7 +179,7 @@ export function PlaceStatsProvider({
             : existing.dateVisited,
         };
 
-        return prev.map((i) =>
+        return safePrev.map((i) =>
           i.placeId === placeId ? updatedInteraction : i,
         );
       } else {
@@ -190,7 +190,7 @@ export function PlaceStatsProvider({
           dateVisited: new Date().toISOString(),
         };
 
-        return [...prev, updatedInteraction];
+        return [...safePrev, updatedInteraction];
       }
     });
   };
