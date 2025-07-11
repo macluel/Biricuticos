@@ -36,6 +36,9 @@ export function Layout({ children }: LayoutProps) {
       >
         <div className="p-4 pt-16 lg:p-8 lg:pt-8">{children}</div>
       </main>
+
+      {/* Admin Panel - Hidden by default, shows with Ctrl+Shift+A */}
+      <AdminPanel />
     </div>
   );
 }
