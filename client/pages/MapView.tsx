@@ -377,12 +377,11 @@ export default function MapView() {
         });
       };
 
-      console.log("Starting geolocation with retry logic...");
+            console.log("Starting geolocation with retry logic...");
 
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude, accuracy } = position.coords;
-          console.log("Location found:", { latitude, longitude, accuracy });
+      const position = await attemptGeolocation();
+      const { latitude, longitude, accuracy } = position.coords;
+      console.log("Final location found:", { latitude, longitude, accuracy });
 
           setUserLocation({ lat: latitude, lng: longitude });
           setIsTrackingLocation(false);
