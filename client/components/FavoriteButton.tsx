@@ -1,7 +1,6 @@
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
-import { useNetlifyAuth as useAuth } from "@/contexts/NetlifyAuthContext";
 
 interface FavoriteButtonProps {
   placeId: number;
