@@ -33,50 +33,6 @@ mapboxgl.accessToken =
 
 // Handle Mapbox telemetry gracefully to prevent fetch errors
 if (typeof window !== "undefined") {
-  // Store original fetch before any overrides
-  const originalFetch = window.fetch;
-
-  window.fetch = function (...args) {
-    // Ultimate safety wrapper - catch ANY possible error
-    try {
-      const url = args[0];
-      const urlString = typeof url === "string" ? url : url?.toString() || "";
-
-      // Only block very specific telemetry URLs, allow everything else
-      const isSpecificTelemetryRequest =
-        urlString.includes("events.mapbox.com") &&
-        (urlString.includes("/events/v2") || urlString.includes("/events/v1"));
-
-      // Block only specific telemetry endpoints
-      if (isSpecificTelemetryRequest) {
-        console.log("Blocked telemetry request:", urlString.substring(0, 60));
-
-        return Promise.resolve(
-          new Response('{"success":true}', {
-            status: 200,
-            statusText: "OK",
-            headers: {
-              "Content-Type": "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-          }),
-        );
-      }
-
-      // For all other requests (including Mapbox), use original fetch
-      return originalFetch.apply(this, args);
-    } catch (outerError) {
-      // Ultimate fallback - if anything goes wrong in the interceptor
-      console.log("Fetch interceptor error, using ultimate fallback");
-      return Promise.resolve(
-        new Response('{"error":"Interceptor failed","fallback":true}', {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        }),
-      );
-    }
-  };
-
   // Configure Mapbox to minimize telemetry
   // @ts-ignore
   if (window.mapboxgl) {
