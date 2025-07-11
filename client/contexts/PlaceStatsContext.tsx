@@ -82,7 +82,7 @@ export function PlaceStatsProvider({
         saveSharedData(mergedData);
       }
     } catch (error) {
-      console.error("Error loading cloud data:", error);
+      console.error("Error loading shared data:", error);
       // Fallback to localStorage only
       const saved = localStorage.getItem("biricuticos-interactions");
       if (saved) {
