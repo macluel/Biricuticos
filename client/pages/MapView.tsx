@@ -37,32 +37,37 @@ if (typeof window !== "undefined") {
   const originalFetch = window.fetch;
 
   // Intercept ALL fetch calls to block Mapbox telemetry
-  window.fetch = function(input, init) {
-    const url = typeof input === 'string' ? input : input.url;
+  window.fetch = function (input, init) {
+    const url = typeof input === "string" ? input : input.url;
 
     // Block ALL Mapbox telemetry/events URLs
-    if (url && (
-        url.includes('events.mapbox.com') ||
-        url.includes('api.mapbox.com/events') ||
-        url.includes('/events/v2') ||
-        url.includes('/events/v1') ||
-        url.includes('api.mapbox.com/analytics') ||
-        (url.includes('mapbox') && (url.includes('events') || url.includes('telemetry') || url.includes('analytics')))
-    )) {
+    if (
+      url &&
+      (url.includes("events.mapbox.com") ||
+        url.includes("api.mapbox.com/events") ||
+        url.includes("/events/v2") ||
+        url.includes("/events/v1") ||
+        url.includes("api.mapbox.com/analytics") ||
+        (url.includes("mapbox") &&
+          (url.includes("events") ||
+            url.includes("telemetry") ||
+            url.includes("analytics"))))
+    ) {
       // Return fake successful response to prevent errors
-      return Promise.resolve(new Response('{"success": true}', {
-        status: 200,
-        statusText: 'OK',
-        headers: { 'Content-Type': 'application/json' }
-      }));
+      return Promise.resolve(
+        new Response('{"success": true}', {
+          status: 200,
+          statusText: "OK",
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
     }
 
     // Allow all other requests (map tiles, styles, fonts, routing, etc.)
     return originalFetch.call(this, input, init);
   };
 
-// Handle remaining Mapbox configuration
-if (typeof window !== "undefined") {
+  // Handle remaining Mapbox configuration
   // Properly disable Mapbox telemetry to prevent fetch errors
   // @ts-ignore
   if (window.mapboxgl) {
