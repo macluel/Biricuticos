@@ -426,7 +426,7 @@ export default function MapView() {
               break;
             case 2: // POSITION_UNAVAILABLE
               errorMessage =
-                "📍 Sua localização não está disponível\n\n✅ Verifique se:\n• O GPS está ligado no dispositivo\n• Você tem conexão com a internet\n• Não está em local fechado (shopping, subsolo)\n• Tente sair ao ar livre por alguns segundos";
+                "📍 Localização indisponível no momento\n\n🔧 Soluções:\n• Vá ao ar livre (GPS funciona melhor fora)\n• Verifique se o GPS está ativado no dispositivo\n• Aguarde alguns segundos e tente novamente\n• Se estiver em WiFi, tente usar dados móveis\n• Reinicie o GPS nas configurações do celular\n\n💡 Dica: A localização por rede pode demorar em alguns locais";
               break;
             case 3: // TIMEOUT
               errorMessage =
