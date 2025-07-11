@@ -33,13 +33,15 @@ mapboxgl.accessToken =
 
 // Handle Mapbox telemetry gracefully to prevent fetch errors
 if (typeof window !== "undefined") {
-  // Configure Mapbox to minimize telemetry
+  // Disable Mapbox telemetry to prevent fetch errors
   // @ts-ignore
   if (window.mapboxgl) {
     // @ts-ignore
+    window.mapboxgl.accessToken = mapboxgl.accessToken;
+    // @ts-ignore
     window.mapboxgl.config = {
       REQUIRE_ACCESS_TOKEN: true,
-      EVENTS_URL: false, // Disable events URL
+      EVENTS_URL: false, // Disable events/telemetry
     };
   }
 
