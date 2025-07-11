@@ -40,10 +40,9 @@ export function PlaceStatsProvider({
   const [interactions, setInteractions] = useState<PlaceInteraction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Auto-sync functionality
+  // Load shared data on mount
   useEffect(() => {
     loadSharedData();
-    setupAutoSync();
   }, []);
 
   const loadSharedData = async () => {
