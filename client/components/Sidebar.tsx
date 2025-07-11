@@ -102,56 +102,6 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
             </div>
           </div>
 
-          {/* User Section */}
-          {user ? (
-            <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-primary-500 flex items-center justify-center">
-                  <User className="h-5 w-5 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 dark:text-gray-100 truncate">
-                    {user.name}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                    {user.email}
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={logout}
-                className="w-full text-xs"
-              >
-                <LogOut className="h-3 w-3 mr-2" />
-                Sair
-              </Button>
-            </div>
-          ) : (
-            <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
-              <div className="space-y-2">
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="w-full"
-                  onClick={login}
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Entrar
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full text-xs"
-                  onClick={signup}
-                >
-                  Criar Conta
-                </Button>
-              </div>
-            </div>
-          )}
-
           {/* Navigation */}
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
