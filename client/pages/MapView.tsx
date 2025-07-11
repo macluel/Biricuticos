@@ -31,42 +31,8 @@ import { FallbackMap } from "@/components/FallbackMap";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFjbHVlbCIsImEiOiJjbWN4dmplYTYwZ2pqMmxva2M4eHprOXk2In0.gauez6de-WZWDhQiJzLIqg";
 
-// Aggressively block Mapbox telemetry requests
+// Disable Mapbox telemetry without intercepting fetch
 if (typeof window !== "undefined") {
-  // Store original fetch to use for legitimate requests
-  const originalFetch = window.fetch;
-
-  // Intercept fetch calls to block Mapbox telemetry only
-  window.fetch = function (input, init) {
-    const url = typeof input === "string" ? input : input.url;
-
-    // Block only Mapbox telemetry/events URLs
-    if (
-      url &&
-      (url.includes("events.mapbox.com") ||
-        url.includes("api.mapbox.com/events") ||
-        url.includes("/events/v2") ||
-        url.includes("/events/v1") ||
-        url.includes("api.mapbox.com/analytics") ||
-        (url.includes("mapbox") &&
-          (url.includes("events") ||
-            url.includes("telemetry") ||
-            url.includes("analytics"))))
-    ) {
-      // Return fake successful response to prevent errors
-      return Promise.resolve(
-        new Response('{"success": true}', {
-          status: 200,
-          statusText: "OK",
-          headers: { "Content-Type": "application/json" },
-        }),
-      );
-    }
-
-    // Allow all other requests (map tiles, styles, fonts, OpenRouteService API, etc.)
-    return originalFetch.call(this, input, init);
-  };
-
   // Handle remaining Mapbox configuration
   // Properly disable Mapbox telemetry to prevent fetch errors
   // @ts-ignore
@@ -95,25 +61,18 @@ if (typeof window !== "undefined") {
     const message = event.reason?.message || "";
     const stack = event.reason?.stack || "";
 
-    // Suppress fetch errors from Mapbox telemetry or travel distance API calls
+    // Only suppress errors that are specifically from telemetry/events
     if (
-      message.includes("Failed to fetch") ||
-      message.includes("TypeError: Failed to fetch")
-    ) {
-      // Check if it's from known sources we want to suppress
-      if (
-        stack.includes("mapbox") ||
-        stack.includes("telemetry") ||
+      (message.includes("Failed to fetch") ||
+        message.includes("TypeError: Failed to fetch")) &&
+      (stack.includes("telemetry") ||
         stack.includes("postEvent") ||
         stack.includes("postTurnstileEvent") ||
-        stack.includes("processRequests") ||
-        stack.includes("queueRequest") ||
-        stack.includes("calculateTravelDistance") ||
-        stack.includes("openrouteservice")
-      ) {
-        event.preventDefault();
-        return;
-      }
+        stack.includes("events.mapbox.com") ||
+        stack.includes("/events/"))
+    ) {
+      event.preventDefault();
+      return;
     }
   });
 
