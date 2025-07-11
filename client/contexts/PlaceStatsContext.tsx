@@ -44,33 +44,8 @@ export function PlaceStatsProvider({
 
   const loadSharedData = async () => {
     try {
-      // Load from the API endpoint (Netlify Function) or fallback to static file
-      let sharedData: PlaceInteraction[] = [];
-
-      try {
-        const response = await fetch("/.netlify/functions/interactions");
-        if (
-          response.ok &&
-          response.headers.get("content-type")?.includes("application/json")
-        ) {
-          sharedData = await response.json();
-        } else {
-          throw new Error("API not available or returned non-JSON");
-        }
-      } catch (apiError) {
-        console.log("API not available, falling back to static file");
-        // Fallback to static JSON file
-        try {
-          const fallbackResponse = await fetch(
-            "/client/data/shared-interactions.json",
-          );
-          if (fallbackResponse.ok) {
-            sharedData = await fallbackResponse.json();
-          }
-        } catch (fallbackError) {
-          console.log("Static file also not available, using empty array");
-        }
-      }
+      // Load shared data using the API utility
+      const sharedData = await fetchInteractions();
 
       // Load from localStorage (user's local changes)
       const localData = localStorage.getItem("biricuticos-interactions");
