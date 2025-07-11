@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "./Sidebar";
+import { AdminPanel } from "./AdminPanel";
 
 import { cn } from "@/lib/utils";
 
