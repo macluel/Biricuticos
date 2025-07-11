@@ -79,27 +79,7 @@ export function PlaceStatsProvider({
   };
 
   const syncDataToServer = async (data: PlaceInteraction[]) => {
-    try {
-      const response = await fetch("/.netlify/functions/interactions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (
-        response.ok &&
-        response.headers.get("content-type")?.includes("application/json")
-      ) {
-        const result = await response.json();
-        console.log("✅ Data synced automatically:", result.message);
-      } else {
-        console.log("⚠️ Sync endpoint not available (probably in development)");
-      }
-    } catch (error) {
-      console.log("⚠️ Sync not available:", error.message);
-    }
+    await syncInteractions(data);
   };
 
   const setupAutoSync = () => {
