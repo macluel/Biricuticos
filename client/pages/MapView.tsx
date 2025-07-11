@@ -505,11 +505,10 @@ export default function MapView() {
                 calculateNearestPlaces();
               },
               (fallbackError) => {
-                console.error("Fallback geolocation also failed:", {
-                  code: fallbackError.code,
-                  message: fallbackError.message,
-                  errorType: "FallbackGeolocationError",
-                });
+                console.error(
+                  "Fallback geolocation also failed:",
+                  `Code: ${fallbackError.code}, Message: ${fallbackError.message}, Type: FallbackGeolocationError`,
+                );
                 setLocationError(errorMessage);
                 setIsTrackingLocation(false);
               },
