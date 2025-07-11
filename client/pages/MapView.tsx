@@ -516,8 +516,59 @@ export default function MapView() {
               fallbackOptions,
             );
           } else {
-            setLocationError(errorMessage);
+            // Show error but provide fallback functionality
+            setLocationError(
+              errorMessage +
+                "\n\n🗺️ Usando Rio de Janeiro como referência para mostrar restaurantes próximos",
+            );
             setIsTrackingLocation(false);
+
+            // Use Rio de Janeiro as fallback location for restaurant discovery
+            console.log(
+              "Using Rio de Janeiro as fallback location for restaurant discovery",
+            );
+            const fallbackLat = -22.9068;
+            const fallbackLng = -43.1729;
+
+            // Calculate nearest places based on Rio center for functionality
+            const calculateNearestPlaces = async () => {
+              try {
+                const placesWithTravelDistance = await Promise.all(
+                  mapPlaces.map(async (place) => {
+                    const travelData = await calculateTravelDistance(
+                      fallbackLat,
+                      fallbackLng,
+                      place.lat,
+                      place.lng,
+                    );
+                    return {
+                      ...place,
+                      distance: travelData.distance,
+                      travelTime: travelData.travelTime,
+                      isTravel: travelData.isTravel,
+                    };
+                  }),
+                );
+
+                // Filter to places within 10km from Rio center
+                const nearest = placesWithTravelDistance
+                  .filter((place) => place.distance <= 10)
+                  .sort((a, b) => a.distance - b.distance)
+                  .slice(0, 5);
+
+                if (nearest.length > 0) {
+                  setNearestPlaces(nearest);
+                  console.log(
+                    "Fallback: Found restaurants near Rio center:",
+                    nearest.length,
+                  );
+                }
+              } catch (error) {
+                console.log("Fallback calculation failed:", error);
+              }
+            };
+
+            calculateNearestPlaces();
           }
         },
         options,
