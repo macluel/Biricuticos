@@ -101,7 +101,7 @@ export function PlaceStatsProvider({
     }
   };
 
-  // Save to localStorage and share whenever interactions change
+  // Save to localStorage and automatically update URL whenever interactions change
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem(
@@ -109,19 +109,12 @@ export function PlaceStatsProvider({
         JSON.stringify(safeInteractions),
       );
 
-      // Only save for sharing if there are actual interactions
-      // and prevent infinite loops by checking if data actually changed
+      // Automatically update URL with current data for sharing
       if (safeInteractions.length > 0) {
-        const lastSaved = localStorage.getItem("biricuticos-last-shared");
-        const currentData = JSON.stringify(safeInteractions);
-
-        if (lastSaved !== currentData) {
-          localStorage.setItem("biricuticos-last-shared", currentData);
-          saveSharedData(safeInteractions);
-        }
+        updateUrlWithData(safeInteractions);
       }
     }
-  }, [interactions, isLoading]);
+  }, [interactions, isLoading, safeInteractions]);
 
   // Get interaction for a specific place
   const getPlaceInteraction = (placeId: number): PlaceInteraction => {
