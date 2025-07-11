@@ -134,12 +134,27 @@ export function PlaceStatsProvider({
         try {
           const interactions = JSON.parse(data);
           // Use sendBeacon for reliable delivery even when page is closing
-          const blob = new Blob([JSON.stringify(interactions)], {
-            type: "application/json",
-          });
-          navigator.sendBeacon("/.netlify/functions/interactions", blob);
+          const formData = new FormData();
+          formData.append("data", JSON.stringify(interactions));
+
+          // Try sendBeacon first, fallback to fetch
+          const success = navigator.sendBeacon(
+            "/.netlify/functions/interactions",
+            formData,
+          );
+          if (!success) {
+            // Fallback for development or if sendBeacon fails
+            fetch("/.netlify/functions/interactions", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(interactions),
+              keepalive: true,
+            }).catch(() => {
+              console.log("⚠️ Final sync failed - data saved locally");
+            });
+          }
         } catch (error) {
-          console.error("Error syncing on page unload:", error);
+          console.log("⚠️ Error syncing on page unload:", error.message);
         }
       }
     };
