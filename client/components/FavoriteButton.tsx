@@ -31,13 +31,13 @@ export function FavoriteButton({
       }}
       className={cn(
         "p-1 rounded-full transition-all duration-200 hover:scale-110",
-        interaction.isFavorited || isUserFavorite
+        interaction.isFavorited
           ? "text-red-500 hover:text-red-600"
           : "text-gray-400 hover:text-red-500",
         className,
       )}
       title={
-        interaction.isFavorited || isUserFavorite
+        interaction.isFavorited
           ? "Remover dos favoritos"
           : "Adicionar aos favoritos"
       }
@@ -46,7 +46,7 @@ export function FavoriteButton({
         className={cn(
           sizeClasses[size],
           "transition-all duration-200",
-          interaction.isFavorited || isUserFavorite ? "fill-current" : "",
+          interaction.isFavorited ? "fill-current" : "",
         )}
       />
     </button>
