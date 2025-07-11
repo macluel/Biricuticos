@@ -164,30 +164,6 @@ export function PlaceStatsProvider({
     };
   };
 
-  // Merge function to combine shared and local interactions
-  const mergeInteractions = (
-    shared: PlaceInteraction[],
-    local: PlaceInteraction[],
-  ): PlaceInteraction[] => {
-    const merged = [...shared];
-
-    // Add or update with local data
-    local.forEach((localInteraction) => {
-      const existingIndex = merged.findIndex(
-        (item) => item.placeId === localInteraction.placeId,
-      );
-      if (existingIndex >= 0) {
-        // Update existing with local data (local takes priority)
-        merged[existingIndex] = localInteraction;
-      } else {
-        // Add new local interaction
-        merged.push(localInteraction);
-      }
-    });
-
-    return merged;
-  };
-
   // Save to localStorage whenever interactions change
   useEffect(() => {
     if (!isLoading) {
