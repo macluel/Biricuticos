@@ -55,15 +55,37 @@ if (typeof window !== "undefined") {
     };
   }
 
-  // Simple error suppression - only suppress fetch errors to prevent console spam
+  // Comprehensive error suppression for Mapbox telemetry
   window.addEventListener("unhandledrejection", (event) => {
     const message = event.reason?.message || "";
     const stack = event.reason?.stack || "";
 
-    // Only suppress "Failed to fetch" errors from Mapbox telemetry
+    // Suppress all Mapbox telemetry-related fetch errors
+    if (
+      message.includes("Failed to fetch") ||
+      message.includes("TypeError: Failed to fetch")
+    ) {
+      // Check if it's from Mapbox telemetry/events
+      if (
+        stack.includes("mapbox") ||
+        stack.includes("telemetry") ||
+        stack.includes("postEvent") ||
+        stack.includes("postTurnstileEvent") ||
+        stack.includes("processRequests") ||
+        stack.includes("queueRequest")
+      ) {
+        event.preventDefault();
+        return;
+      }
+    }
+  });
+
+  // Also handle regular errors
+  window.addEventListener("error", (event) => {
+    const message = event.message || "";
     if (
       message.includes("Failed to fetch") &&
-      (stack.includes("mapbox") || stack.includes("telemetry"))
+      event.filename?.includes("mapbox")
     ) {
       event.preventDefault();
     }
@@ -376,7 +398,7 @@ export default function MapView() {
               break;
             case 3: // TIMEOUT
               errorMessage =
-                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conex��o com a internet\n• No celular pode demorar mais que no computador";
+                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
