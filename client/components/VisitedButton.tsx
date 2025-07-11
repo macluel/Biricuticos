@@ -18,26 +18,12 @@ export function VisitedButton({
   className,
 }: VisitedButtonProps) {
   const { getPlaceInteraction, toggleVisited } = usePlaceStats();
-  const { user, updateUserPreferences } = useAuth();
   const interaction = getPlaceInteraction(placeId);
-
-  // Check if user has visited this place
-  const isUserVisited = user?.preferences.visited.includes(placeId) || false;
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleVisited(placeId);
-
-    // Also update user preferences if logged in
-    if (user) {
-      const currentVisited = user.preferences.visited;
-      const newVisited = currentVisited.includes(placeId)
-        ? currentVisited.filter((id) => id !== placeId)
-        : [...currentVisited, placeId];
-
-      updateUserPreferences({ visited: newVisited });
-    }
   };
 
   if (variant === "icon") {
@@ -46,18 +32,18 @@ export function VisitedButton({
         onClick={handleClick}
         className={cn(
           "p-1 rounded-full transition-all duration-200 hover:scale-110",
-          interaction.isVisited || isUserVisited
+          interaction.isVisited
             ? "text-green-500 hover:text-green-600"
             : "text-gray-400 hover:text-green-500",
           className,
         )}
         title={
-          interaction.isVisited || isUserVisited
+          interaction.isVisited
             ? "Marcar como não visitado"
             : "Marcar como visitado"
         }
       >
-        {interaction.isVisited || isUserVisited ? (
+        {interaction.isVisited ? (
           <Check className="h-4 w-4 fill-current" />
         ) : (
           <MapPin className="h-4 w-4" />
@@ -69,17 +55,17 @@ export function VisitedButton({
   return (
     <Button
       size={size}
-      variant={interaction.isVisited || isUserVisited ? "default" : "outline"}
+      variant={interaction.isVisited ? "default" : "outline"}
       onClick={handleClick}
       className={cn(
         "gap-2",
-        interaction.isVisited || isUserVisited
+        interaction.isVisited
           ? "bg-green-500 hover:bg-green-600 text-white"
           : "border-green-500 text-green-500 hover:bg-green-50 dark:hover:bg-green-950",
         className,
       )}
     >
-      {interaction.isVisited || isUserVisited ? (
+      {interaction.isVisited ? (
         <>
           <Check className="h-4 w-4" />
           Visitamos!
