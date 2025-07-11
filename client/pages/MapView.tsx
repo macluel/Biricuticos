@@ -433,7 +433,7 @@ export default function MapView() {
                 "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
-              errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n��� Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
+              errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
           }
 
           // Try again with lower accuracy if the first attempt failed
