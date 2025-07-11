@@ -138,7 +138,6 @@ const interactionTypes = [
 export default function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { places } = usePlaces();
-  const { user } = useAuth();
 
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("search") || "",
