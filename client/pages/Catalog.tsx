@@ -27,7 +27,6 @@ import { VisitedButton } from "@/components/VisitedButton";
 
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
-import { useNetlifyAuth as useAuth } from "@/contexts/NetlifyAuthContext";
 
 // This will be replaced with dynamic places from context
 
