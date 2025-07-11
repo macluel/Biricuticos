@@ -48,7 +48,6 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
   const location = useLocation();
   const { theme, setTheme } = useTheme();
   const { stats } = usePlaceStats();
-  const { user, login, signup, logout } = useNetlifyAuth();
 
   return (
     <>
