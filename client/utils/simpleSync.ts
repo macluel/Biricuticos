@@ -13,7 +13,7 @@ const FALLBACK_GIST_ID = "temp_shared_interactions";
 
 // Simple localStorage-based sharing that persists across browsers
 export const saveSharedData = (interactions: PlaceInteraction[]): void => {
-  // Save to multiple localStorage keys for redundancy
+  // Save to localStorage only (no external APIs)
   const dataStr = JSON.stringify(interactions);
 
   // Save with timestamp
@@ -27,10 +27,7 @@ export const saveSharedData = (interactions: PlaceInteraction[]): void => {
     localStorage.setItem("biricuticos-shared", JSON.stringify(sharedData));
     localStorage.setItem("biricuticos-backup", dataStr);
 
-    // Also try to save to a shared online location (best effort)
-    tryUploadToWeb(interactions);
-
-    console.log("✅ Data saved locally and queued for sharing");
+    console.log("💾 Data saved locally");
   } catch (error) {
     console.log("⚠️ Error saving data:", error);
   }
