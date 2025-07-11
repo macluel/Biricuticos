@@ -35,19 +35,40 @@ export function PlaceStatsProvider({
   const [interactions, setInteractions] = useState<PlaceInteraction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simple shared storage using a public GitHub Gist
-  const SHARED_STORAGE_URL = "https://api.github.com/gists/abc123def456"; // You'll create this
-
-  // Load from shared storage on mount
+  // Load shared data from JSON file and localStorage
   useEffect(() => {
     loadSharedData();
   }, []);
 
   const loadSharedData = async () => {
     try {
-      // For now, let's use a simple approach with localStorage but make it "shared"
-      // by using a fixed key that represents global state
-      const saved = localStorage.getItem("biricuticos-global-interactions");
+      // Load from the shared JSON file first
+      const response = await fetch("/client/data/shared-interactions.json");
+      let sharedData: PlaceInteraction[] = [];
+
+      if (response.ok) {
+        sharedData = await response.json();
+      }
+
+      // Load from localStorage (user's local changes)
+      const localData = localStorage.getItem("biricuticos-interactions");
+      let localInteractions: PlaceInteraction[] = [];
+
+      if (localData) {
+        try {
+          localInteractions = JSON.parse(localData);
+        } catch (error) {
+          console.error("Error parsing localStorage data:", error);
+        }
+      }
+
+      // Merge shared data with local data (local takes priority for conflicts)
+      const mergedData = mergeInteractions(sharedData, localInteractions);
+      setInteractions(mergedData);
+    } catch (error) {
+      console.error("Error loading shared data:", error);
+      // Fallback to localStorage only
+      const saved = localStorage.getItem("biricuticos-interactions");
       if (saved) {
         try {
           setInteractions(JSON.parse(saved));
@@ -55,23 +76,33 @@ export function PlaceStatsProvider({
           console.error("Error loading place interactions:", error);
         }
       }
-    } catch (error) {
-      console.error("Error loading shared data:", error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const saveToSharedStorage = async (data: PlaceInteraction[]) => {
-    try {
-      // Save to localStorage with a global key
-      localStorage.setItem(
-        "biricuticos-global-interactions",
-        JSON.stringify(data),
+  // Merge function to combine shared and local interactions
+  const mergeInteractions = (
+    shared: PlaceInteraction[],
+    local: PlaceInteraction[],
+  ): PlaceInteraction[] => {
+    const merged = [...shared];
+
+    // Add or update with local data
+    local.forEach((localInteraction) => {
+      const existingIndex = merged.findIndex(
+        (item) => item.placeId === localInteraction.placeId,
       );
-    } catch (error) {
-      console.error("Error saving to shared storage:", error);
-    }
+      if (existingIndex >= 0) {
+        // Update existing with local data (local takes priority)
+        merged[existingIndex] = localInteraction;
+      } else {
+        // Add new local interaction
+        merged.push(localInteraction);
+      }
+    });
+
+    return merged;
   };
 
   // Save to shared storage whenever interactions change
