@@ -1,38 +1,35 @@
-// API utilities with development fallback
-export const API_BASE = import.meta.env.DEV
-  ? "/api" // Development fallback
-  : "/.netlify/functions";
-
+// API utilities with proper fallback chain
 export const fetchInteractions = async (): Promise<any[]> => {
+  // Try Netlify Functions first (production)
   try {
-    // Try API endpoint first
-    const response = await fetch(`${API_BASE}/interactions`);
-
+    const response = await fetch("/.netlify/functions/interactions");
     if (
       response.ok &&
       response.headers.get("content-type")?.includes("application/json")
     ) {
       return await response.json();
     }
-
-    throw new Error("API not available");
   } catch (error) {
-    console.log("API not available, using fallback");
-
-    // Fallback to static file
-    try {
-      const fallbackResponse = await fetch(
-        "/client/data/shared-interactions.json",
-      );
-      if (fallbackResponse.ok) {
-        return await fallbackResponse.json();
-      }
-    } catch (fallbackError) {
-      console.log("Static file not available");
-    }
-
-    return [];
+    // Netlify Functions not available (probably development)
   }
+
+  // Fallback to static file
+  try {
+    const fallbackResponse = await fetch(
+      "/client/data/shared-interactions.json",
+    );
+    if (fallbackResponse.ok) {
+      const data = await fallbackResponse.json();
+      console.log("📄 Loaded shared data from static file");
+      return data;
+    }
+  } catch (error) {
+    console.log("📄 Static file not available");
+  }
+
+  // Final fallback to empty array
+  console.log("🔄 Using empty interactions array");
+  return [];
 };
 
 export const syncInteractions = async (data: any[]): Promise<boolean> => {
