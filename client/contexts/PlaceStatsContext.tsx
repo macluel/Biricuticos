@@ -105,13 +105,23 @@ export function PlaceStatsProvider({
 
   // Save to localStorage and share whenever interactions change
   useEffect(() => {
-    if (!isLoading && interactions.length > 0) {
+    if (!isLoading) {
       localStorage.setItem(
         "biricuticos-interactions",
-        JSON.stringify(interactions),
+        JSON.stringify(safeInteractions),
       );
-      // Also save for sharing
-      saveSharedData(interactions);
+
+      // Only save for sharing if there are actual interactions
+      // and prevent infinite loops by checking if data actually changed
+      if (safeInteractions.length > 0) {
+        const lastSaved = localStorage.getItem("biricuticos-last-shared");
+        const currentData = JSON.stringify(safeInteractions);
+
+        if (lastSaved !== currentData) {
+          localStorage.setItem("biricuticos-last-shared", currentData);
+          saveSharedData(safeInteractions);
+        }
+      }
     }
   }, [interactions, isLoading]);
 
