@@ -133,7 +133,7 @@ const interactionTypes = [
   "Quero Provar", // Favorited but not visited
   "Já Visitamos", // Visited
   "Favoritos", // All favorited
-  "Ainda n��o Tentei", // Not favorited and not visited
+  "Ainda não Tentei", // Not favorited and not visited
 ];
 
 export default function Catalog() {
@@ -257,16 +257,6 @@ export default function Catalog() {
           </h3>
           <div className="flex items-center gap-2">
             <FavoriteButton placeId={place.id} />
-            {user && place.addedBy === user.id && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSelectedPlaceForActions(place)}
-                className="p-1 h-8 w-8"
-              >
-                <MoreVertical className="h-4 w-4" />
-              </Button>
-            )}
           </div>
         </div>
         <div className="flex items-center gap-2 mb-3">
