@@ -75,18 +75,8 @@ if (typeof window !== "undefined") {
         );
       }
 
-      // Only for explicitly safe requests, use original fetch
-      try {
-        return originalFetch.apply(this, args);
-      } catch (error) {
-        console.log("Safe request failed, providing fallback");
-        return Promise.resolve(
-          new Response('{"error":"Fetch failed"}', {
-            status: 200,
-            headers: { "Content-Type": "application/json" },
-          }),
-        );
-      }
+      // For all other requests (including Mapbox), use original fetch
+      return originalFetch.apply(this, args);
     } catch (outerError) {
       // Ultimate fallback - if anything goes wrong in the interceptor
       console.log("Fetch interceptor error, using ultimate fallback");
@@ -484,7 +474,7 @@ export default function MapView() {
               break;
             case 3: // TIMEOUT
               errorMessage =
-                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n��� Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
+                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
@@ -819,7 +809,7 @@ export default function MapView() {
 
           // Create simple popup without complex inline onclick
           const distanceText = distanceFromUser
-            ? `\n�� ${distanceFromUser.toFixed(1)}km de você`
+            ? `\n📍 ${distanceFromUser.toFixed(1)}km de você`
             : "";
 
           const popupContent = document.createElement("div");
