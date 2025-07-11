@@ -34,7 +34,7 @@ export const fetchInteractions = async (): Promise<any[]> => {
 
 export const syncInteractions = async (data: any[]): Promise<boolean> => {
   try {
-    const response = await fetch(`${API_BASE}/interactions`, {
+    const response = await fetch("/.netlify/functions/interactions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,14 +47,13 @@ export const syncInteractions = async (data: any[]): Promise<boolean> => {
       response.headers.get("content-type")?.includes("application/json")
     ) {
       const result = await response.json();
-      console.log("✅ Data synced:", result.message);
+      console.log("✅ Data synced to server:", result.message);
       return true;
     }
-
-    console.log("⚠️ Sync endpoint not available");
-    return false;
   } catch (error) {
-    console.log("⚠️ Sync failed:", error.message);
-    return false;
+    // Netlify Functions not available (development)
   }
+
+  console.log("⚠️ Sync endpoint not available (development mode)");
+  return false;
 };
