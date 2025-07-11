@@ -51,11 +51,14 @@ export function PlaceStatsProvider({
 
   const loadSharedData = async () => {
     try {
-      // Load from simple shared storage
+      // Load from simple shared storage (local)
       const sharedData = loadSharedData();
 
-      // Try to get data from web (best effort)
-      const webData = await tryDownloadFromWeb();
+      // Try to get data from web (best effort) - only on first load
+      let webData: PlaceInteraction[] = [];
+      if (isLoading) {
+        webData = await tryDownloadFromWeb();
+      }
 
       // Load current localStorage
       const localData = localStorage.getItem("biricuticos-interactions");
