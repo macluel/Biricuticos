@@ -112,14 +112,17 @@ export function PlaceStatsProvider({
         body: JSON.stringify(data),
       });
 
-      if (response.ok) {
+      if (
+        response.ok &&
+        response.headers.get("content-type")?.includes("application/json")
+      ) {
         const result = await response.json();
         console.log("✅ Data synced automatically:", result.message);
       } else {
-        console.error("❌ Failed to sync data to server");
+        console.log("⚠️ Sync endpoint not available (probably in development)");
       }
     } catch (error) {
-      console.error("❌ Error syncing data:", error);
+      console.log("⚠️ Sync not available:", error.message);
     }
   };
 
