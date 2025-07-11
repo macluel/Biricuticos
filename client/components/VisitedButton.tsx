@@ -1,7 +1,7 @@
 import { Check, MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
-import { useNetlifyAuth as useAuth } from "@/contexts/NetlifyAuthContext";
+
 import { Button } from "@/components/ui/button";
 
 interface VisitedButtonProps {
