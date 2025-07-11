@@ -145,6 +145,12 @@ const calculateGeographicDistance = (
   return R * c;
 };
 
+// Rate limiting for API calls
+let lastApiCall = 0;
+const API_RATE_LIMIT = 1000; // 1 second between calls
+let apiCallCount = 0;
+const MAX_API_CALLS = 10; // Max 10 API calls per session to prevent abuse
+
 // Calculate travel distance using routing API (with fallback to geographic distance)
 const calculateTravelDistance = async (
   lat1: number,
@@ -160,17 +166,26 @@ const calculateTravelDistance = async (
     return { distance: geoDistance, isTravel: false };
   }
 
+  // Rate limiting and API call count limiting
+  const now = Date.now();
+  if (apiCallCount >= MAX_API_CALLS || now - lastApiCall < API_RATE_LIMIT) {
+    // Too many calls or too frequent, use geographic distance
+    return { distance: geoDistance, isTravel: false };
+  }
+
   try {
+    apiCallCount++;
+    lastApiCall = now;
+
     // Use OpenRouteService (free routing API) for travel distance with timeout
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
 
     const response = await fetch(
       `https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248a3b6b9b4e36b48ad9e7e4a03bebb4d75&start=${lng1},${lat1}&end=${lng2},${lat2}`,
       {
         headers: {
-          Accept:
-            "application/json, application/geo+json, application/gpx+xml, img/png; charset=utf-8",
+          Accept: "application/json",
         },
         signal: controller.signal,
       },
@@ -1053,7 +1068,7 @@ export default function MapView() {
                   <div className="text-green-600 dark:text-green-400 text-sm ml-2">
                     <span>
                       {place.distance.toFixed(1)}km
-                      {place.isTravel ? " 🚗" : " ✈��"}
+                      {place.isTravel ? " 🚗" : " ✈️"}
                     </span>
                     {place.travelTime && (
                       <span className="ml-1">
