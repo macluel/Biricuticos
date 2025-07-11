@@ -105,10 +105,13 @@ export function PlaceStatsProvider({
     return merged;
   };
 
-  // Save to shared storage whenever interactions change
+  // Save to localStorage whenever interactions change
   useEffect(() => {
-    if (!isLoading && interactions.length >= 0) {
-      saveToSharedStorage(interactions);
+    if (!isLoading) {
+      localStorage.setItem(
+        "biricuticos-interactions",
+        JSON.stringify(interactions),
+      );
     }
   }, [interactions, isLoading]);
 
