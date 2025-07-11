@@ -198,19 +198,14 @@ export function PlaceStatsProvider({
   // Calculate dynamic stats
   const stats = {
     totalPlaces: places.length,
-    wantToTry: Array.isArray(interactions)
-      ? interactions.filter((i) => i.isFavorited && !i.isVisited).length
-      : 0,
-    triedTogether: Array.isArray(interactions)
-      ? interactions.filter((i) => i.isVisited).length
-      : 0,
-    favorited: Array.isArray(interactions)
-      ? interactions.filter((i) => i.isFavorited).length
-      : 0,
+    wantToTry: safeInteractions.filter((i) => i.isFavorited && !i.isVisited)
+      .length,
+    triedTogether: safeInteractions.filter((i) => i.isVisited).length,
+    favorited: safeInteractions.filter((i) => i.isFavorited).length,
   };
 
   const value = {
-    interactions,
+    interactions: safeInteractions,
     getPlaceInteraction,
     toggleFavorite,
     toggleVisited,
