@@ -48,8 +48,8 @@ export function PlaceStatsProvider({
 
   const loadSharedData = async () => {
     try {
-      // Load shared data using the API utility
-      const sharedData = await fetchInteractions();
+      // Load shared data from online storage
+      const sharedData = await loadSharedInteractions();
 
       // Load from localStorage (user's local changes)
       const localData = localStorage.getItem("biricuticos-interactions");
@@ -63,7 +63,7 @@ export function PlaceStatsProvider({
         }
       }
 
-      // Merge shared data with local data (local takes priority for conflicts)
+      // Merge shared and local data (newer dates take priority)
       const mergedData = mergeInteractions(sharedData, localInteractions);
       setInteractions(mergedData);
     } catch (error) {
