@@ -21,8 +21,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider defaultTheme="light" storageKey="places-theme">
-      <NetlifyAuthProvider>
-        <PlacesProvider>
+                    <PlacesProvider>
           <PlaceStatsProvider>
             <TooltipProvider>
               <Toaster />
@@ -41,7 +40,7 @@ const App = () => (
             </TooltipProvider>
           </PlaceStatsProvider>
         </PlacesProvider>
-      </NetlifyAuthProvider>
+            </NetlifyAuthProvider>
     </ThemeProvider>
   </QueryClientProvider>
 );
