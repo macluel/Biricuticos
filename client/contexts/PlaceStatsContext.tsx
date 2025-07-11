@@ -41,6 +41,9 @@ export function PlaceStatsProvider({
   const [interactions, setInteractions] = useState<PlaceInteraction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Ensure interactions is always an array
+  const safeInteractions = Array.isArray(interactions) ? interactions : [];
+
   // Load shared data on mount
   useEffect(() => {
     loadSharedData();
