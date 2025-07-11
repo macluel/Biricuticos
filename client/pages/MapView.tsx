@@ -33,7 +33,7 @@ mapboxgl.accessToken =
 
 // Handle Mapbox telemetry gracefully to prevent fetch errors
 if (typeof window !== "undefined") {
-  // Disable Mapbox telemetry to prevent fetch errors
+  // Properly disable Mapbox telemetry to prevent fetch errors
   // @ts-ignore
   if (window.mapboxgl) {
     // @ts-ignore
@@ -41,7 +41,17 @@ if (typeof window !== "undefined") {
     // @ts-ignore
     window.mapboxgl.config = {
       REQUIRE_ACCESS_TOKEN: true,
-      EVENTS_URL: false, // Disable events/telemetry
+      EVENTS_URL: false,
+    };
+  }
+
+  // Also set the global config before Mapbox initializes
+  // @ts-ignore
+  if (typeof mapboxgl !== "undefined") {
+    // @ts-ignore
+    mapboxgl.config = {
+      REQUIRE_ACCESS_TOKEN: true,
+      EVENTS_URL: false,
     };
   }
 
@@ -366,7 +376,7 @@ export default function MapView() {
               break;
             case 3: // TIMEOUT
               errorMessage =
-                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conexão com a internet\n• No celular pode demorar mais que no computador";
+                "⏱️ GPS demorou para responder\n\n🔄 Dicas:\n• Aguarde alguns segundos e tente novamente\n• Saia ao ar livre se estiver em local fechado\n• Verifique sua conex��o com a internet\n• No celular pode demorar mais que no computador";
               break;
             default:
               errorMessage = `🚨 Erro de localização\n\nCódigo: ${error.code}\nDetalhes: ${error.message || "Erro desconhecido"}\n\n💡 Tente:\n• Atualizar a página\n• Verificar permissões do navegador\n• Usar outro navegador`;
