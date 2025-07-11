@@ -50,13 +50,10 @@ export function PlaceStatsProvider({
 
   const loadSharedData = async () => {
     try {
-      // Load from simple shared storage (local)
-      const sharedData = loadSharedData();
+      // Load from URL first (shared data)
+      const urlData = loadDataFromUrl();
 
-      // Skip web download to prevent blocking/loops
-      const webData: PlaceInteraction[] = [];
-
-      // Load current localStorage
+      // Load from localStorage (personal data)
       const localData = localStorage.getItem("biricuticos-interactions");
       let localInteractions: PlaceInteraction[] = [];
 
@@ -68,15 +65,26 @@ export function PlaceStatsProvider({
         }
       }
 
-      // Merge shared and local data only (no web data to prevent loops)
-      let mergedData = sharedData;
-      if (localInteractions.length > 0) {
-        mergedData = mergeInteractionsSimple(mergedData, localInteractions);
+      // Merge URL data with local data
+      let mergedData = localInteractions;
+      if (urlData.length > 0) {
+        const merged = new Map<number, PlaceInteraction>();
+
+        // Add local data first
+        localInteractions.forEach((interaction) => {
+          merged.set(interaction.placeId, interaction);
+        });
+
+        // Add URL data (overwrites local for same places)
+        urlData.forEach((interaction) => {
+          merged.set(interaction.placeId, interaction);
+        });
+
+        mergedData = Array.from(merged.values());
+        console.log("🔗 Merged shared data from URL");
       }
 
       setInteractions(mergedData);
-
-      // Don't save back during loading to prevent loops
     } catch (error) {
       console.error("Error loading shared data:", error);
       // Fallback to localStorage only
