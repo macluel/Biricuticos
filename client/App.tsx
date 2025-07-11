@@ -45,7 +45,16 @@ const App = () => (
 );
 
 const rootElement = document.getElementById("root")!;
-if (!rootElement._reactRootContainer) {
+
+// Prevent double mounting in development
+if (import.meta.hot) {
+  import.meta.hot.dispose(() => {
+    // Cleanup on hot reload
+  });
+}
+
+// Only create root if it doesn't exist
+if (!rootElement.hasChildNodes()) {
   const root = createRoot(rootElement);
   root.render(<App />);
 }
