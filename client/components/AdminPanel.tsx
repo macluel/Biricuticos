@@ -90,7 +90,16 @@ export function AdminPanel() {
           className="w-full"
         >
           <Copy className="h-4 w-4 mr-2" />
-          Copy to Clipboard
+          Copy for Sharing
+        </Button>
+        <Button
+          size="sm"
+          variant="secondary"
+          onClick={getShareableLink}
+          className="w-full"
+        >
+          <Download className="h-4 w-4 mr-2" />
+          Download & Share
         </Button>
         <p className="text-xs text-gray-500 mt-2">
           Current interactions: {interactions.length}
