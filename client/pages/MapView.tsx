@@ -318,7 +318,7 @@ export default function MapView() {
     // Check if geolocation is supported
     if (!navigator.geolocation) {
       setLocationError(
-        "🚫 Geolocalização não é suportada neste navegador\n\n💡 Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
+        "🚫 Geolocalização não é suportada neste navegador\n\n�� Tente usar:\n• Google Chrome\n• Safari\n• Firefox\n• Edge\n\nOu ative a localização nas configurações do navegador",
       );
       setIsTrackingLocation(false);
       return;
@@ -1356,12 +1356,11 @@ export default function MapView() {
               >
                 {selectedPlace.type}
               </Badge>
-              <div className="flex items-center gap-1">
-                <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                <span className="text-sm font-medium">
-                  {selectedPlace.rating}
-                </span>
-              </div>
+              <StaticRatingDisplay
+                rating={selectedPlace.rating}
+                userRating={getUserRating(selectedPlace.id)}
+                size="sm"
+              />
               {selectedPlace.price && (
                 <Badge variant="outline">{selectedPlace.price}</Badge>
               )}
