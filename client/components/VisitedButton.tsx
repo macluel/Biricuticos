@@ -1,4 +1,4 @@
-import { Check, MapPin } from "lucide-react";
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
@@ -43,11 +43,9 @@ export function VisitedButton({
             : "Marcar como visitado"
         }
       >
-        {interaction.isVisited ? (
-          <Check className="h-4 w-4 fill-current" />
-        ) : (
-          <MapPin className="h-4 w-4" />
-        )}
+        <Check
+          className={cn("h-4 w-4", interaction.isVisited ? "fill-current" : "")}
+        />
       </button>
     );
   }
@@ -65,17 +63,8 @@ export function VisitedButton({
         className,
       )}
     >
-      {interaction.isVisited ? (
-        <>
-          <Check className="h-4 w-4" />
-          Visitamos!
-        </>
-      ) : (
-        <>
-          <MapPin className="h-4 w-4" />
-          Marcar como Visitado
-        </>
-      )}
+      <Check className="h-4 w-4" />
+      {interaction.isVisited ? "Visitamos!" : "Marcar como Visitado"}
     </Button>
   );
 }
