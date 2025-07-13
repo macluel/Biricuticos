@@ -232,6 +232,17 @@ export default function Catalog() {
     return filtered;
   }, [searchQuery, selectedType, selectedState, selectedPrice, sortBy]);
 
+  // Handle place click
+  const handlePlaceClick = (place: (typeof allPlaces)[0]) => {
+    setSelectedPlace(place);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPlace(null);
+  };
+
   const PlaceCard = ({ place }: { place: (typeof allPlaces)[0] }) => (
     <div
       className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 ${viewMode === "list" ? "flex" : ""}`}
