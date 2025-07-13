@@ -99,10 +99,9 @@ const defaultPlaces = [
     image:
       "https://scontent.cdninstagram.com/v/t51.75761-15/491438143_18064315673487075_9140240618207150797_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=111&ig_cache_key=MzYxNDQ3MzkxNzk3NDIwOTY2Mw%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIyNjh4NDAzMi5zZHIifQ%3D%3D&_nc_ohc=IDLoLGn-Qc8Q7kNvwF6xRrI&_nc_oc=AdmvdfNS-_MNvJE9_MTa23QqLkpfcSi4dqpKOsZuK8cIb1rkrlKkLWVpNi93g4xCrx0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=_TQJCPZX5ZbxaBtFc0vDlA&oh=00_AfSXy3WXVDYK848AFhAZeZb-XDDotICchlnM41uNUeQABA&oe=6879E9B1",
     // Contact Information
-    phone: "(21) 2548-9747",
-    instagram: "@pizzariaguanabara",
-    whatsapp: "+5521987654321",
-    website: "https://www.pizzariaguanabara.com.br",
+    phone: "(21) 96714-7357",
+    instagram: "@mrconepizzas",
+    whatsapp: "5521967147357",
     // Quality tags for visited places
     qualityTags: [
       "Massa fininha",
@@ -113,8 +112,8 @@ const defaultPlaces = [
     // Tags for places never visited (reasons to go)
     wishlistTags: ["Tradição carioca", "Pizza famosa", "Desde 1969"],
     tags: ["pizza", "tradicional", "carioca"],
-    lat: -22.9068,
-    lng: -43.1729,
+    lat: -22.8598387958669,
+    lng: -43.101097537630785,
   },
   {
     id: 3,
