@@ -153,7 +153,6 @@ export default function Catalog() {
   const [selectedInteraction, setSelectedInteraction] = useState("Todos");
   const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
   const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
-  const [selectedGeneralTag, setSelectedGeneralTag] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("rating");
   const [showFilters, setShowFilters] = useState(false);
@@ -179,16 +178,6 @@ export default function Catalog() {
     allPlaces.forEach((place) => {
       if (place.wishlistTags) {
         place.wishlistTags.forEach((tag) => tags.add(tag));
-      }
-    });
-    return ["Todos", ...Array.from(tags).sort()];
-  }, [allPlaces]);
-
-  const availableGeneralTags = useMemo(() => {
-    const tags = new Set<string>();
-    allPlaces.forEach((place) => {
-      if (place.tags) {
-        place.tags.forEach((tag) => tags.add(tag));
       }
     });
     return ["Todos", ...Array.from(tags).sort()];
