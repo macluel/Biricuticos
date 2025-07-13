@@ -526,6 +526,25 @@ export default function Catalog() {
         </Select>
 
         <Select
+          value={selectedStarRating}
+          onValueChange={setSelectedStarRating}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="★ Estrelas" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Todos">Todas Estrelas</SelectItem>
+            <SelectItem value="5-stars">★★★★★ 5 Estrelas</SelectItem>
+            <SelectItem value="4-stars">★★★★☆ 4 Estrelas</SelectItem>
+            <SelectItem value="3-stars">★★★☆☆ 3 Estrelas</SelectItem>
+            <SelectItem value="2-stars">★★☆☆☆ 2 Estrelas</SelectItem>
+            <SelectItem value="1-star">★☆☆☆☆ 1 Estrela</SelectItem>
+            <SelectItem value="rated">Avaliados</SelectItem>
+            <SelectItem value="unrated">Não Avaliados</SelectItem>
+          </SelectContent>
+        </Select>
+
+        <Select
           value={selectedQualityTag}
           onValueChange={setSelectedQualityTag}
         >
