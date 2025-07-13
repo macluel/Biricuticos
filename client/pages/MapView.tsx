@@ -11,6 +11,7 @@ import {
   Crosshair,
   Route,
   LocateFixed,
+  SlidersHorizontal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,9 +24,11 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { usePlaces } from "@/contexts/PlacesContext";
+import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { FallbackMap } from "@/components/FallbackMap";
+import { filterOptions } from "@/data/config";
 
 // Mapbox access token
 mapboxgl.accessToken =
