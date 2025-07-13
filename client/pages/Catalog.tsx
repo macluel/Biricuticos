@@ -245,7 +245,8 @@ export default function Catalog() {
 
   const PlaceCard = ({ place }: { place: (typeof allPlaces)[0] }) => (
     <div
-      className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 ${viewMode === "list" ? "flex" : ""}`}
+      className={`group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 cursor-pointer ${viewMode === "list" ? "flex" : ""}`}
+      onClick={() => handlePlaceClick(place)}
     >
       <div
         className={`relative overflow-hidden ${viewMode === "list" ? "w-48 flex-shrink-0" : ""}`}
@@ -283,14 +284,10 @@ export default function Catalog() {
           <Badge variant="secondary">{place.type}</Badge>
           <Badge variant="outline">{place.price}</Badge>
         </div>
-        <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
-          {place.description}
-        </p>
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500 dark:text-gray-400">
-            {place.reviews.toLocaleString()} avaliações
-          </span>
-          <VisitedButton placeId={place.id} size="sm" />
+          <div className="flex gap-1">
+            <VisitedButton placeId={place.id} size="sm" />
+          </div>
         </div>
       </div>
     </div>
