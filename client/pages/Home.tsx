@@ -282,13 +282,7 @@ export default function Home() {
                     {place.type}
                   </span>
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
-                  {place.description}
-                </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
-                    {place.reviews.toLocaleString()} avaliações
-                  </span>
                   <div className="flex gap-1">
                     <VisitedButton placeId={place.id} size="sm" />
                   </div>
