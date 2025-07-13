@@ -67,7 +67,7 @@ const defaultPlaces = [
     type: "Pastelaria",
     price: "$$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/487277346_18064230101313736_7124242055458220875_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjE0NDB4MTU5OS5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2QFUYYGc3o0tD3gWysxR28tshwuXVtvSaT5pQQGfrIINeI5mURc3KW0aUWfoqDW-PiI&_nc_ohc=4vtEli97MlMQ7kNvwGRGkMt&_nc_gid=zEtSKNgYyIunf48Fg6l4Qw&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzYwMjY5MzY5MjEwOTUyMTc1Mg%3D%3D.3-ccb7-5&oh=00_AfR6lCqYwAuRxxuUE6q3XZnyOtcjDMWbB7AuxCo_dL0L0Q&oe=6879EBFB&_nc_sid=22de04",
+      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t39.30808-6/487459308_122118852074768421_4916690963563226743_n.jpg?stp=dst-jpg_e35_s640x640_sh0.08_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjIwNDh4MTM1Ni5zZHIuZjMwODA4LmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=109&_nc_oc=Q6cZ2QFsqntv39zTt8ooliyxwTgsFnNflMQX66wLXm88Z7CUEr0HzBUux5Ncbr7ZVEgegUU&_nc_ohc=jj4bkdNFWjAQ7kNvwECMSm_&_nc_gid=ZXP0m-UwBc2eMsvGSb-emQ&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzYwMTIyNjAzOTc3MjM4NDI2NA%3D%3D.3-ccb7-5&oh=00_AfRfRHTluUAUDAOpTHLquDCkzlBlSzC5sM_p2fIYizXLqw&oe=6879EDAD&_nc_sid=22de04 640w",
     // Contact Information
     phone: "(21) 98604-8063",
     instagram: "@pastelcariocaniteroi",
