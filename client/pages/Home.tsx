@@ -160,13 +160,13 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-green-500" />
+                <span className="text-xl">✅</span>
                 <span className="text-lg">
                   {stats.triedTogether} Provamos Juntos
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-blue-500" />
+                <span className="text-xl">📌</span>
                 <span className="text-lg">
                   {stats.wantToTry} Prontos pro date
                 </span>
