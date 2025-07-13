@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { UserRating, StaticRatingDisplay } from "@/components/UserRating";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
 interface Place {
@@ -56,13 +57,14 @@ export function PlaceDetailsModal({
   isOpen,
   onClose,
 }: PlaceDetailsModalProps) {
-  const { interactions } = usePlaceStats();
+  const { interactions, getUserRating } = usePlaceStats();
 
   if (!place) return null;
 
   const hasVisited = interactions.some(
     (interaction) => interaction.placeId === place.id && interaction.isVisited,
   );
+  const userRating = getUserRating(place.id);
 
   const handlePhoneCall = () => {
     if (place.phone) {
@@ -133,11 +135,13 @@ export function PlaceDetailsModal({
               className="w-full h-64 object-cover"
             />
             <div className="absolute top-4 right-4">
-              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
-                <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                  {place.rating}
-                </span>
+              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                <StaticRatingDisplay
+                  rating={place.rating}
+                  userRating={userRating}
+                  size="sm"
+                  showBoth={!!userRating}
+                />
               </div>
             </div>
             <div className="absolute top-4 left-4">
