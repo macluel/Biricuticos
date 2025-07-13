@@ -60,15 +60,27 @@ const defaultPlaces = [
     id: 1,
     name: "Oro",
     location: "Leblon, Rio de Janeiro",
+    fullAddress: "Rua Humaitá, 462 - Leblon, Rio de Janeiro - RJ, 22261-001",
     state: "Rio de Janeiro",
     type: "Fine Dining",
     rating: 4.9,
-    reviews: 1247,
     price: "$$$",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-    description:
-      "Restaurante premiado com estrela Michelin, oferecendo alta gastronomia brasileira.",
+    // Contact Information
+    phone: "(21) 2540-8768",
+    instagram: "@ororestaurante",
+    whatsapp: "+5521998887777",
+    website: "https://www.ororestaurante.com.br",
+    // Quality tags for visited places
+    qualityTags: [
+      "Comida saborosa",
+      "Bem temperada",
+      "Boa aparência",
+      "Bons ingredientes",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Estrela Michelin", "Alta gastronomia", "Chef renomado"],
     tags: ["brasileiro", "fine-dining", "leblon"],
     // For map positioning (Rio de Janeiro coordinates)
     lat: -22.9868,
@@ -78,15 +90,28 @@ const defaultPlaces = [
     id: 2,
     name: "Pizzaria Guanabara",
     location: "Copacabana, Rio de Janeiro",
+    fullAddress:
+      "Av. Atlântica, 1702 - Copacabana, Rio de Janeiro - RJ, 22021-001",
     state: "Rio de Janeiro",
     type: "Pizzaria",
     rating: 4.6,
-    reviews: 2341,
     price: "$$",
     image:
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
-    description:
-      "Pizza tradicional carioca desde 1969, famosa pela massa fininha e ingredientes frescos.",
+    // Contact Information
+    phone: "(21) 2548-9747",
+    instagram: "@pizzariaguanabara",
+    whatsapp: "+5521987654321",
+    website: "https://www.pizzariaguanabara.com.br",
+    // Quality tags for visited places
+    qualityTags: [
+      "Massa fininha",
+      "Ingredientes frescos",
+      "Boa quantidade",
+      "Temperatura certa",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Tradição carioca", "Pizza famosa", "Desde 1969"],
     tags: ["pizza", "tradicional", "carioca"],
     lat: -22.9068,
     lng: -43.1729,
@@ -95,15 +120,28 @@ const defaultPlaces = [
     id: 3,
     name: "Confeitaria Colombo",
     location: "Centro, Rio de Janeiro",
+    fullAddress:
+      "R. Gonçalves Dias, 32 - Centro, Rio de Janeiro - RJ, 20050-030",
     state: "Rio de Janeiro",
     type: "Confeitaria",
     rating: 4.7,
-    reviews: 3156,
     price: "$$",
     image:
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
-    description:
-      "Confeitaria histórica de 1894, famosa pelos doces tradicionais e arquitetura belle époque.",
+    // Contact Information
+    phone: "(21) 2505-1500",
+    instagram: "@confeitariacolombo",
+    whatsapp: "+5521912345678",
+    website: "https://www.confeitariacolombo.com.br",
+    // Quality tags for visited places
+    qualityTags: [
+      "Doces tradicionais",
+      "Boa aparência",
+      "Arquitetura belle époque",
+      "Ambiente histórico",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Local histórico", "Confeitaria de 1894", "Doces famosos"],
     tags: ["confeitaria", "histórica", "doces"],
     lat: -22.9035,
     lng: -43.176,
