@@ -204,7 +204,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     Favoritos
                   </span>
                   <div className="flex items-center gap-1">
-                    <Heart className="h-4 w-4 text-red-500 fill-current" />
+                    <span className="text-sm">❤️</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.favorited}
                     </span>
@@ -215,7 +215,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     Quero Provar
                   </span>
                   <div className="flex items-center gap-1">
-                    <MapPin className="h-4 w-4 text-blue-500 fill-current" />
+                    <span className="text-sm">📌</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.wantToTry}
                     </span>
@@ -226,7 +226,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     Provamos Juntos
                   </span>
                   <div className="flex items-center gap-1">
-                    <Check className="h-4 w-4 text-green-500 fill-current" />
+                    <span className="text-sm">✅</span>
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.triedTogether}
                     </span>
