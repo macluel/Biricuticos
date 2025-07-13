@@ -244,12 +244,6 @@ export default function Catalog() {
           place.wishlistTags?.includes(selectedWishlistTag) || false;
       }
 
-      // Filter by general tags
-      let matchesGeneralTag = true;
-      if (selectedGeneralTag !== "Todos") {
-        matchesGeneralTag = place.tags?.includes(selectedGeneralTag) || false;
-      }
-
       return (
         matchesSearch &&
         matchesType &&
@@ -257,8 +251,7 @@ export default function Catalog() {
         matchesPrice &&
         matchesInteraction &&
         matchesQualityTag &&
-        matchesWishlistTag &&
-        matchesGeneralTag
+        matchesWishlistTag
       );
     });
 
@@ -285,7 +278,6 @@ export default function Catalog() {
     selectedInteraction,
     selectedQualityTag,
     selectedWishlistTag,
-    selectedGeneralTag,
     sortBy,
     getPlaceInteraction,
   ]);
