@@ -267,6 +267,35 @@ export default function MapView() {
           place.wishlistTags?.includes(selectedWishlistTag) || false;
       }
 
+      // Filter by star rating
+      let matchesStarRating = true;
+      if (selectedStarRating !== "Todos") {
+        const userRating = getUserRating(place.id);
+        switch (selectedStarRating) {
+          case "5-stars":
+            matchesStarRating = userRating === 5;
+            break;
+          case "4-stars":
+            matchesStarRating = userRating === 4;
+            break;
+          case "3-stars":
+            matchesStarRating = userRating === 3;
+            break;
+          case "2-stars":
+            matchesStarRating = userRating === 2;
+            break;
+          case "1-star":
+            matchesStarRating = userRating === 1;
+            break;
+          case "rated":
+            matchesStarRating = userRating !== null;
+            break;
+          case "unrated":
+            matchesStarRating = userRating === null;
+            break;
+        }
+      }
+
       return (
         matchesSearch &&
         matchesType &&
@@ -274,7 +303,8 @@ export default function MapView() {
         matchesPrice &&
         matchesInteraction &&
         matchesQualityTag &&
-        matchesWishlistTag
+        matchesWishlistTag &&
+        matchesStarRating
       );
     });
 
@@ -288,7 +318,9 @@ export default function MapView() {
     selectedInteraction,
     selectedQualityTag,
     selectedWishlistTag,
+    selectedStarRating,
     getPlaceInteraction,
+    getUserRating,
   ]);
 
   // Get user's current location
