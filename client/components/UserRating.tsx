@@ -91,19 +91,17 @@ export function UserRating({
   );
 }
 
-interface StaticRatingDisplayProps {
-  rating: number;
+interface UserRatingDisplayProps {
   userRating?: number | null;
   size?: "sm" | "md" | "lg";
-  showBoth?: boolean;
+  showLabel?: boolean;
 }
 
-export function StaticRatingDisplay({
-  rating,
+export function UserRatingDisplay({
   userRating,
   size = "md",
-  showBoth = false,
-}: StaticRatingDisplayProps) {
+  showLabel = false,
+}: UserRatingDisplayProps) {
   const getStarSize = () => {
     switch (size) {
       case "sm":
@@ -126,55 +124,30 @@ export function StaticRatingDisplay({
     }
   };
 
-  return (
-    <div className="flex items-center gap-3">
-      {/* User Rating - Primary display */}
-      {userRating && (
-        <div className="flex items-center gap-1">
-          <Star className={cn(getStarSize(), "text-yellow-400 fill-current")} />
-          <span
-            className={cn(
-              "font-semibold text-gray-900 dark:text-gray-100",
-              getTextSize(),
-            )}
-          >
-            {userRating}
-          </span>
-          <span
-            className={cn("text-gray-500 dark:text-gray-400", getTextSize())}
-          >
-            (sua avaliação)
-          </span>
-        </div>
-      )}
+  if (!userRating) {
+    return (
+      <div className="flex items-center gap-1 text-gray-400 dark:text-gray-500">
+        <Star className={cn(getStarSize())} />
+        {showLabel && <span className={cn(getTextSize())}>Não avaliado</span>}
+      </div>
+    );
+  }
 
-      {/* Static Rating - Secondary display */}
-      {(showBoth || !userRating) && (
-        <div className="flex items-center gap-1">
-          <Star
-            className={cn(
-              getStarSize(),
-              userRating ? "text-gray-400" : "text-yellow-400 fill-current",
-            )}
-          />
-          <span
-            className={cn(
-              userRating
-                ? "text-gray-500 dark:text-gray-400"
-                : "font-semibold text-gray-900 dark:text-gray-100",
-              getTextSize(),
-            )}
-          >
-            {rating}
-          </span>
-          {userRating && (
-            <span
-              className={cn("text-gray-400 dark:text-gray-500", getTextSize())}
-            >
-              (original)
-            </span>
-          )}
-        </div>
+  return (
+    <div className="flex items-center gap-1">
+      <Star className={cn(getStarSize(), "text-yellow-400 fill-current")} />
+      <span
+        className={cn(
+          "font-semibold text-gray-900 dark:text-gray-100",
+          getTextSize(),
+        )}
+      >
+        {userRating}
+      </span>
+      {showLabel && (
+        <span className={cn("text-gray-500 dark:text-gray-400", getTextSize())}>
+          /5
+        </span>
       )}
     </div>
   );
