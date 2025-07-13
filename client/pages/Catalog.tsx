@@ -154,7 +154,7 @@ export default function Catalog() {
   const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
   const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState("rating");
+  const [sortBy, setSortBy] = useState("name");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<
     (typeof allPlaces)[0] | null
@@ -258,10 +258,6 @@ export default function Catalog() {
     // Sort results
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case "rating":
-          return b.rating - a.rating;
-        case "reviews":
-          return b.reviews - a.reviews;
         case "name":
           return a.name.localeCompare(b.name);
         default:
