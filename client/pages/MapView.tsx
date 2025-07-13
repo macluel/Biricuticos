@@ -1241,22 +1241,6 @@ export default function MapView() {
             </SelectContent>
           </Select>
 
-          <Select
-            value={selectedGeneralTag}
-            onValueChange={setSelectedGeneralTag}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Tags" />
-            </SelectTrigger>
-            <SelectContent>
-              {availableGeneralTags.map((tag) => (
-                <SelectItem key={tag} value={tag}>
-                  {tag}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
           {/* Clear filters button */}
           <Button
             variant="outline"
@@ -1268,7 +1252,6 @@ export default function MapView() {
               setSelectedInteraction("Todos");
               setSelectedQualityTag("Todos");
               setSelectedWishlistTag("Todos");
-              setSelectedGeneralTag("Todos");
             }}
             className="flex items-center gap-2"
           >
