@@ -1,4 +1,3 @@
-import { Heart, MapPin, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
@@ -22,52 +21,36 @@ export function FavoriteButton({
     lg: "h-6 w-6",
   };
 
-  // Determine which icon to show based on interaction state
-  const getIcon = () => {
+  // Determine which emoji to show based on interaction state
+  const getEmoji = () => {
     if (interaction.isVisited && interaction.isFavorited) {
       // Visited and loved = Heart
-      return Heart;
+      return "❤️";
     } else if (interaction.isVisited && !interaction.isFavorited) {
       // Just visited = Checkmark
-      return Check;
+      return "✅";
     } else if (!interaction.isVisited && interaction.isFavorited) {
       // Want to try = Pin
-      return MapPin;
+      return "📌";
     } else {
       // Nothing = Pin (to add to want to try)
-      return MapPin;
+      return "📌";
     }
   };
 
   const getStyles = () => {
     if (interaction.isVisited && interaction.isFavorited) {
-      // Loved = Red heart
-      return {
-        button:
-          "text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-800/30",
-        icon: "fill-current animate-pulse",
-      };
+      // Loved = Red heart background
+      return "bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-800/30";
     } else if (interaction.isVisited && !interaction.isFavorited) {
-      // Visited = Green checkmark
-      return {
-        button:
-          "text-green-500 hover:text-green-600 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-800/30",
-        icon: "fill-current",
-      };
+      // Visited = Green checkmark background
+      return "bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-800/30";
     } else if (!interaction.isVisited && interaction.isFavorited) {
-      // Want to try = Blue pin
-      return {
-        button:
-          "text-blue-500 hover:text-blue-600 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-800/30",
-        icon: "fill-current",
-      };
+      // Want to try = Blue pin background
+      return "bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-800/30";
     } else {
       // Default = Gray
-      return {
-        button:
-          "text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20",
-        icon: "hover:animate-pulse",
-      };
+      return "hover:bg-blue-50 dark:hover:bg-blue-900/20";
     }
   };
 
@@ -83,7 +66,7 @@ export function FavoriteButton({
     }
   };
 
-  const IconComponent = getIcon();
+  const emoji = getEmoji();
   const styles = getStyles();
 
   return (
@@ -101,13 +84,16 @@ export function FavoriteButton({
       )}
       title={getTitle()}
     >
-      <IconComponent
+      <span
         className={cn(
-          sizeClasses[size],
-          "transition-all duration-300",
-          styles.icon,
+          "text-lg transition-all duration-300",
+          interaction.isFavorited ? "animate-pulse" : "hover:animate-pulse",
+          size === "sm" && "text-sm",
+          size === "lg" && "text-xl",
         )}
-      />
+      >
+        {emoji}
+      </span>
     </button>
   );
 }
