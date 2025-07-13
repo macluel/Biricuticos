@@ -18,45 +18,7 @@ import { VisitedButton } from "@/components/VisitedButton";
 
 // This will be replaced with dynamic places from context
 
-// Sample data - in a real app this would come from an API
-const originalFeaturedPlaces = [
-  {
-    id: 1,
-    name: "Oro",
-    location: "Leblon, Rio de Janeiro",
-    type: "Fine Dining",
-    rating: 4.9,
-    reviews: 1247,
-    image:
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
-    description:
-      "Restaurante premiado com estrela Michelin, oferecendo alta gastronomia brasileira.",
-  },
-  {
-    id: 2,
-    name: "Pizzaria Guanabara",
-    location: "Copacabana, Rio de Janeiro",
-    type: "Pizzaria",
-    rating: 4.6,
-    reviews: 2341,
-    image:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
-    description:
-      "Pizza tradicional carioca desde 1969, famosa pela massa fininha e ingredientes frescos.",
-  },
-  {
-    id: 3,
-    name: "Confeitaria Colombo",
-    location: "Centro, Rio de Janeiro",
-    type: "Confeitaria",
-    rating: 4.7,
-    reviews: 3156,
-    image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
-    description:
-      "Confeitaria histórica de 1894, famosa pelos doces tradicionais e arquitetura belle époque.",
-  },
-];
+// Places now come from the context, no need for sample data
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
