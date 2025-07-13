@@ -40,6 +40,11 @@ const navItems = [
     icon: UtensilsCrossed,
   },
   {
+    name: "Favoritos",
+    href: "/favorites",
+    icon: Heart,
+  },
+  {
     name: "Mapa",
     href: "/map",
     icon: Map,
