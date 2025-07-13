@@ -17,6 +17,7 @@ import {
   User,
   LogOut,
   Share2,
+  Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { appConfig } from "@/data/config";
@@ -214,7 +215,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     Quero Provar
                   </span>
                   <div className="flex items-center gap-1">
-                    <Heart className="h-4 w-4 text-pink-400" />
+                    <MapPin className="h-4 w-4 text-blue-500 fill-current" />
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.wantToTry}
                     </span>
@@ -225,7 +226,7 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     Provamos Juntos
                   </span>
                   <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 text-yellow-400" />
+                    <Check className="h-4 w-4 text-green-500 fill-current" />
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.triedTogether}
                     </span>
