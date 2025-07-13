@@ -13,6 +13,8 @@ export interface PlaceInteraction {
   isVisited: boolean;
   dateAdded?: string;
   dateVisited?: string;
+  userRating?: number; // User's rating from 1-5
+  ratingDate?: string; // When the rating was given
 }
 
 interface PlaceStatsContextType {
@@ -20,11 +22,15 @@ interface PlaceStatsContextType {
   getPlaceInteraction: (placeId: number) => PlaceInteraction;
   toggleFavorite: (placeId: number) => void;
   toggleVisited: (placeId: number) => void;
+  setUserRating: (placeId: number, rating: number) => void;
+  getUserRating: (placeId: number) => number | null;
   stats: {
     totalPlaces: number;
     wantToTry: number;
     triedTogether: number;
     favorited: number;
+    averageRating: number;
+    ratedPlaces: number;
   };
 }
 
