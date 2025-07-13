@@ -266,6 +266,8 @@ export function PlaceStatsProvider({
     getPlaceInteraction,
     toggleFavorite,
     toggleVisited,
+    setUserRating,
+    getUserRating,
     stats,
   };
 
