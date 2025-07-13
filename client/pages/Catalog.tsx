@@ -495,8 +495,6 @@ export default function Catalog() {
             <SelectValue placeholder="Ordenar Por" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="rating">Avaliação</SelectItem>
-            <SelectItem value="reviews">Mais Avaliações</SelectItem>
             <SelectItem value="name">Nome A-Z</SelectItem>
           </SelectContent>
         </Select>
