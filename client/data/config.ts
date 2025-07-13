@@ -89,15 +89,15 @@ const defaultPlaces = [
   },
   {
     id: 2,
-    name: "Pizzaria Guanabara",
-    location: "Copacabana, Rio de Janeiro",
+    name: "Mr Cone",
+    location: "Barreto, Niterói",
     fullAddress:
-      "Av. Atlântica, 1702 - Copacabana, Rio de Janeiro - RJ, 22021-001",
+      "R. Dr. March, 1 - Barreto, Niterói - RJ, 24410-650",
     state: "Rio de Janeiro",
     type: "Pizzaria",
     price: "$$",
     image:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
+      "https://scontent.cdninstagram.com/v/t51.75761-15/491438143_18064315673487075_9140240618207150797_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=111&ig_cache_key=MzYxNDQ3MzkxNzk3NDIwOTY2Mw%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIyNjh4NDAzMi5zZHIifQ%3D%3D&_nc_ohc=IDLoLGn-Qc8Q7kNvwF6xRrI&_nc_oc=AdmvdfNS-_MNvJE9_MTa23QqLkpfcSi4dqpKOsZuK8cIb1rkrlKkLWVpNi93g4xCrx0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=_TQJCPZX5ZbxaBtFc0vDlA&oh=00_AfSXy3WXVDYK848AFhAZeZb-XDDotICchlnM41uNUeQABA&oe=6879E9B1",
     // Contact Information
     phone: "(21) 2548-9747",
     instagram: "@pizzariaguanabara",
