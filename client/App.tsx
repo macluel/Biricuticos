@@ -13,6 +13,7 @@ import { PlaceStatsProvider } from "@/contexts/PlaceStatsContext";
 import { PlacesProvider } from "@/contexts/PlacesContext";
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
+import Favorites from "./pages/Favorites";
 import MapView from "./pages/MapView";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/catalog" element={<Catalog />} />
+                  <Route path="/favorites" element={<Favorites />} />
                   <Route path="/map" element={<MapView />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
