@@ -409,9 +409,9 @@ export default function Catalog() {
 
       {/* Search and Filters */}
       <div
-        className={`grid lg:grid-cols-5 gap-4 ${showFilters || window.innerWidth >= 1024 ? "block" : "hidden lg:grid"}`}
+        className={`grid lg:grid-cols-4 xl:grid-cols-8 gap-4 ${showFilters || window.innerWidth >= 1024 ? "block" : "hidden lg:grid"}`}
       >
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-4 xl:col-span-8">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <Input
@@ -474,6 +474,54 @@ export default function Catalog() {
             {interactionTypes.map((type) => (
               <SelectItem key={type} value={type}>
                 {type}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={selectedQualityTag}
+          onValueChange={setSelectedQualityTag}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Qualidades" />
+          </SelectTrigger>
+          <SelectContent>
+            {availableQualityTags.map((tag) => (
+              <SelectItem key={tag} value={tag}>
+                {tag}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={selectedWishlistTag}
+          onValueChange={setSelectedWishlistTag}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Razões para Ir" />
+          </SelectTrigger>
+          <SelectContent>
+            {availableWishlistTags.map((tag) => (
+              <SelectItem key={tag} value={tag}>
+                {tag}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
+          value={selectedGeneralTag}
+          onValueChange={setSelectedGeneralTag}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Tags Gerais" />
+          </SelectTrigger>
+          <SelectContent>
+            {availableGeneralTags.map((tag) => (
+              <SelectItem key={tag} value={tag}>
+                {tag}
               </SelectItem>
             ))}
           </SelectContent>
