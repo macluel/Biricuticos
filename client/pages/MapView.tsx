@@ -1455,10 +1455,11 @@ export default function MapView() {
                 >
                   {place.type}
                 </Badge>
-                <div className="flex items-center gap-1">
-                  <Star className="h-3 w-3 text-yellow-400 fill-current" />
-                  <span className="text-xs">{place.rating}</span>
-                </div>
+                <StaticRatingDisplay
+                  rating={place.rating}
+                  userRating={getUserRating(place.id)}
+                  size="sm"
+                />
               </div>
             </div>
           ))}
