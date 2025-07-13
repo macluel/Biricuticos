@@ -15,6 +15,7 @@ import { usePlaces } from "@/contexts/PlacesContext";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
 
 // This will be replaced with dynamic places from context
 
@@ -22,6 +23,10 @@ import { VisitedButton } from "@/components/VisitedButton";
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPlace, setSelectedPlace] = useState<(typeof places)[0] | null>(
+    null,
+  );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { stats } = usePlaceStats();
   const { places } = usePlaces();
@@ -77,6 +82,17 @@ export default function Home() {
       // If no search query, just go to catalog
       navigate("/catalog");
     }
+  };
+
+  // Handle place click
+  const handlePlaceClick = (place: (typeof places)[0]) => {
+    setSelectedPlace(place);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedPlace(null);
   };
 
   return (
@@ -211,7 +227,8 @@ export default function Home() {
           {featuredPlaces.map((place) => (
             <div
               key={place.id}
-              className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700"
+              className="group bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 cursor-pointer"
+              onClick={() => handlePlaceClick(place)}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -254,6 +271,13 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Place Details Modal */}
+      <PlaceDetailsModal
+        place={selectedPlace}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }
