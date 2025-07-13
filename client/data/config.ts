@@ -24,6 +24,7 @@ export const categories = [
   { name: "Churrascaria", count: 0, icon: "🥩" },
   { name: "Botecos", count: 0, icon: "🍺" },
   { name: "Açaí", count: 0, icon: "🫐" },
+  { name: "Pastelaria", count: 1, icon: "🥟" },
 ];
 
 // ===== FILTER OPTIONS =====
@@ -39,6 +40,7 @@ export const filterOptions = {
     "Açaí",
     "Cafeteria",
     "Padaria",
+    "Pastelaria",
     // Add more types as needed
   ],
   states: [
@@ -58,19 +60,19 @@ export const filterOptions = {
 const defaultPlaces = [
   {
     id: 1,
-    name: "Oro",
-    location: "Leblon, Rio de Janeiro",
-    fullAddress: "Rua Humaitá, 462 - Leblon, Rio de Janeiro - RJ, 22261-001",
+    name: "Pastel Carioca",
+    location: "Icaraí, Niterói",
+    fullAddress: "R. Geraldo Martins, 176 - Icaraí, Niterói - RJ, 24220-380",
     state: "Rio de Janeiro",
-    type: "Fine Dining",
-    price: "$$$",
+    type: "Pastelaria",
+    price: "$$",
     image:
-      "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
+      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/495306972_18067426583313736_4711440824599359826_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0uaW1hZ2VfdXJsZ2VuLjE0NDB4MTkxMC5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2QEv4vVytoviEPLiwl0hxY-04IFYcAu8Ca2Hhyve_n28HS8FwWOMJPPxwPf0nmcR2Vo&_nc_ohc=WII5m7X8cEQQ7kNvwH-jZok&_nc_gid=nhopzBgVKlDeRWT96SiXxg&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MzYyNjc2MTA5NDAzNjc5MTQ5MA%3D%3D.3-ccb7-5&oh=00_AfTiTQ4wOaj-lLcknMvi4uIukoQDl23EAtwQhpHv0NHdyQ&oe=6879F684&_nc_sid=7a9f4b",
     // Contact Information
-    phone: "(21) 2540-8768",
-    instagram: "@ororestaurante",
-    whatsapp: "+5521998887777",
-    website: "https://www.ororestaurante.com.br",
+    phone: "(21) 98604-8063",
+    instagram: "@pastelcariocaniteroi",
+    whatsapp: "+5521986048063",
+    website: "https://www.linktr.ee/pastelcarioca",
     // Quality tags for visited places
     qualityTags: [
       "Comida saborosa",
@@ -79,11 +81,11 @@ const defaultPlaces = [
       "Bons ingredientes",
     ],
     // Tags for places never visited (reasons to go)
-    wishlistTags: ["Estrela Michelin", "Alta gastronomia", "Chef renomado"],
-    tags: ["brasileiro", "fine-dining", "leblon"],
+    wishlistTags: ["Cara boa"],
+    tags: ["brasileiro", "perto", "pastel", "niterói"],
     // For map positioning (Rio de Janeiro coordinates)
-    lat: -22.9868,
-    lng: -43.2096,
+    lat: -22.902202162336444,
+    lng: -43.10172335348864,
   },
   {
     id: 2,
