@@ -7,6 +7,7 @@ import {
   TrendingUp,
   Heart,
   ExternalLink,
+  Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -159,13 +160,13 @@ export default function Home() {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Star className="h-5 w-5" />
+                <Check className="h-5 w-5 text-green-500" />
                 <span className="text-lg">
                   {stats.triedTogether} Provamos Juntos
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Heart className="h-5 w-5" />
+                <MapPin className="h-5 w-5 text-blue-500" />
                 <span className="text-lg">
                   {stats.wantToTry} Prontos pro date
                 </span>
