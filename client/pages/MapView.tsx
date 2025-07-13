@@ -151,7 +151,6 @@ export default function MapView() {
     name: place.name,
     location: place.location,
     type: place.type,
-    rating: place.rating,
     lat: place.lat || -22.9068,
     lng: place.lng || -43.1729,
     price: place.price,
@@ -890,25 +889,6 @@ export default function MapView() {
           svg.appendChild(circle);
           markerContainer.appendChild(svg);
 
-          // Create rating badge
-          const ratingBadge = document.createElement("div");
-          ratingBadge.style.position = "absolute";
-          ratingBadge.style.top = "-8px";
-          ratingBadge.style.right = "-8px";
-          ratingBadge.style.width = "20px";
-          ratingBadge.style.height = "20px";
-          ratingBadge.style.background = "white";
-          ratingBadge.style.border = `2px solid ${markerColor}`;
-          ratingBadge.style.borderRadius = "50%";
-          ratingBadge.style.display = "flex";
-          ratingBadge.style.alignItems = "center";
-          ratingBadge.style.justifyContent = "center";
-          ratingBadge.style.fontSize = "10px";
-          ratingBadge.style.fontWeight = "bold";
-          ratingBadge.style.color = markerColor;
-          ratingBadge.textContent = place.rating.toString();
-
-          markerContainer.appendChild(ratingBadge);
           markerElement.appendChild(markerContainer);
 
           // Create simple popup without complex inline onclick
@@ -928,7 +908,7 @@ export default function MapView() {
           popupContent.appendChild(title);
 
           const info = document.createElement("p");
-          info.textContent = `${place.type} • ⭐ ${place.rating}\n${place.location}${distanceText}`;
+          info.textContent = `${place.type}\n${place.location}${distanceText}`;
           info.style.margin = "0";
           info.style.fontSize = "12px";
           info.style.color = "#6b7280";
@@ -1079,7 +1059,7 @@ export default function MapView() {
       {nearestPlaces.length > 0 && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
-            🎯 Restaurantes Próximos a Você
+            �� Restaurantes Próximos a Você
           </h3>
           <div className="space-y-2">
             {nearestPlaces.slice(0, 3).map((place) => (
