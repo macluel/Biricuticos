@@ -215,6 +215,19 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
                     </span>
                   </div>
                 </div>
+                {stats.ratedPlaces > 0 && (
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">
+                      Média das Avaliações
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                      <span className="font-medium text-gray-700 dark:text-gray-300">
+                        {stats.averageRating} ({stats.ratedPlaces})
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
