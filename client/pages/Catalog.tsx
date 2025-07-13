@@ -287,7 +287,18 @@ export default function Catalog() {
     });
 
     return filtered;
-  }, [searchQuery, selectedType, selectedState, selectedPrice, sortBy]);
+  }, [
+    searchQuery,
+    selectedType,
+    selectedState,
+    selectedPrice,
+    selectedInteraction,
+    selectedQualityTag,
+    selectedWishlistTag,
+    selectedGeneralTag,
+    sortBy,
+    getPlaceInteraction,
+  ]);
 
   // Handle place click
   const handlePlaceClick = (place: (typeof allPlaces)[0]) => {
