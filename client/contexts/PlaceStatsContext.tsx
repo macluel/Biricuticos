@@ -205,13 +205,60 @@ export function PlaceStatsProvider({
     });
   };
 
+  // Set user rating for a place
+  const setUserRating = (placeId: number, rating: number) => {
+    setInteractions((prev) => {
+      const safePrev = Array.isArray(prev) ? prev : [];
+      const existing = safePrev.find((i) => i.placeId === placeId);
+      let updatedInteraction: PlaceInteraction;
+
+      if (existing) {
+        updatedInteraction = {
+          ...existing,
+          userRating: rating,
+          ratingDate: new Date().toISOString(),
+        };
+
+        return safePrev.map((i) =>
+          i.placeId === placeId ? updatedInteraction : i,
+        );
+      } else {
+        updatedInteraction = {
+          placeId,
+          isFavorited: false,
+          isVisited: false,
+          userRating: rating,
+          ratingDate: new Date().toISOString(),
+        };
+
+        return [...safePrev, updatedInteraction];
+      }
+    });
+  };
+
+  // Get user rating for a place
+  const getUserRating = (placeId: number): number | null => {
+    const interaction = getPlaceInteraction(placeId);
+    return interaction.userRating || null;
+  };
+
   // Calculate dynamic stats
+  const ratedInteractions = safeInteractions.filter((i) => i.userRating);
+  const totalRating = ratedInteractions.reduce(
+    (sum, i) => sum + (i.userRating || 0),
+    0,
+  );
+  const averageRating =
+    ratedInteractions.length > 0 ? totalRating / ratedInteractions.length : 0;
+
   const stats = {
     totalPlaces: places.length,
     wantToTry: safeInteractions.filter((i) => i.isFavorited && !i.isVisited)
       .length,
     triedTogether: safeInteractions.filter((i) => i.isVisited).length,
     favorited: safeInteractions.filter((i) => i.isFavorited).length,
+    averageRating: Math.round(averageRating * 10) / 10, // Round to 1 decimal
+    ratedPlaces: ratedInteractions.length,
   };
 
   const value = {
