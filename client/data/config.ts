@@ -115,35 +115,6 @@ const defaultPlaces = [
     lat: -22.8598387958669,
     lng: -43.101097537630785,
   },
-  {
-    id: 3,
-    name: "Confeitaria Colombo",
-    location: "Centro, Rio de Janeiro",
-    fullAddress:
-      "R. Gonçalves Dias, 32 - Centro, Rio de Janeiro - RJ, 20050-030",
-    state: "Rio de Janeiro",
-    type: "Confeitaria",
-    price: "$$",
-    image:
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
-    // Contact Information
-    phone: "(21) 2505-1500",
-    instagram: "@confeitariacolombo",
-    whatsapp: "+5521912345678",
-    website: "https://www.confeitariacolombo.com.br",
-    // Quality tags for visited places
-    qualityTags: [
-      "Doces tradicionais",
-      "Boa aparência",
-      "Arquitetura belle époque",
-      "Ambiente histórico",
-    ],
-    // Tags for places never visited (reasons to go)
-    wishlistTags: ["Local histórico", "Confeitaria de 1894", "Doces famosos"],
-    tags: ["confeitaria", "histórica", "doces"],
-    lat: -22.9035,
-    lng: -43.176,
-  },
   // ✨ ADD YOUR OWN PLACES HERE! ✨
   // Copy the format above and add as many places as you want
   /*
