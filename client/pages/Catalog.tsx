@@ -454,6 +454,13 @@ export default function Catalog() {
           </p>
         </div>
       )}
+
+      {/* Place Details Modal */}
+      <PlaceDetailsModal
+        place={selectedPlace}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }
