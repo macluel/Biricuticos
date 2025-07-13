@@ -28,7 +28,7 @@ import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { FallbackMap } from "@/components/FallbackMap";
-import { StaticRatingDisplay } from "@/components/UserRating";
+import { UserRatingDisplay } from "@/components/UserRating";
 import { filterOptions } from "@/data/config";
 
 // Mapbox access token
@@ -1320,10 +1320,10 @@ export default function MapView() {
               >
                 {selectedPlace.type}
               </Badge>
-              <StaticRatingDisplay
-                rating={selectedPlace.rating}
+              <UserRatingDisplay
                 userRating={getUserRating(selectedPlace.id)}
                 size="sm"
+                showLabel
               />
               {selectedPlace.price && (
                 <Badge variant="outline">{selectedPlace.price}</Badge>
@@ -1419,8 +1419,7 @@ export default function MapView() {
                 >
                   {place.type}
                 </Badge>
-                <StaticRatingDisplay
-                  rating={place.rating}
+                <UserRatingDisplay
                   userRating={getUserRating(place.id)}
                   size="sm"
                 />
