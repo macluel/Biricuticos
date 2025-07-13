@@ -154,6 +154,12 @@ export default function MapView() {
   }));
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState("Todos");
+  const [selectedState, setSelectedState] = useState("Todos");
+  const [selectedPrice, setSelectedPrice] = useState("Todos");
+  const [selectedInteraction, setSelectedInteraction] = useState("Todos");
+  const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
+  const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
+  const [selectedGeneralTag, setSelectedGeneralTag] = useState("Todos");
   const [selectedPlace, setSelectedPlace] = useState<
     (typeof mapPlaces)[0] | null
   >(null);
