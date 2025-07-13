@@ -162,6 +162,37 @@ export default function Catalog() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { getPlaceInteraction } = usePlaceStats();
 
+  // Collect all available tags from places
+  const availableQualityTags = useMemo(() => {
+    const tags = new Set<string>();
+    allPlaces.forEach((place) => {
+      if (place.qualityTags) {
+        place.qualityTags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [allPlaces]);
+
+  const availableWishlistTags = useMemo(() => {
+    const tags = new Set<string>();
+    allPlaces.forEach((place) => {
+      if (place.wishlistTags) {
+        place.wishlistTags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [allPlaces]);
+
+  const availableGeneralTags = useMemo(() => {
+    const tags = new Set<string>();
+    allPlaces.forEach((place) => {
+      if (place.tags) {
+        place.tags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [allPlaces]);
+
   // Update search query when URL params change
   useEffect(() => {
     const searchParam = searchParams.get("search");
