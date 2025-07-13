@@ -258,8 +258,26 @@ export default function Catalog() {
     // Sort results
     filtered.sort((a, b) => {
       switch (sortBy) {
-        case "name":
+        case "name-asc":
           return a.name.localeCompare(b.name);
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+        case "stars-asc":
+          const ratingA = getUserRating(a.id) || 0;
+          const ratingB = getUserRating(b.id) || 0;
+          return ratingA - ratingB;
+        case "stars-desc":
+          const ratingDescA = getUserRating(a.id) || 0;
+          const ratingDescB = getUserRating(b.id) || 0;
+          return ratingDescB - ratingDescA;
+        case "price-asc":
+          const priceOrderA = getPriceOrder(a.price);
+          const priceOrderB = getPriceOrder(b.price);
+          return priceOrderA - priceOrderB;
+        case "price-desc":
+          const priceOrderDescA = getPriceOrder(a.price);
+          const priceOrderDescB = getPriceOrder(b.price);
+          return priceOrderDescB - priceOrderDescA;
         default:
           return 0;
       }
