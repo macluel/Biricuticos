@@ -223,13 +223,91 @@ export default function MapView() {
   }, [mapPlaces]);
 
   // Filter places based on search and filters
-  const filteredPlaces = mapPlaces.filter((place) => {
-    const matchesSearch =
-      place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      place.location.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesType = selectedType === "Todos" || place.type === selectedType;
-    return matchesSearch && matchesType;
-  });
+  const filteredPlaces = useMemo(() => {
+    let filtered = mapPlaces.filter((place) => {
+      const matchesSearch =
+        place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        place.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (place.description &&
+          place.description.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      const matchesType =
+        selectedType === "Todos" || place.type === selectedType;
+      const matchesState =
+        selectedState === "Todos" || place.state === selectedState;
+
+      let matchesPrice = true;
+      if (selectedPrice !== "Todos") {
+        matchesPrice = place.price === selectedPrice;
+      }
+
+      // Filter by interaction status
+      let matchesInteraction = true;
+      if (selectedInteraction !== "Todos") {
+        const interaction = getPlaceInteraction(place.id);
+        switch (selectedInteraction) {
+          case "Quero Provar":
+            matchesInteraction =
+              interaction.isFavorited && !interaction.isVisited;
+            break;
+          case "Já Visitamos":
+            matchesInteraction = interaction.isVisited;
+            break;
+          case "Favoritos":
+            matchesInteraction = interaction.isFavorited;
+            break;
+          case "Ainda não Tentei":
+            matchesInteraction =
+              !interaction.isFavorited && !interaction.isVisited;
+            break;
+        }
+      }
+
+      // Filter by quality tags
+      let matchesQualityTag = true;
+      if (selectedQualityTag !== "Todos") {
+        matchesQualityTag =
+          place.qualityTags?.includes(selectedQualityTag) || false;
+      }
+
+      // Filter by wishlist tags
+      let matchesWishlistTag = true;
+      if (selectedWishlistTag !== "Todos") {
+        matchesWishlistTag =
+          place.wishlistTags?.includes(selectedWishlistTag) || false;
+      }
+
+      // Filter by general tags
+      let matchesGeneralTag = true;
+      if (selectedGeneralTag !== "Todos") {
+        matchesGeneralTag = place.tags?.includes(selectedGeneralTag) || false;
+      }
+
+      return (
+        matchesSearch &&
+        matchesType &&
+        matchesState &&
+        matchesPrice &&
+        matchesInteraction &&
+        matchesQualityTag &&
+        matchesWishlistTag &&
+        matchesGeneralTag
+      );
+    });
+
+    return filtered;
+  }, [
+    mapPlaces,
+    searchQuery,
+    selectedType,
+    selectedState,
+    selectedPrice,
+    selectedInteraction,
+    selectedQualityTag,
+    selectedWishlistTag,
+    selectedGeneralTag,
+    getPlaceInteraction,
+  ]);
 
   // Get user's current location
   const getCurrentLocation = async () => {
