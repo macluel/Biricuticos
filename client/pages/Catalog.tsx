@@ -494,22 +494,6 @@ export default function Catalog() {
           </SelectContent>
         </Select>
 
-        <Select
-          value={selectedGeneralTag}
-          onValueChange={setSelectedGeneralTag}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Tags Gerais" />
-          </SelectTrigger>
-          <SelectContent>
-            {availableGeneralTags.map((tag) => (
-              <SelectItem key={tag} value={tag}>
-                {tag}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
         <Select value={sortBy} onValueChange={setSortBy}>
           <SelectTrigger>
             <SelectValue placeholder="Ordenar Por" />
