@@ -201,7 +201,7 @@ export const navigationItems = [
   {
     name: "Favoritos",
     href: "/favorites",
-    icon: "Heart",
+    icon: Heart,
   },
   {
     name: "Mapa",
