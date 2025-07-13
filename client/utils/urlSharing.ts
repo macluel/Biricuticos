@@ -9,7 +9,8 @@ export const encodeDataForUrl = (interactions: PlaceInteraction[]): string => {
       p: i.placeId, // place id
       f: i.isFavorited ? 1 : 0, // favorited
       v: i.isVisited ? 1 : 0, // visited
-      d: i.dateAdded || i.dateVisited || Date.now(), // date
+      r: i.userRating || 0, // user rating (0 if not rated)
+      d: i.dateAdded || i.dateVisited || i.ratingDate || Date.now(), // date
     }));
 
     // Convert to JSON and encode
@@ -32,8 +33,10 @@ export const decodeDataFromUrl = (encoded: string): PlaceInteraction[] => {
       placeId: c.p,
       isFavorited: c.f === 1,
       isVisited: c.v === 1,
+      userRating: c.r > 0 ? c.r : undefined,
       dateAdded: c.f === 1 ? new Date(c.d).toISOString() : undefined,
       dateVisited: c.v === 1 ? new Date(c.d).toISOString() : undefined,
+      ratingDate: c.r > 0 ? new Date(c.d).toISOString() : undefined,
     }));
   } catch (error) {
     console.log("Error decoding data:", error);
@@ -97,7 +100,7 @@ export const copyShareableLink = (interactions: PlaceInteraction[]): void => {
     .then(() => {
       console.log("🔗 Shareable link copied to clipboard!");
       alert(
-        "🎉 Link copied! Share this link with others to sync your favorites and visited places!",
+        "🎉 Link copied! Share this link with others to sync your favorites, visited places, and ratings!",
       );
     })
     .catch(() => {
