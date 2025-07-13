@@ -154,13 +154,29 @@ export default function Catalog() {
   const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
   const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [sortBy, setSortBy] = useState("name");
+  const [sortBy, setSortBy] = useState("name-asc");
   const [showFilters, setShowFilters] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState<
     (typeof allPlaces)[0] | null
   >(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { getPlaceInteraction, getUserRating } = usePlaceStats();
+
+  // Helper function to convert price to numeric order
+  const getPriceOrder = (price: string): number => {
+    switch (price) {
+      case "$":
+        return 1;
+      case "$$":
+        return 2;
+      case "$$$":
+        return 3;
+      case "$$$$":
+        return 4;
+      default:
+        return 0;
+    }
+  };
 
   // Collect all available tags from places
   const availableQualityTags = useMemo(() => {
