@@ -16,7 +16,7 @@ import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
-import { StaticRatingDisplay } from "@/components/UserRating";
+import { UserRatingDisplay } from "@/components/UserRating";
 
 // This will be replaced with dynamic places from context
 
@@ -239,10 +239,10 @@ export default function Home() {
                 />
                 <div className="absolute top-4 right-4">
                   <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                    <StaticRatingDisplay
-                      rating={place.rating}
+                    <UserRatingDisplay
                       userRating={getUserRating(place.id)}
                       size="sm"
+                      showLabel
                     />
                   </div>
                 </div>
