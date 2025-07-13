@@ -63,7 +63,6 @@ const defaultPlaces = [
     fullAddress: "Rua Humaitá, 462 - Leblon, Rio de Janeiro - RJ, 22261-001",
     state: "Rio de Janeiro",
     type: "Fine Dining",
-    rating: 4.9,
     price: "$$$",
     image:
       "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&h=300&fit=crop",
@@ -94,7 +93,6 @@ const defaultPlaces = [
       "Av. Atlântica, 1702 - Copacabana, Rio de Janeiro - RJ, 22021-001",
     state: "Rio de Janeiro",
     type: "Pizzaria",
-    rating: 4.6,
     price: "$$",
     image:
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&h=300&fit=crop",
@@ -124,7 +122,6 @@ const defaultPlaces = [
       "R. Gonçalves Dias, 32 - Centro, Rio de Janeiro - RJ, 20050-030",
     state: "Rio de Janeiro",
     type: "Confeitaria",
-    rating: 4.7,
     price: "$$",
     image:
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
