@@ -240,12 +240,35 @@ export default function Catalog() {
         }
       }
 
+      // Filter by quality tags
+      let matchesQualityTag = true;
+      if (selectedQualityTag !== "Todos") {
+        matchesQualityTag =
+          place.qualityTags?.includes(selectedQualityTag) || false;
+      }
+
+      // Filter by wishlist tags
+      let matchesWishlistTag = true;
+      if (selectedWishlistTag !== "Todos") {
+        matchesWishlistTag =
+          place.wishlistTags?.includes(selectedWishlistTag) || false;
+      }
+
+      // Filter by general tags
+      let matchesGeneralTag = true;
+      if (selectedGeneralTag !== "Todos") {
+        matchesGeneralTag = place.tags?.includes(selectedGeneralTag) || false;
+      }
+
       return (
         matchesSearch &&
         matchesType &&
         matchesState &&
         matchesPrice &&
-        matchesInteraction
+        matchesInteraction &&
+        matchesQualityTag &&
+        matchesWishlistTag &&
+        matchesGeneralTag
       );
     });
 
