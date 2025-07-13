@@ -529,7 +529,12 @@ export default function Catalog() {
             <SelectValue placeholder="Ordenar Por" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="name">Nome A-Z</SelectItem>
+            <SelectItem value="name-asc">Nome A-Z</SelectItem>
+            <SelectItem value="name-desc">Nome Z-A</SelectItem>
+            <SelectItem value="stars-desc">Estrelas (Maior)</SelectItem>
+            <SelectItem value="stars-asc">Estrelas (Menor)</SelectItem>
+            <SelectItem value="price-asc">Preço (Menor)</SelectItem>
+            <SelectItem value="price-desc">Preço (Maior)</SelectItem>
           </SelectContent>
         </Select>
       </div>
