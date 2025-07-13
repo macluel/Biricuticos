@@ -199,6 +199,11 @@ export const navigationItems = [
     icon: "UtensilsCrossed",
   },
   {
+    name: "Favoritos",
+    href: "/favorites",
+    icon: "heart",
+  },
+  {
     name: "Mapa",
     href: "/map",
     icon: "Map",
