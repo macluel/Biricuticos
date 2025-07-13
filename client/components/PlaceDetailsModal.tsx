@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
-import { UserRating, StaticRatingDisplay } from "@/components/UserRating";
+import { UserRating, UserRatingDisplay } from "@/components/UserRating";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
 interface Place {
@@ -136,11 +136,10 @@ export function PlaceDetailsModal({
             />
             <div className="absolute top-4 right-4">
               <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
-                <StaticRatingDisplay
-                  rating={place.rating}
+                <UserRatingDisplay
                   userRating={userRating}
                   size="sm"
-                  showBoth={!!userRating}
+                  showLabel
                 />
               </div>
             </div>
@@ -274,13 +273,6 @@ export function PlaceDetailsModal({
             </h3>
             <div className="flex items-center justify-between">
               <UserRating placeId={place.id} size="lg" showLabel />
-              {userRating && (
-                <div className="text-right">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Avaliação original: {place.rating}
-                  </p>
-                </div>
-              )}
             </div>
             {!userRating && (
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
