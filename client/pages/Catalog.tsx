@@ -77,7 +77,7 @@ const originalAllPlaces = [
       "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400&h=300&fit=crop",
     description:
       "Confeitaria histórica de 1894, famosa pelos doces tradicionais e arquitetura belle époque.",
-    tags: ["confeitaria", "histórica", "doces"],
+    tags: ["confeitaria", "hist��rica", "doces"],
   },
   {
     id: 4,
@@ -339,8 +339,10 @@ export default function Catalog() {
     selectedInteraction,
     selectedQualityTag,
     selectedWishlistTag,
+    selectedStarRating,
     sortBy,
     getPlaceInteraction,
+    getUserRating,
   ]);
 
   // Handle place click
