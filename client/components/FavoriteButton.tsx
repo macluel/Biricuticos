@@ -30,23 +30,26 @@ export function FavoriteButton({
         toggleFavorite(placeId);
       }}
       className={cn(
-        "p-1 rounded-full transition-all duration-200 hover:scale-110",
+        "p-2 rounded-full transition-all duration-300 hover:scale-110 active:scale-95",
         interaction.isFavorited
-          ? "text-red-500 hover:text-red-600"
-          : "text-gray-400 hover:text-red-500",
+          ? "text-red-500 hover:text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-800/30"
+          : "text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20",
+        "shadow-sm hover:shadow-md",
         className,
       )}
       title={
         interaction.isFavorited
-          ? "Remover dos favoritos"
-          : "Adicionar aos favoritos"
+          ? "💔 Remover dos favoritos"
+          : "💖 Adicionar aos favoritos"
       }
     >
       <Heart
         className={cn(
           sizeClasses[size],
-          "transition-all duration-200",
-          interaction.isFavorited ? "fill-current" : "",
+          "transition-all duration-300",
+          interaction.isFavorited
+            ? "fill-current animate-pulse"
+            : "hover:animate-pulse",
         )}
       />
     </button>
