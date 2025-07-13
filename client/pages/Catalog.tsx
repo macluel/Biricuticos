@@ -25,7 +25,7 @@ import { filterOptions } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
-import { StaticRatingDisplay } from "@/components/UserRating";
+import { UserRatingDisplay } from "@/components/UserRating";
 
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
@@ -308,10 +308,10 @@ export default function Catalog() {
         />
         <div className="absolute top-4 right-4">
           <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
-            <StaticRatingDisplay
-              rating={place.rating}
+            <UserRatingDisplay
               userRating={getUserRating(place.id)}
               size="sm"
+              showLabel
             />
           </div>
         </div>
