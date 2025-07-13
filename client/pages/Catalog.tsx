@@ -25,6 +25,7 @@ import { filterOptions } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
+import { StaticRatingDisplay } from "@/components/UserRating";
 
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
@@ -160,7 +161,7 @@ export default function Catalog() {
     (typeof allPlaces)[0] | null
   >(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { getPlaceInteraction } = usePlaceStats();
+  const { getPlaceInteraction, getUserRating } = usePlaceStats();
 
   // Collect all available tags from places
   const availableQualityTags = useMemo(() => {
@@ -325,11 +326,12 @@ export default function Catalog() {
           className={`object-cover group-hover:scale-105 transition-transform duration-300 ${viewMode === "list" ? "w-full h-full" : "w-full h-64"}`}
         />
         <div className="absolute top-4 right-4">
-          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
-            <Star className="h-4 w-4 text-yellow-400 fill-current" />
-            <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-              {place.rating}
-            </span>
+          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
+            <StaticRatingDisplay
+              rating={place.rating}
+              userRating={getUserRating(place.id)}
+              size="sm"
+            />
           </div>
         </div>
       </div>
