@@ -28,6 +28,7 @@ import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { FallbackMap } from "@/components/FallbackMap";
+import { StaticRatingDisplay } from "@/components/UserRating";
 import { filterOptions } from "@/data/config";
 
 // Mapbox access token
@@ -138,7 +139,7 @@ const calculateDistance = calculateGeographicDistance;
 
 export default function MapView() {
   const { places } = usePlaces();
-  const { getPlaceInteraction } = usePlaceStats();
+  const { getPlaceInteraction, getUserRating } = usePlaceStats();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markers = useRef<mapboxgl.Marker[]>([]);
@@ -931,7 +932,7 @@ export default function MapView() {
 
           // Create simple popup without complex inline onclick
           const distanceText = distanceFromUser
-            ? `\n��� ${distanceFromUser.toFixed(1)}km de você`
+            ? `\n📍 ${distanceFromUser.toFixed(1)}km de você`
             : "";
 
           const popupContent = document.createElement("div");
@@ -1077,7 +1078,7 @@ export default function MapView() {
                     : "Não (necessário para GPS)"}
                 </p>
                 <p>
-                  • Geolocalizaç��o suportada:{" "}
+                  • Geolocalização suportada:{" "}
                   {navigator.geolocation ? "Sim" : "Não"}
                 </p>
                 <hr className="my-2 border-amber-300/50" />
