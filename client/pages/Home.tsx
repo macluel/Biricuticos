@@ -130,7 +130,7 @@ export default function Home() {
                 Gastronômica
               </span>
             </h1>
-            <p className="text-xl lg:text-2xl text-primary-100 mb-8 max-w-2xl">
+            <p className="text-xl lg:text-2xl text-white mb-8 max-w-2xl">
               De jantares românticos a brunches de fim de semana, esta é nossa
               coleção pessoal de lugares incríveis que queremos conhecer juntos.
               ❤️
@@ -172,7 +172,7 @@ export default function Home() {
             </form>
 
             {/* Quick Stats */}
-            <div className="flex flex-wrap gap-8 text-primary-100">
+            <div className="flex flex-wrap gap-8 text-white">
               <div className="flex items-center gap-2">
                 <MapPin className="h-5 w-5" />
                 <span className="text-lg">
@@ -278,7 +278,7 @@ export default function Home() {
                   <span className="text-gray-600 dark:text-gray-300">
                     {place.location}
                   </span>
-                  <span className="px-2 py-1 bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-primary-100 text-xs font-medium rounded-full">
+                  <span className="px-2 py-1 bg-primary-100 dark:bg-primary-800 text-primary-700 dark:text-gray-300 text-xs font-medium rounded-full">
                     {place.type}
                   </span>
                 </div>
