@@ -16,6 +16,7 @@ import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
 import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
+import { StaticRatingDisplay } from "@/components/UserRating";
 
 // This will be replaced with dynamic places from context
 
@@ -28,7 +29,7 @@ export default function Home() {
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { stats } = usePlaceStats();
+  const { stats, getUserRating } = usePlaceStats();
   const { places } = usePlaces();
   const navigate = useNavigate();
 
@@ -237,11 +238,12 @@ export default function Home() {
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 right-4">
-                  <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1">
-                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                    <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                      {place.rating}
-                    </span>
+                  <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                    <StaticRatingDisplay
+                      rating={place.rating}
+                      userRating={getUserRating(place.id)}
+                      size="sm"
+                    />
                   </div>
                 </div>
               </div>
