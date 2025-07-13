@@ -153,6 +153,7 @@ export default function Catalog() {
   const [selectedInteraction, setSelectedInteraction] = useState("Todos");
   const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
   const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
+  const [selectedStarRating, setSelectedStarRating] = useState("Todos");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("name-asc");
   const [showFilters, setShowFilters] = useState(false);
