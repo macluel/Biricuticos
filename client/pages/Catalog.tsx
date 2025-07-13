@@ -24,6 +24,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { filterOptions } from "@/data/config";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { VisitedButton } from "@/components/VisitedButton";
+import { PlaceDetailsModal } from "@/components/PlaceDetailsModal";
 
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 import { usePlaces } from "@/contexts/PlacesContext";
@@ -152,6 +153,10 @@ export default function Catalog() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("rating");
   const [showFilters, setShowFilters] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<
+    (typeof allPlaces)[0] | null
+  >(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { getPlaceInteraction } = usePlaceStats();
 
   // Update search query when URL params change
