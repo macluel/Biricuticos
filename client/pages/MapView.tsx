@@ -931,7 +931,7 @@ export default function MapView() {
 
           // Create simple popup without complex inline onclick
           const distanceText = distanceFromUser
-            ? `\n📍 ${distanceFromUser.toFixed(1)}km de você`
+            ? `\n��� ${distanceFromUser.toFixed(1)}km de você`
             : "";
 
           const popupContent = document.createElement("div");
@@ -1077,7 +1077,7 @@ export default function MapView() {
                     : "Não (necessário para GPS)"}
                 </p>
                 <p>
-                  • Geolocalização suportada:{" "}
+                  • Geolocalizaç��o suportada:{" "}
                   {navigator.geolocation ? "Sim" : "Não"}
                 </p>
                 <hr className="my-2 border-amber-300/50" />
@@ -1143,33 +1143,157 @@ export default function MapView() {
       )}
 
       {/* Search and Filters */}
-      <div className="grid lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
-          <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Buscar restaurantes no mapa..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12"
-            />
-          </div>
+      <div className="space-y-4">
+        {/* Filter toggle button for mobile */}
+        <div className="flex items-center justify-between lg:hidden">
+          <Button
+            variant="outline"
+            onClick={() => setShowFilters(!showFilters)}
+            className="flex items-center gap-2"
+          >
+            <SlidersHorizontal className="h-4 w-4" />
+            Filtros
+          </Button>
         </div>
 
-        <Select value={selectedType} onValueChange={setSelectedType}>
-          <SelectTrigger>
-            <SelectValue placeholder="Tipo de Comida" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="Todos">Todos os Tipos</SelectItem>
-            <SelectItem value="Fine Dining">Fine Dining</SelectItem>
-            <SelectItem value="Pizzaria">Pizzaria</SelectItem>
-            <SelectItem value="Confeitaria">Confeitaria</SelectItem>
-            <SelectItem value="Churrascaria">Churrascaria</SelectItem>
-            <SelectItem value="Boteco">Boteco</SelectItem>
-          </SelectContent>
-        </Select>
+        {/* Search bar */}
+        <div className="relative">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+          <Input
+            type="text"
+            placeholder="Buscar restaurantes no mapa..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-12"
+          />
+        </div>
+
+        {/* Filters */}
+        <div
+          className={`grid lg:grid-cols-4 xl:grid-cols-8 gap-4 ${showFilters || window.innerWidth >= 1024 ? "block" : "hidden lg:grid"}`}
+        >
+          <Select value={selectedType} onValueChange={setSelectedType}>
+            <SelectTrigger>
+              <SelectValue placeholder="Tipo" />
+            </SelectTrigger>
+            <SelectContent>
+              {placeTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={selectedState} onValueChange={setSelectedState}>
+            <SelectTrigger>
+              <SelectValue placeholder="Estado" />
+            </SelectTrigger>
+            <SelectContent>
+              {states.map((state) => (
+                <SelectItem key={state} value={state}>
+                  {state}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select value={selectedPrice} onValueChange={setSelectedPrice}>
+            <SelectTrigger>
+              <SelectValue placeholder="Preço" />
+            </SelectTrigger>
+            <SelectContent>
+              {priceRanges.map((price) => (
+                <SelectItem key={price} value={price}>
+                  {price}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={selectedInteraction}
+            onValueChange={setSelectedInteraction}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Status" />
+            </SelectTrigger>
+            <SelectContent>
+              {interactionTypes.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={selectedQualityTag}
+            onValueChange={setSelectedQualityTag}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Qualidades" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableQualityTags.map((tag) => (
+                <SelectItem key={tag} value={tag}>
+                  {tag}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={selectedWishlistTag}
+            onValueChange={setSelectedWishlistTag}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Razões" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableWishlistTags.map((tag) => (
+                <SelectItem key={tag} value={tag}>
+                  {tag}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <Select
+            value={selectedGeneralTag}
+            onValueChange={setSelectedGeneralTag}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Tags" />
+            </SelectTrigger>
+            <SelectContent>
+              {availableGeneralTags.map((tag) => (
+                <SelectItem key={tag} value={tag}>
+                  {tag}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          {/* Clear filters button */}
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSearchQuery("");
+              setSelectedType("Todos");
+              setSelectedState("Todos");
+              setSelectedPrice("Todos");
+              setSelectedInteraction("Todos");
+              setSelectedQualityTag("Todos");
+              setSelectedWishlistTag("Todos");
+              setSelectedGeneralTag("Todos");
+            }}
+            className="flex items-center gap-2"
+          >
+            <Filter className="h-4 w-4" />
+            Limpar
+          </Button>
+        </div>
       </div>
 
       {/* Map Container */}
