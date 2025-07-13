@@ -188,5 +188,20 @@ export const mapConfig = {
 
 // ===== NAVIGATION ITEMS =====
 export const navigationItems = [
-  
+  {
+    name: "Início",
+    href: "/",
+    icon: "Home", // Icon name from Lucide React
+  },
+  {
+    name: "Restaurantes",
+    href: "/catalog",
+    icon: "UtensilsCrossed",
+  },
+  {
+    name: "Mapa",
+    href: "/map",
+    icon: "Map",
+  },
+  // Add more navigation items if needed
 ];
