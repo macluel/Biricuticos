@@ -138,6 +138,7 @@ const calculateDistance = calculateGeographicDistance;
 
 export default function MapView() {
   const { places } = usePlaces();
+  const { getPlaceInteraction } = usePlaceStats();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markers = useRef<mapboxgl.Marker[]>([]);
@@ -176,8 +177,52 @@ export default function MapView() {
     (typeof mapPlaces & { distance: number })[]
   >([]);
   const [mapboxFailed, setMapboxFailed] = useState(false); // Allow real Mapbox map
+  const [showFilters, setShowFilters] = useState(false);
 
-  // Filter places based on search and type
+  // Filter options from config
+  const placeTypes = filterOptions.placeTypes;
+  const states = filterOptions.states;
+  const priceRanges = filterOptions.priceRanges;
+  const interactionTypes = [
+    "Todos",
+    "Quero Provar", // Favorited but not visited
+    "Já Visitamos", // Visited
+    "Favoritos", // All favorited
+    "Ainda não Tentei", // Not favorited and not visited
+  ];
+
+  // Collect all available tags from places
+  const availableQualityTags = useMemo(() => {
+    const tags = new Set<string>();
+    mapPlaces.forEach((place) => {
+      if (place.qualityTags) {
+        place.qualityTags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [mapPlaces]);
+
+  const availableWishlistTags = useMemo(() => {
+    const tags = new Set<string>();
+    mapPlaces.forEach((place) => {
+      if (place.wishlistTags) {
+        place.wishlistTags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [mapPlaces]);
+
+  const availableGeneralTags = useMemo(() => {
+    const tags = new Set<string>();
+    mapPlaces.forEach((place) => {
+      if (place.tags) {
+        place.tags.forEach((tag) => tags.add(tag));
+      }
+    });
+    return ["Todos", ...Array.from(tags).sort()];
+  }, [mapPlaces]);
+
+  // Filter places based on search and filters
   const filteredPlaces = mapPlaces.filter((place) => {
     const matchesSearch =
       place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
