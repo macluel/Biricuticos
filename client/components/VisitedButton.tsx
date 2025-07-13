@@ -1,4 +1,3 @@
-import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePlaceStats } from "@/contexts/PlaceStatsContext";
 
@@ -43,9 +42,7 @@ export function VisitedButton({
             : "Marcar como visitado"
         }
       >
-        <Check
-          className={cn("h-4 w-4", interaction.isVisited ? "fill-current" : "")}
-        />
+        <span className="text-sm">✅</span>
       </button>
     );
   }
@@ -63,7 +60,7 @@ export function VisitedButton({
         className,
       )}
     >
-      <Check className="h-4 w-4" />
+      <span className="text-sm">✅</span>
       {interaction.isVisited ? "Visitamos!" : "Marcar como Visitado"}
     </Button>
   );
