@@ -200,10 +200,21 @@ export function Sidebar({ isOpen, setIsOpen }: SidebarProps) {
               <div className="space-y-3">
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500 dark:text-gray-400">
+                    Favoritos
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <Heart className="h-4 w-4 text-red-500 fill-current" />
+                    <span className="font-medium text-gray-700 dark:text-gray-300">
+                      {stats.favorited}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gray-500 dark:text-gray-400">
                     Quero Provar
                   </span>
                   <div className="flex items-center gap-1">
-                    <Heart className="h-4 w-4 text-red-400" />
+                    <Heart className="h-4 w-4 text-pink-400" />
                     <span className="font-medium text-gray-700 dark:text-gray-300">
                       {stats.wantToTry}
                     </span>
