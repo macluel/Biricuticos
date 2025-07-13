@@ -163,6 +163,7 @@ export default function MapView() {
   const [selectedInteraction, setSelectedInteraction] = useState("Todos");
   const [selectedQualityTag, setSelectedQualityTag] = useState("Todos");
   const [selectedWishlistTag, setSelectedWishlistTag] = useState("Todos");
+  const [selectedStarRating, setSelectedStarRating] = useState("Todos");
   const [selectedPlace, setSelectedPlace] = useState<
     (typeof mapPlaces)[0] | null
   >(null);
@@ -1059,7 +1060,7 @@ export default function MapView() {
       {nearestPlaces.length > 0 && (
         <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
           <h3 className="font-semibold text-green-800 dark:text-green-200 mb-2">
-            �� Restaurantes Próximos a Você
+            🎯 Restaurantes Próximos a Você
           </h3>
           <div className="space-y-2">
             {nearestPlaces.slice(0, 3).map((place) => (
