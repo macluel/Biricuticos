@@ -266,6 +266,29 @@ export function PlaceDetailsModal({
             </div>
           )}
 
+          {/* User Rating Section */}
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3 flex items-center gap-2">
+              <Star className="h-4 w-4" />
+              Sua Avaliação
+            </h3>
+            <div className="flex items-center justify-between">
+              <UserRating placeId={place.id} size="lg" showLabel />
+              {userRating && (
+                <div className="text-right">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Avaliação original: {place.rating}
+                  </p>
+                </div>
+              )}
+            </div>
+            {!userRating && (
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                Clique nas estrelas para avaliar este lugar
+              </p>
+            )}
+          </div>
+
           {/* Action Buttons */}
           <div className="flex gap-3 pt-4">
             <Button onClick={handleNavigate} className="flex-1">
