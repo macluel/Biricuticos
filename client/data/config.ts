@@ -65,7 +65,7 @@ const defaultPlaces = [
     type: "Pastelaria",
     price: "$$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t39.30808-6/487459308_122118852074768421_4916690963563226743_n.jpg?stp=dst-jpg_e35_s640x640_sh0.08_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjIwNDh4MTM1Ni5zZHIuZjMwODA4LmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=109&_nc_oc=Q6cZ2QFsqntv39zTt8ooliyxwTgsFnNflMQX66wLXm88Z7CUEr0HzBUux5Ncbr7ZVEgegUU&_nc_ohc=jj4bkdNFWjAQ7kNvwECMSm_&_nc_gid=ZXP0m-UwBc2eMsvGSb-emQ&edm=APoiHPcAAAAA&ccb=7-5&ig_cache_key=MzYwMTIyNjAzOTc3MjM4NDI2NA%3D%3D.3-ccb7-5&oh=00_AfRfRHTluUAUDAOpTHLquDCkzlBlSzC5sM_p2fIYizXLqw&oe=6879EDAD&_nc_sid=22de04",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/487459308_122118852074768421_4916690963563226743_n_qtuwbd.jpg",
     // Contact Information
     phone: "(21) 98604-8063",
     instagram: "@pastelcariocaniteroi",
@@ -95,7 +95,7 @@ const defaultPlaces = [
     type: "Pizzaria",
     price: "$$",
     image:
-      "https://scontent.cdninstagram.com/v/t51.75761-15/491438143_18064315673487075_9140240618207150797_n.jpg?stp=dst-jpg_e15_tt6&_nc_cat=111&ig_cache_key=MzYxNDQ3MzkxNzk3NDIwOTY2Mw%3D%3D.3-ccb1-7&ccb=1-7&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjIyNjh4NDAzMi5zZHIifQ%3D%3D&_nc_ohc=IDLoLGn-Qc8Q7kNvwF6xRrI&_nc_oc=AdmvdfNS-_MNvJE9_MTa23QqLkpfcSi4dqpKOsZuK8cIb1rkrlKkLWVpNi93g4xCrx0&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.cdninstagram.com&_nc_gid=_TQJCPZX5ZbxaBtFc0vDlA&oh=00_AfSXy3WXVDYK848AFhAZeZb-XDDotICchlnM41uNUeQABA&oe=6879E9B1",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519057/491438143_18064315673487075_9140240618207150797_n_rar4xp.jpg",
     // Contact Information
     phone: "(21) 96714-7357",
     instagram: "@mrconepizzas",
@@ -123,7 +123,7 @@ const defaultPlaces = [
     type: "Churrascaria",
     price: "$$$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/491468853_18278258458254932_2674838974253833847_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTM1MC5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2QFKnnwVaZq8v2RkXPQ2OToj1Wgjx735oe9Am_xuO8Bu6llMPfSCvsPY11RV2NkROh8&_nc_ohc=UDc6IfQF7BoQ7kNvwFclkU7&_nc_gid=g2KimbVTyyCqkS_wTxg3hw&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzYxNTkwMjgxNzkxNzIxMTEwNg%3D%3D.3-ccb7-5&oh=00_AfTZxZ-ZjtdTWvsKBNTWwt_zB-7TgzbX0xbUTKpUzjtJqg&oe=687AF61D&_nc_sid=22de04",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/479978311_18271622911254932_5467649839238398457_n_akvt2j.jpg",
     // Contact Information
     phone: "(21) 98934-3750",
     instagram: "@nabrasa.oro",
@@ -152,7 +152,7 @@ const defaultPlaces = [
     type: "Churrascaria",
     price: "$$$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/491468853_18278258458254932_2674838974253833847_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTM1MC5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2QFKnnwVaZq8v2RkXPQ2OToj1Wgjx735oe9Am_xuO8Bu6llMPfSCvsPY11RV2NkROh8&_nc_ohc=UDc6IfQF7BoQ7kNvwFclkU7&_nc_gid=g2KimbVTyyCqkS_wTxg3hw&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzYxNTkwMjgxNzkxNzIxMTEwNg%3D%3D.3-ccb7-5&oh=00_AfTZxZ-ZjtdTWvsKBNTWwt_zB-7TgzbX0xbUTKpUzjtJqg&oe=687AF61D&_nc_sid=22de04",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/479978311_18271622911254932_5467649839238398457_n_akvt2j.jpg",
     // Contact Information
     phone: "(21) 97586-7354",
     instagram: "@nabrasa.oro",
@@ -181,7 +181,7 @@ const defaultPlaces = [
     type: "Fine Dining",
     price: "$$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/504272584_17969354150863876_1549203255469068607_n.jpg?stp=dst-jpg_e35_p360x360_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEzNTB4MTY4Ny5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=104&_nc_oc=Q6cZ2QHNlYquDTmcUrrBzeerESu79eqS4cusDfXzGz9GLzKb87vQWMcGjmXO8NoJqaKJep4&_nc_ohc=36XNizTorlQQ7kNvwGgjuyZ&_nc_gid=untrrxq0_uhK4K5zMz1O4w&edm=APoiHPcBAAAA&ccb=7-5&ig_cache_key=MzY0NzA1MDc1NTEyMDQxOTk4NA%3D%3D.3-ccb7-5&oh=00_AfRZGKHSpoSP99HFL5yeDdiPopskWmOIudr5mdWzrN-66Q&oe=687B2207&_nc_sid=22de04 360w",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/487164950_17962384988863876_7463303187188727839_n_j90kmo.jpg",
     // Contact Information
     instagram: "@dainer.restaurante",
     website: "widget.getinapp.com.br/yPAMKXPz?fbclid=PAZXh0bgNhZW0CMTEAAabSDjZ-UcOqH09rBJkR9Y48_-YOoGNiPkqOsTc_HanFFnLQFgRY40e2NCQ_aem_AU8SZbR3huNWq1jLadG76osTraxSVVnVT2X-8VY2jEB6Z6bJByrqyOE_VerPa1n41GyQQUM5-PXQ9KuCUDTEBtU7",
