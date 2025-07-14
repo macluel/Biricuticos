@@ -58,7 +58,6 @@ export const filterOptions = {
 
 // ===== YOUR FOOD PLACES =====
 const defaultPlaces = [
-  const defaultPlaces = [
   {
     id: 1,
     name: "Pastel Carioca",
