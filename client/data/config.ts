@@ -25,6 +25,7 @@ export const categories = [
   { name: "Botecos", count: 0, icon: "🍺" },
   { name: "Açaí", count: 0, icon: "🫐" },
   { name: "Pastelaria", count: 1, icon: "🥟" },
+  { name: "Hamburgueria", count: 1, icon: "🍔" },
 ];
 
 // ===== FILTER OPTIONS =====
@@ -41,6 +42,7 @@ export const filterOptions = {
     "Cafeteria",
     "Padaria",
     "Pastelaria",
+    "Hamburgueria",
   ],
   states: [
     "Todos",
@@ -184,6 +186,33 @@ const defaultPlaces = [
       "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/487164950_17962384988863876_7463303187188727839_n_j90kmo.jpg",
     // Contact Information
     instagram: "@dainer.restaurante",
+    website: "widget.getinapp.com.br/yPAMKXPz?fbclid=PAZXh0bgNhZW0CMTEAAabSDjZ-UcOqH09rBJkR9Y48_-YOoGNiPkqOsTc_HanFFnLQFgRY40e2NCQ_aem_AU8SZbR3huNWq1jLadG76osTraxSVVnVT2X-8VY2jEB6Z6bJByrqyOE_VerPa1n41GyQQUM5-PXQ9KuCUDTEBtU7",
+    // Quality tags for visited places
+    qualityTags: [
+      "Massa fininha",
+      "Ingredientes frescos",
+      "Boa quantidade",
+      "Temperatura certa",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["churrasco"],
+    lat: -22.955274352666493,
+    lng: -43.19241061177635,
+  },
+  {
+    id: 6,
+    name: "The House",
+    location: "Gragoatá, Niterói",
+    fullAddress:
+      "R. Cel. Tamarindo, 43 - Gragoatá, Niterói - RJ, 24210-380",
+    state: "Rio de Janeiro",
+    type: "Hamburgueria",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/487164950_17962384988863876_7463303187188727839_n_j90kmo.jpg",
+    // Contact Information
+    instagram: "@thehouseniteroi",
     website: "widget.getinapp.com.br/yPAMKXPz?fbclid=PAZXh0bgNhZW0CMTEAAabSDjZ-UcOqH09rBJkR9Y48_-YOoGNiPkqOsTc_HanFFnLQFgRY40e2NCQ_aem_AU8SZbR3huNWq1jLadG76osTraxSVVnVT2X-8VY2jEB6Z6bJByrqyOE_VerPa1n41GyQQUM5-PXQ9KuCUDTEBtU7",
     // Quality tags for visited places
     qualityTags: [
