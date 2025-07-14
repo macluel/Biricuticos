@@ -137,7 +137,7 @@ const defaultPlaces = [
       "Temperatura certa",
     ],
     // Tags for places never visited (reasons to go)
-    wishlistTags: [""],
+    wishlistTags: ["Placeholder"],
     tags: ["churrasco"],
     lat: -22.952132058659256,
     lng: -43.058341506339886,
@@ -166,7 +166,7 @@ const defaultPlaces = [
       "Temperatura certa",
     ],
     // Tags for places never visited (reasons to go)
-    wishlistTags: [""],
+    wishlistTags: ["Placeholder"],
     tags: ["churrasco"],
     lat: -22.94685009938863,
     lng: -43.057571362161916,
@@ -193,7 +193,7 @@ const defaultPlaces = [
       "Temperatura certa",
     ],
     // Tags for places never visited (reasons to go)
-    wishlistTags: [""],
+    wishlistTags: ["Placeholder"],
     tags: ["churrasco"],
     lat: -22.955274352666493,
     lng: -43.19241061177635,
