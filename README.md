@@ -24,7 +24,7 @@
 
 ## 🖥️ Demo
 
-[Live Demo](https://your-app.netlify.app/)
+[Live Demo](https://biricuticos.netlify.app/)
 
 ---
 
