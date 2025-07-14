@@ -210,7 +210,7 @@ const defaultPlaces = [
     type: "Hamburgueria",
     price: "$$",
     image:
-      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752519056/487164950_17962384988863876_7463303187188727839_n_j90kmo.jpg",
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752520496/466547258_17900922300080173_3660658923503141199_n_ia7i5y.jpg",
     // Contact Information
     instagram: "@thehouseniteroi",
     // Quality tags for visited places
