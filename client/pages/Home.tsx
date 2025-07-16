@@ -35,7 +35,15 @@ export default function Home() {
   const navigate = useNavigate();
 
   // Featured places - show first 3 places
-  const featuredPlaces = places.slice(0, 3);
+  const featuredPlaces = [...places]
+    .sort((a, b) => {
+      // Get user ratings, default to 0 if not rated
+      const ratingA = getUserRating(a.id) || 0;
+      const ratingB = getUserRating(b.id) || 0;
+      // Sort descending (highest first)
+      return ratingB - ratingA;
+    })
+    .slice(0, 6); // Show top 3, change to 6 if you want more
 
   // Calculate dynamic category counts from actual places
   const dynamicCategories = useMemo(() => {
