@@ -226,6 +226,142 @@ const defaultPlaces = [
     lat: -22.901495660294685,
     lng: -43.13294901869038,
   },
+  {
+    id: 7,
+    name: "Nosso Bar",
+    location: "Piratininga, Niterói",
+    fullAddress:
+      "Av. Alm Tamandaré, 360 - 113 - Piratininga, Niterói - RJ, 24350-380",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752693871/503734421_1325751629553041_6320010109812966470_n_itujml.jpg",
+    // Contact Information
+    phone: "(21) 96820-1043",
+    instagram: "@nossobar_niteroi",
+    whatsapp: "5521968201043",
+    website: "nossobarlinks.idlab.art.br",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["cerveja"],
+    lat: -22.944375235091204,
+    lng: -43.05820527423068,
+  },
+  {
+    id: 8,
+    name: "Arretado",
+    location: "Centro, Niterói",
+    fullAddress:
+      "Av. Visconde do Rio Branco, 655 - Centro, Niterói - RJ, 24020-005",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752694395/465050812_18255798745265803_8121681329966714632_n_aw1ydn.jpg",
+    // Contact Information
+    phone: "(21) 98494-7663",
+    instagram: "@botequimarretado",
+    whatsapp: "5521984947663",
+    website: "linktr.ee/botequiimarretado",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["hamburguer"],
+    lat: -22.89654491959188,
+    lng: -43.1265887403429,
+  },
+  {
+    id: 9,
+    name: "Areias",
+    location: "Itacoatiara, Niterói",
+    fullAddress:
+      "Estr. Francisco da Cruz Nunes, 11500 - Itaipu, Niterói - RJ, 24340-000",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752695025/brave_screenshot_www.google.com_xbxop4.png",
+    // Contact Information
+    phone: "(21) 3628-4427",
+    instagram: "@areiasdeitacoa",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.9631689025678,
+    lng: -43.03162790674655,
+  },
+  {
+    id: 10,
+    name: "Braseiro do Roque",
+    location: "Vila da Penha, Rio de Janeiro",
+    fullAddress:
+      "R. Feliciano Pena, 332 - Loja A - Vila da Penha, Rio de Janeiro - RJ, 21221-450",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752695821/509786913_18049423664385691_2796890573581820179_n_fjrlw2.jpg",
+    // Contact Information
+    phone: "(21) 99823-0519",
+    instagram: "@braseirodoroque",
+    whatsapp: "5521998230519",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.845779971362788,
+    lng: -43.31251654291311,
+  },
+  {
+    id: 11,
+    name: "Braseiro Labuta",
+    location: "Centro, Rio de Janeiro",
+    fullAddress:
+      "R. do Senado, 65 - Centro, Rio de Janeiro - RJ, 20231-000",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752696159/503729127_17965223894926002_1482595041412921748_n_by2tgm.jpg",
+    // Contact Information
+    phone: "(21) 97577-3209",
+    instagram: "@labuta_braseiro",
+    whatsapp: "5521975773209",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.909369048373705,
+    lng: -43.18484305619088,
+  },
   /*
   {
     id: 5,
