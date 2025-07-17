@@ -362,6 +362,31 @@ const defaultPlaces = [
     lat: -22.909369048373705,
     lng: -43.18484305619088,
   },
+  {
+    id: 12,
+    name: "Labuta",
+    location: "Centro, Rio de Janeiro",
+    fullAddress:
+      "Av. Gomes Freire, 256 - Centro, Rio de Janeiro - RJ, 20231-014",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752711397/511642384_18066728309114375_5445677988844832138_n_pqurb0.jpg",
+    // Contact Information
+    instagram: "@labuta_bar",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.909194183545086,
+    lng: -43.18462193087723,
+  },
   /*
   {
     id: 5,
