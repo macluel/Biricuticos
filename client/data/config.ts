@@ -387,6 +387,171 @@ const defaultPlaces = [
     lat: -22.909194183545086,
     lng: -43.18462193087723,
   },
+  {
+    id: 13,
+    name: "7 Brasas",
+    location: "Piratininga, Niterói",
+    fullAddress:
+      "Av. Dr. Raul de Oliveira Rodrigues, 1190 - Piratininga, Niterói - RJ, 24350-630",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752711855/519593966_17912196195157184_4547811834035780272_n_pgimxj.jpg",
+    // Contact Information
+    instagram: "@7brasasrestaurante",
+    whatsapp: "5521991606767",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.93920815913406,
+    lng: -43.06630990935325,
+  },
+  {
+    id: 14,
+    name: "Endorfina Bar",
+    location: "Icaraí, Niterói",
+    fullAddress:
+      "R. Pres. João Pessoa, 307 - Icaraí, Niterói - RJ, 24220-330",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752712130/466906657_17934143897944124_7053930716083052797_n_y0v0dc.jpg",
+    // Contact Information
+    instagram: "@endorfinabar",
+    website: "linktr.ee/endorfinabar",
+    whatsapp: "552135872193",
+    phone: "(21) 3587-2193",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.90511220661925,
+    lng: -43.10048275034704,
+  },
+  {
+    id: 15,
+    name: "Surreal",
+    location: "Botafogo, Rio de Janeiro",
+    fullAddress:
+      "R. Paulo Barreto, 102 - Botafogo, Rio de Janeiro - RJ, 22280-010",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752712387/502371006_18183842263320225_7537553032690259590_n_qwwctc.jpg",
+    // Contact Information
+    instagram: "@surrealrio",
+    website: "linktr.ee/surrealrio",
+    phone: "(21) 96894-6337",
+    whatsapp: "5521968946337",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.955756003935083,
+    lng: -43.18631309180633,
+  },
+  {
+    id: 16,
+    name: "O Terrazzo",
+    location: "Icaraí, Niterói",
+    fullAddress:
+      "R. Mem de Sá, 151 - 3° Piso - Icaraí, Niterói - RJ, 24220-260",
+    state: "Rio de Janeiro",
+    type: "Fine Dining",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752713092/466756101_18097443061475109_3683011362419688562_n_xw3pzg.jpg",
+    // Contact Information
+    instagram: "@oterrazzo",
+    website: "my.bio/oterrazzo",
+    phone: "(21) 97571-7831",
+    whatsapp: "5521975717831",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.90244091626859,
+    lng: -43.10931517413874,
+  },
+  {
+    id: 17,
+    name: "Salinas",
+    location: "Recreio dos Bandeirantes, Rio de Janeiro",
+    fullAddress:
+      "Av. Lúcio Costa, 16580 - Recreio dos Bandeirantes, Rio de Janeiro - RJ, 22795-008",
+    state: "Rio de Janeiro",
+    type: "Fine Dining",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752713344/461052405_1073240000819337_2303698800529274025_n_kjr3zu.jpg",
+    // Contact Information
+    instagram: "@salinasartesal",
+    website: "linktr.ee/artesalsalinas",
+    phone: "(21) 97571-7831",
+    whatsapp: "5521992977979",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -23.024784763229988,
+    lng: -43.45802489155884,
+  },
+  {
+    id: 18,
+    name: "Pit Burguer",
+    location: "Grajaú, Rio de Janeiro",
+    fullAddress:
+      "R. Uberaba, 49 - Grajaú, Rio de Janeiro - RJ, 20561-240",
+    state: "Rio de Janeiro",
+    type: "Hamburgueria",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1752713742/Image-439_exgqil.jpg",
+    // Contact Information
+    instagram: "@pitburguergrajau",
+    phone: "(21) 99737-2209",
+    whatsapp: "5521997372209",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.92506953935698,
+    lng: -43.25637587508013,
+  },
   /*
   {
     id: 5,
