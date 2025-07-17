@@ -33,6 +33,7 @@
 ![Biricuticos Home](./screenshots/home.png)
 ![Map View](./screenshots/map.png)
 ![Catalog Filtering](./screenshots/catalog.png)
+![Favorites Tab](./screenshots/favorite.png)
 
 ---
 
