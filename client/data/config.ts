@@ -552,35 +552,87 @@ const defaultPlaces = [
     lat: -22.92506953935698,
     lng: -43.25637587508013,
   },
+  {
+    id: 19,
+    name: "CoZi",
+    location: "Botafogo, Rio de Janeiro",
+    fullAddress:
+      "Rua Conde de Irajá, 247 - Botafogo, Rio de Janeiro - RJ, 22271-020",
+    state: "Rio de Janeiro",
+    type: "Fine Dining",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753547189/469119653_18098527276481119_8880700075544632645_n_smjzv4.jpg",
+    // Contact Information
+    instagram: "@cozi.bistrobar",
+    phone: "(21) 3215-7216",
+    website: "cozibistro.com.br",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Ótimo atendimento",
+      "Lugar agradável",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["drink"],
+    lat: -22.954575075397337,  
+    lng: -43.19534476372439,
+  },
+  {
+    id: 20,
+    name: "On Fire",
+    location: "São Francisco, Niterói",
+    fullAddress:
+      "Av. Quintino Bocaiúva, 291 - São Francisco, Niterói - RJ, 24360-022",
+    state: "Rio de Janeiro",
+    type: "Churrascaria",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753547744/520252877_1388325372460217_1863535635873485514_n_kba3zg.jpg",
+    // Contact Information
+    instagram: "@onfireamericanbbq",
+    phone: "(21) 98068-9518",
+    website: "onfireamericanbbq.com.br",
+    whatsapp: "5521980689518",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Churrascaria"],
+    lat: -22.91976333370703,
+    lng: -43.0938430168482,
+  },
   /*
   {
-    id: 5,
-    name: "Bartô",
+    id: ,
+    name: "",
     location: "",
     fullAddress:
       "",
-    state: "Rio de Janeiro",
-    type: "Boteco",
-    price: "$$$",
+    state: "",
+    type: "",
+    price: "$",
     image:
-      "https://instagram.fsdu24-1.fna.fbcdn.net/v/t51.2885-15/484505250_18035529563532032_502048064740952570_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0uaW1hZ2VfdXJsZ2VuLjEwODB4MTM1MC5zZHIuZjc1NzYxLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=instagram.fsdu24-1.fna.fbcdn.net&_nc_cat=108&_nc_oc=Q6cZ2QEz9m-218k5wJyywt8SUgHjtFy0ZZNbM_RsZcSPAUAu-qVQrzs3iXhO_4Ck6Yaa9wg&_nc_ohc=uZTSonWUDKgQ7kNvwEMs9mx&_nc_gid=YOEq6Uw8FinYb608juNOgQ&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzU4ODM0OTM0NjA3ODU0ODY1Mw%3D%3D.3-ccb7-5&oh=00_AfRW124k3lYR7zMJn_C3m8uQux-gcO4Ik_PeJzzwx8zAKw&oe=687AFC22&_nc_sid=10d13b",
+      "",
     // Contact Information
-    phone: "",
-    instagram: "@barto.galatico",
+    instagram: "@",
+    phone: "() - ",
+    website: "",
     whatsapp: "",
-    website: "usetag.me/barto",
+
     // Quality tags for visited places
     qualityTags: [
-      "Massa fininha",
-      "Ingredientes frescos",
-      "Boa quantidade",
-      "Temperatura certa",
+      "Placeholder",
     ],
     // Tags for places never visited (reasons to go)
-    wishlistTags: [""],
-    tags: ["churrasco"],
-    lat: , 
-    lng: ,
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -,  
+    lng: -,
   },
   */
 ];
