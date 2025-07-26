@@ -606,6 +606,85 @@ const defaultPlaces = [
     lat: -22.91976333370703,
     lng: -43.0938430168482,
   },
+  {
+    id: 21,
+    name: "Baixo Araguaia",
+    location: "Jardim Botânico, Rio de Janeiro",
+    fullAddress:
+      "R. Visc. da Graça, 63 - Jardim Botânico, Rio de Janeiro - RJ, 22461-030",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753549207/516502959_18287228374251155_7535751900026544257_n_u9wbzx.jpg",
+    // Contact Information
+    instagram: "@baixoaraguaia",
+    phone: "(21) 97668-6463",
+    website: "linktr.ee/baixoaraguaia",
+    whatsapp: "5521976686463",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -22.963886882854517,
+    lng: -43.21812353856438,
+  },
+  {
+    id: 22,
+    name: "Baked",
+    location: "Ipanema, Rio de Janeiro",
+    fullAddress:
+      "R. Visc. de Pirajá, 183 - Ipanema, Rio de Janeiro - RJ, 22410-001",
+    state: "Rio de Janeiro",
+    type: "Padaria",
+    price: "$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753549581/487814318_18047722049457824_9002385884327670896_n_ff6rkq.jpg",
+    // Contact Information
+    instagram: "@baked.padaria",
+    phone: "(21) 3798-8417",
+    website: "linktr.ee/bakedpadaria",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -22.98459808499907,
+  lng: -43.20087466217107,
+  },
+  {
+    id: 23,
+    name: "Malta Beef Club",
+    location: "Leblon, Rio de Janeiro",
+    fullAddress:
+      "Av. Gen. San Martin, 359 - Leblon, Rio de Janeiro - RJ, 22441-015",
+    state: "Rio de Janeiro",
+    type: "Churrascaria",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753550308/502543315_18363711628151874_937455573690701440_n_apaave.jpg",
+    // Contact Information
+    instagram: "@malta.beefclub",
+    website: "linktr.ee/maltabeef",
+    whatsapp: "552120423101",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -22.9848175525249,
+    lng: -43.21950962505084,
+  },
   /*
   {
     id: ,
@@ -620,7 +699,7 @@ const defaultPlaces = [
       "",
     // Contact Information
     instagram: "@",
-    phone: "() - ",
+    phone: "() -",
     website: "",
     whatsapp: "",
 
