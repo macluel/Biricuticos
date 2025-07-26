@@ -685,6 +685,33 @@ const defaultPlaces = [
     lat: -22.9848175525249,
     lng: -43.21950962505084,
   },
+  {
+    id: 24,
+    name: "Surreal",
+    location: "Botafogo, Rio de Janeiro",
+    fullAddress:
+      "R. Paulo Barreto, 102 - Botafogo, Rio de Janeiro - RJ, 22280-010",
+    state: "Rio de Janeiro",
+    type: "Botecos",
+    price: "$$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753550679/502950023_18181874320320225_2085019338976834793_n_a6xmqe.jpg",
+    // Contact Information
+    instagram: "@surrealrio",
+    phone: "(21) 96894-6337",
+    website: "linktr.ee/surrealrio",
+    whatsapp: "5521968946337",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -22.95574772864953,
+    lng: -43.18632097097115,
+  },
   /*
   {
     id: ,
