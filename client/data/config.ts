@@ -712,6 +712,33 @@ const defaultPlaces = [
     lat: -22.95574772864953,
     lng: -43.18632097097115,
   },
+  {
+    id: 25,
+    name: "Armazém Mineiro",
+    location: "Icaraí, Niterói",
+    fullAddress:
+      "R. Min. Otávio Kelly, 407 - Icaraí, Niterói - RJ, 24220-300",
+    state: "Rio de Janeiro",
+    type: "Padaria",
+    price: "$",
+    image:
+      "https://res.cloudinary.com/dg6jtjgzr/image/upload/v1753900425/485768186_630421903284103_7268933323883004775_n_ycun8o.jpg",
+    // Contact Information
+    instagram: "@armazemmineiro.rj",
+    phone: "(21) 2710-1519",
+    website: "linktr.ee/armazemmineirorj",
+    whatsapp: "5521980010222",
+
+    // Quality tags for visited places
+    qualityTags: [
+      "Placeholder",
+    ],
+    // Tags for places never visited (reasons to go)
+    wishlistTags: ["Placeholder"],
+    tags: ["Placeholder"],
+    lat: -22.905240907398948, 
+    lng: -43.10240960477346,
+  },
   /*
   {
     id: ,
